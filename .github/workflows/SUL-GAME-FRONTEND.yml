@@ -32,19 +32,23 @@ jobs:
         echo "ANDROID_TARGET_SDK=34" >> $GITHUB_ENV
 
     - name: Build with Gradle
-      run: ./gradlew bundleRelease
+      run: ./gradlew bundleRelease assembleRelease
 
-    - name: Verify AAB exists
-      run: ls -l app/build/outputs/bundle/release/
+    - name: Verify AAB and APK exist
+      run: ls -l app/build/outputs/bundle/release/ && ls -l app/build/outputs/apk/release/
 
-    - name: Rename AAB file
-      run: mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/sul-game-wiki.aab
+    - name: Rename AAB and APK files
+      run: |
+        mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/sul-game-wiki.aab
+        mv app/build/outputs/apk/release/app-release-unsigned.apk app/build/outputs/apk/release/sul-game-wiki.apk
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: sul-game-wiki
-        path: app/build/outputs/bundle/release/sul-game-wiki.aab
+        path: |
+          app/build/outputs/bundle/release/sul-game-wiki.aab
+          app/build/outputs/apk/release/sul-game-wiki.apk
 
   deploy:
     runs-on: ubuntu-latest
@@ -55,12 +59,12 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: sul-game-wiki
-        path: app/build/outputs/bundle/release/
+        path: app/build/outputs/
 
     - name: Install sshpass
       run: sudo apt-get update && sudo apt-get install -y sshpass
 
-    - name: Upload AAB to Synology NAS
+    - name: Upload AAB and APK to Synology NAS
       env:
         SYNOSSH_HOST: ${{ secrets.SYNOSSH_HOST }}
         SYNOSSH_USERNAME: ${{ secrets.SYNOSSH_USERNAME }}
@@ -68,4 +72,5 @@ jobs:
       run: |
         sshpass -p $SYNOSSH_PASSWORD scp -o StrictHostKeyChecking=no -P 2022 \
           app/build/outputs/bundle/release/sul-game-wiki.aab \
+          app/build/outputs/apk/release/sul-game-wiki.apk \
           $SYNOSSH_USERNAME@$SYNOSSH_HOST:/volume1/web/downloads/
