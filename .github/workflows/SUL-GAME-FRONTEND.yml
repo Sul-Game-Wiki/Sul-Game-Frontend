@@ -66,6 +66,6 @@ jobs:
         SYNOSSH_USERNAME: ${{ secrets.SYNOSSH_USERNAME }}
         SYNOSSH_PASSWORD: ${{ secrets.SYNOSSH_PASSWORD }}
       run: |
-        sshpass -p $SYNOSSH_PASSWORD scp -o StrictHostKeyChecking=no \
+        sshpass -p $SYNOSSH_PASSWORD scp -o StrictHostKeyChecking=no -P 2022 \
           app/build/outputs/bundle/release/sul-game-wiki.aab \
           $SYNOSSH_USERNAME@$SYNOSSH_HOST:/volume1/web/downloads/
