@@ -32,17 +32,16 @@ jobs:
       run: |
         echo "ANDROID_COMPILE_SDK=34" >> $GITHUB_ENV
         echo "ANDROID_TARGET_SDK=34" >> $GITHUB_ENV
+        echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+        echo "STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}" >> $GITHUB_ENV
 
     - name: Build with Gradle
       run: ./gradlew bundleRelease assembleRelease
 
-    - name: Verify AAB and APK exist
-      run: ls -l app/build/outputs/bundle/release/ && ls -l app/build/outputs/apk/release/
-
     - name: Rename AAB and APK files
       run: |
         mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/sul-game-wiki.aab
-        mv app/build/outputs/apk/release/app-release-unsigned.apk app/build/outputs/apk/release/sul-game-wiki.apk
+        mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/sul-game-wiki.apk
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
