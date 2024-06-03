@@ -17,6 +17,16 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = "sul-game-key"
+            keyPassword = "Tjtocks178@"
+            storeFile = file("release-key.jks")
+            storePassword = "Tjtocks178@"
+        }
+    }
+
+
     buildTypes {
         release {
             isMinifyEnabled = false
