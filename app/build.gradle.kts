@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.example.sul_game_frontend_practice1"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.sul_game_frontend_practice1"
-        minSdk = 33
-        targetSdk = 33
+        minSdk = 34
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
