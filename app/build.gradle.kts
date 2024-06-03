@@ -19,7 +19,7 @@ android {
 
     signingConfigs {
         create("release") {
-            keyAlias = "sul-game-key"
+            keyAlias = "my-new-key-alias"
             keyPassword = "Tjtocks178@"
             storeFile = file("release-key.jks")
             storePassword = "Tjtocks178@"
