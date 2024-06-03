@@ -27,11 +27,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Update compileSdkVersion
-      run: |
-        sed -i 's/compileSdkVersion [0-9]\+/compileSdkVersion 34/' app/build.gradle
-        sed -i 's/targetSdkVersion [0-9]\+/targetSdkVersion 34/' app/build.gradle
-
     - name: Build with Gradle
       run: ./gradlew assembleRelease
 
@@ -41,6 +36,7 @@ jobs:
         SYNOSSH_USERNAME: ${{ secrets.SYNOSSH_USERNAME }}
         SYNOSSH_PASSWORD: ${{ secrets.SYNOSSH_PASSWORD }}
       run: |
+        sudo apt-get update
         sudo apt-get install sshpass
         sshpass -p $SYNOSSH_PASSWORD scp -o StrictHostKeyChecking=no \
           app/build/outputs/apk/release/app-release.apk \
