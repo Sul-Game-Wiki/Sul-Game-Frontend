@@ -32,16 +32,19 @@ jobs:
         echo "ANDROID_TARGET_SDK=34" >> $GITHUB_ENV
 
     - name: Build with Gradle
-      run: ./gradlew assembleRelease
+      run: ./gradlew bundleRelease
 
-    - name: Verify APK exists
-      run: ls -l app/build/outputs/apk/release/
+    - name: Verify AAB exists
+      run: ls -l app/build/outputs/bundle/release/
+
+    - name: Rename AAB file
+      run: mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/sul-game-wiki.aab
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: app-release-apk
-        path: app/build/outputs/apk/release/app-release.apk
+        name: sul-game-wiki
+        path: app/build/outputs/bundle/release/sul-game-wiki.aab
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,18 +54,18 @@ jobs:
     - name: Download build artifacts
       uses: actions/download-artifact@v3
       with:
-        name: app-release-apk
-        path: app/build/outputs/apk/release/
+        name: sul-game-wiki
+        path: app/build/outputs/bundle/release/
 
     - name: Install sshpass
       run: sudo apt-get update && sudo apt-get install -y sshpass
 
-    - name: Upload APK to Synology NAS
+    - name: Upload AAB to Synology NAS
       env:
         SYNOSSH_HOST: ${{ secrets.SYNOSSH_HOST }}
         SYNOSSH_USERNAME: ${{ secrets.SYNOSSH_USERNAME }}
         SYNOSSH_PASSWORD: ${{ secrets.SYNOSSH_PASSWORD }}
       run: |
         sshpass -p $SYNOSSH_PASSWORD scp -o StrictHostKeyChecking=no \
-          app/build/outputs/apk/release/app-release.apk \
+          app/build/outputs/bundle/release/sul-game-wiki.aab \
           $SYNOSSH_USERNAME@$SYNOSSH_HOST:/volume1/web/downloads/
