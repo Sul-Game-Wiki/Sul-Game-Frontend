@@ -47,6 +47,8 @@ jobs:
 
     - name: Update JSON file
       run: |
+        COMMIT_HASH=$(git rev-parse --short HEAD)
+        DATE=$(date +'%y%m%d')
         FILE_PATH_AAB="app/build/outputs/bundle/release/sul-game-${DATE}-${COMMIT_HASH}.aab"
         FILE_PATH_APK="app/build/outputs/apk/release/sul-game-${DATE}-${COMMIT_HASH}.apk"
         FILE_SIZE_AAB=$(stat -c%s "$FILE_PATH_AAB")
