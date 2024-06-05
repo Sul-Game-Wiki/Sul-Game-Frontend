@@ -45,6 +45,25 @@ jobs:
         mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/sul-game-${DATE}-${COMMIT_HASH}.aab
         mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/sul-game-${DATE}-${COMMIT_HASH}.apk
 
+    - name: Update JSON file
+      run: |
+        FILE_PATH_AAB="app/build/outputs/bundle/release/sul-game-${DATE}-${COMMIT_HASH}.aab"
+        FILE_PATH_APK="app/build/outputs/apk/release/sul-game-${DATE}-${COMMIT_HASH}.apk"
+        FILE_SIZE_AAB=$(stat -c%s "$FILE_PATH_AAB")
+        FILE_SIZE_APK=$(stat -c%s "$FILE_PATH_APK")
+        MODIFIED_TIME=$(date -r "$FILE_PATH_AAB" +"%Y-%m-%d %H:%M:%S")
+        JSON_PATH="app/build/outputs/bundle/release/sul-game-files.json"
+        
+        if [ ! -f $JSON_PATH ]; then
+          echo '{"files": []}' > $JSON_PATH
+        fi
+        
+        jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.aab" --arg size "$FILE_SIZE_AAB" --arg mtime "$MODIFIED_TIME" \
+          '.files += [{"name": $name, "size": $size, "mtime": $mtime}]' $JSON_PATH > tmp.json && mv tmp.json $JSON_PATH
+        
+        jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.apk" --arg size "$FILE_SIZE_APK" --arg mtime "$MODIFIED_TIME" \
+          '.files += [{"name": $name, "size": $size, "mtime": $mtime}]' $JSON_PATH > tmp.json && mv tmp.json $JSON_PATH
+
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -52,6 +71,7 @@ jobs:
         path: |
           app/build/outputs/bundle/release/sul-game-*.aab
           app/build/outputs/apk/release/sul-game-*.apk
+          app/build/outputs/bundle/release/sul-game-files.json
 
   deploy:
     runs-on: ubuntu-latest
@@ -76,4 +96,5 @@ jobs:
         sshpass -p $SYNOSSH_PASSWORD scp -o StrictHostKeyChecking=no -P 2022 \
           app/build/outputs/bundle/release/sul-game-*.aab \
           app/build/outputs/apk/release/sul-game-*.apk \
+          app/build/outputs/bundle/release/sul-game-files.json \
           $SYNOSSH_USERNAME@$SYNOSSH_HOST:/volume1/web/sul-game/downloads/
