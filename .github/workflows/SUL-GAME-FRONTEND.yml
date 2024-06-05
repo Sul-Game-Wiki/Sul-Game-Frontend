@@ -45,6 +45,14 @@ jobs:
         mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/sul-game-${DATE}-${COMMIT_HASH}.aab
         mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/sul-game-${DATE}-${COMMIT_HASH}.apk
 
+    - name: Download JSON file from Synology NAS
+      env:
+        SYNOSSH_HOST: ${{ secrets.SYNOSSH_HOST }}
+        SYNOSSH_USERNAME: ${{ secrets.SYNOSSH_USERNAME }}
+        SYNOSSH_PASSWORD: ${{ secrets.SYNOSSH_PASSWORD }}
+      run: |
+        sshpass -p $SYNOSSH_PASSWORD scp -o StrictHostKeyChecking=no -P 2022 $SYNOSSH_USERNAME@$SYNOSSH_HOST:/volume1/web/sul-game/downloads/sul-game-files.json app/build/outputs/bundle/release/sul-game-files.json
+
     - name: Update JSON file
       run: |
         COMMIT_HASH=$(git rev-parse --short HEAD)
@@ -60,17 +68,14 @@ jobs:
           echo '{"files": []}' > $JSON_PATH
         fi
         
-        # Read existing JSON file
         EXISTING_JSON=$(cat $JSON_PATH)
         
-        # Update JSON with new files
         UPDATED_JSON=$(echo "$EXISTING_JSON" | jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.aab" --arg size "$FILE_SIZE_AAB" --arg mtime "$MODIFIED_TIME" \
           '.files += [{"name": $name, "size": $size, "mtime": $mtime}]')
         
         UPDATED_JSON=$(echo "$UPDATED_JSON" | jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.apk" --arg size "$FILE_SIZE_APK" --arg mtime "$MODIFIED_TIME" \
           '.files += [{"name": $name, "size": $size, "mtime": $mtime}]')
         
-        # Write updated JSON back to file
         echo "$UPDATED_JSON" > $JSON_PATH
 
     - name: Upload build artifacts
@@ -93,7 +98,7 @@ jobs:
         name: sul-game
         path: app/build/outputs/
 
-    - name: Upload AAB and APK to Synology NAS
+    - name: Upload AAB, APK and JSON to Synology NAS
       env:
         SYNOSSH_HOST: ${{ secrets.SYNOSSH_HOST }}
         SYNOSSH_USERNAME: ${{ secrets.SYNOSSH_USERNAME }}
