@@ -60,14 +60,17 @@ jobs:
           echo '{"files": []}' > $JSON_PATH
         fi
         
+        # Read existing JSON file
         EXISTING_JSON=$(cat $JSON_PATH)
         
+        # Update JSON with new files
         UPDATED_JSON=$(echo "$EXISTING_JSON" | jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.aab" --arg size "$FILE_SIZE_AAB" --arg mtime "$MODIFIED_TIME" \
           '.files += [{"name": $name, "size": $size, "mtime": $mtime}]')
         
         UPDATED_JSON=$(echo "$UPDATED_JSON" | jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.apk" --arg size "$FILE_SIZE_APK" --arg mtime "$MODIFIED_TIME" \
           '.files += [{"name": $name, "size": $size, "mtime": $mtime}]')
         
+        # Write updated JSON back to file
         echo "$UPDATED_JSON" > $JSON_PATH
 
     - name: Upload build artifacts
