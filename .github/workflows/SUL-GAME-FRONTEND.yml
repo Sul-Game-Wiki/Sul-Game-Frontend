@@ -60,11 +60,15 @@ jobs:
           echo '{"files": []}' > $JSON_PATH
         fi
         
-        jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.aab" --arg size "$FILE_SIZE_AAB" --arg mtime "$MODIFIED_TIME" \
-          '.files += [{"name": $name, "size": $size, "mtime": $mtime}]' $JSON_PATH > tmp.json && mv tmp.json $JSON_PATH
+        EXISTING_JSON=$(cat $JSON_PATH)
         
-        jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.apk" --arg size "$FILE_SIZE_APK" --arg mtime "$MODIFIED_TIME" \
-          '.files += [{"name": $name, "size": $size, "mtime": $mtime}]' $JSON_PATH > tmp.json && mv tmp.json $JSON_PATH
+        UPDATED_JSON=$(echo "$EXISTING_JSON" | jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.aab" --arg size "$FILE_SIZE_AAB" --arg mtime "$MODIFIED_TIME" \
+          '.files += [{"name": $name, "size": $size, "mtime": $mtime}]')
+        
+        UPDATED_JSON=$(echo "$UPDATED_JSON" | jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.apk" --arg size "$FILE_SIZE_APK" --arg mtime "$MODIFIED_TIME" \
+          '.files += [{"name": $name, "size": $size, "mtime": $mtime}]')
+        
+        echo "$UPDATED_JSON" > $JSON_PATH
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
