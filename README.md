@@ -34,3 +34,4 @@ SUL GAME WIKI 앱을 다운로드하려면 [SUL GAME WIKI 다운로드 페이지
 - **김준호**: Spring Backend 백엔드 개발자
 - **김소영**: Spring Backend 백엔드 개발자
 - **서새찬**: Spring Backend 백엔드 개발자
+
