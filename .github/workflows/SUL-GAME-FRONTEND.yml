@@ -40,16 +40,18 @@ jobs:
 
     - name: Rename AAB and APK files
       run: |
-        mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/sul-game-wiki.aab
-        mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/sul-game-wiki.apk
+        COMMIT_HASH=$(git rev-parse --short HEAD)
+        DATE=$(date +'%y%m%d')
+        mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/sul-game-${DATE}-${COMMIT_HASH}.aab
+        mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/sul-game-${DATE}-${COMMIT_HASH}.apk
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: sul-game-wiki
+        name: sul-game
         path: |
-          app/build/outputs/bundle/release/sul-game-wiki.aab
-          app/build/outputs/apk/release/sul-game-wiki.apk
+          app/build/outputs/bundle/release/sul-game-*.aab
+          app/build/outputs/apk/release/sul-game-*.apk
 
   deploy:
     runs-on: ubuntu-latest
@@ -59,7 +61,7 @@ jobs:
     - name: Download build artifacts
       uses: actions/download-artifact@v3
       with:
-        name: sul-game-wiki
+        name: sul-game
         path: app/build/outputs/
 
     - name: Install sshpass
@@ -72,6 +74,6 @@ jobs:
         SYNOSSH_PASSWORD: ${{ secrets.SYNOSSH_PASSWORD }}
       run: |
         sshpass -p $SYNOSSH_PASSWORD scp -o StrictHostKeyChecking=no -P 2022 \
-          app/build/outputs/bundle/release/sul-game-wiki.aab \
-          app/build/outputs/apk/release/sul-game-wiki.apk \
-          $SYNOSSH_USERNAME@$SYNOSSH_HOST:/volume1/web/downloads/
+          app/build/outputs/bundle/release/sul-game-*.aab \
+          app/build/outputs/apk/release/sul-game-*.apk \
+          $SYNOSSH_USERNAME@$SYNOSSH_HOST:/volume1/web/sul-game/downloads/
