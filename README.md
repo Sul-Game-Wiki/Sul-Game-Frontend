@@ -25,3 +25,12 @@ SUL GAME WIKI는 다양한 술자리 게임을 쉽게 배우고 즐길 수 있�
 
 SUL GAME WIKI 앱을 다운로드하려면 [SUL GAME WIKI 다운로드 페이지](http://220.85.169.165/sul-game)로 이동하세요.
 
+## 팀원 소개
+
+- **김정빈**: 디자이너
+- **이다예**: Android Studio 프론트 개발자
+- **배정환**: Android Studio 프론트 개발자
+- **김진현**: Android Studio 프론트 개발자
+- **김준호**: Spring Backend 백엔드 개발자
+- **김소영**: Spring Backend 백엔드 개발자
+- **서새찬**: Spring Backend 백엔드 개발자
