@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_intro_name_intro_item"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:maxLength="15"
+        android:minWidth="80dp"
+        android:textColor="#505050"
+        android:textSize="10sp"
+        android:maxLines="1"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="1. 술이 고팠어" />
+
+    <TextView
+        android:id="@+id/tv_intro_detail_intro_item"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:textColor="#505050"
+        android:textSize="10sp"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_heart_intro_item"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/tv_intro_name_intro_item"
+        tools:text="싶었어 싶었어 마시고 싶었어 ~ 고팠어 고팠어 술이 고팠어 ~" />
+
+    <TextView
+        android:id="@+id/tv_heart_intro_item"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@color/primaryGreen"
+        android:drawablePadding="3dp"
+        android:textSize="10sp"
+        app:drawableStartCompat="@drawable/ic_heart"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="10" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
