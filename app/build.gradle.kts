@@ -5,7 +5,11 @@ plugins {
 
 android {
     namespace = "com.example.sul_game_frontend_practice1"
-    compileSdk = 33
+    compileSdk = 34
+
+    buildFeatures{
+        viewBinding = true
+    }
 
     defaultConfig {
         applicationId = "com.example.sul_game_frontend_practice1"
