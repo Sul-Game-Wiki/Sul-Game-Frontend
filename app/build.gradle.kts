@@ -5,17 +5,33 @@ plugins {
 
 android {
     namespace = "com.example.sul_game_frontend_practice1"
-    compileSdk = 33
+    compileSdk = 34
+
+
+    buildFeatures{
+        viewBinding = true
+    }
+
 
     defaultConfig {
         applicationId = "com.example.sul_game_frontend_practice1"
         minSdk = 33
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = "my-new-key-alias"
+            keyPassword = "Tjtocks178@"
+            storeFile = file("release-key.jks")
+            storePassword = "Tjtocks178@"
+        }
+    }
+
 
     buildTypes {
         release {
@@ -24,6 +40,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release") // 인증정보추가
         }
     }
     compileOptions {
