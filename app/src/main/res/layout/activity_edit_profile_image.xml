@@ -8,7 +8,7 @@
   tools:context=".EditProfileImageActivity">
 
   <TextView
-    android:id="@+id/editprofilepicture_text"
+    android:id="@+id/tv_editprofileimage"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="프로필 이미지 수정"
@@ -21,17 +21,17 @@
     app:layout_constraintTop_toTopOf="parent" />
 
   <ImageView
-    android:id="@+id/imageView2"
+    android:id="@+id/iv_editprofileimage"
     android:layout_width="150dp"
     android:layout_height="150dp"
     android:layout_marginTop="40dp"
     android:background="@drawable/background_profile"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/editprofilepicture_text" />
+    app:layout_constraintTop_toBottomOf="@+id/tv_editprofileimage" />
 
   <Button
-    android:id="@+id/button"
+    android:id="@+id/bt_editprofileimage_save"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="40dp"
@@ -43,6 +43,6 @@
     android:textColor="#fff"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+    app:layout_constraintTop_toBottomOf="@+id/iv_editprofileimage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

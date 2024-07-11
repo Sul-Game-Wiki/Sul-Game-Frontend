@@ -8,7 +8,7 @@
   tools:context=".InfoFragment">
 
     <LinearLayout
-      android:id="@+id/mypage_profile"
+      android:id="@+id/linear_info"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:gravity="center_vertical"
@@ -22,7 +22,7 @@
       app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-          android:id="@+id/imageView"
+          android:id="@+id/civ_info"
           android:layout_width="80dp"
           android:layout_height="80dp"
           app:civ_border_color="#000"
@@ -32,7 +32,7 @@
 
 
         <TextView
-          android:id="@+id/mypage_text1"
+          android:id="@+id/tv_info_univ"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="세종대학교"
@@ -42,7 +42,7 @@
           android:textStyle="bold" />
 
         <TextView
-          android:id="@+id/mypage_text2"
+          android:id="@+id/tv_info_name"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="구해조님"
@@ -52,10 +52,10 @@
     </LinearLayout>
 
     <Button
-      android:id="@+id/mypage_btn1"
+      android:id="@+id/btn1_info"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:layout_constraintTop_toBottomOf="@+id/mypage_profile"
+      app:layout_constraintTop_toBottomOf="@+id/linear_info"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       android:layout_marginHorizontal="20dp"
@@ -67,10 +67,10 @@
       android:backgroundTint="#2FE74D"/>
 
     <Button
-      android:id="@+id/mypage_btn2"
+      android:id="@+id/btn2_info"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:layout_constraintTop_toBottomOf="@+id/mypage_btn1"
+      app:layout_constraintTop_toBottomOf="@+id/btn1_info"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       android:layout_marginHorizontal="20dp"
@@ -82,10 +82,10 @@
       android:backgroundTint="#2FE74D"/>
 
     <Button
-      android:id="@+id/mypage_btn3"
+      android:id="@+id/btn3_info"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:layout_constraintTop_toBottomOf="@+id/mypage_btn2"
+      app:layout_constraintTop_toBottomOf="@+id/btn2_info"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       android:layout_marginHorizontal="20dp"
@@ -97,10 +97,10 @@
       android:backgroundTint="#2FE74D"/>
 
     <Button
-      android:id="@+id/mypage_btn4"
+      android:id="@+id/btn4_info"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:layout_constraintTop_toBottomOf="@+id/mypage_btn3"
+      app:layout_constraintTop_toBottomOf="@+id/btn3_info"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       android:layout_marginHorizontal="20dp"
