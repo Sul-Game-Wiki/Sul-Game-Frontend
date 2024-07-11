@@ -20,21 +20,22 @@
         android:layout_marginStart="20dp"
 
         android:layout_marginTop="30dp"
-        android:text="창작 술게임 작성"
+        android:text="인트로 자랑하기 작성"
         android:textSize="35dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
+        app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.465" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="제목 / 소개"
+        android:text="제목 / 가사"
         android:textStyle="bold"
         android:textColor="#747474"
         app:layout_constraintBottom_toTopOf="@+id/editTextText4"
@@ -47,15 +48,15 @@
         android:layout_width="360dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/circle_white"
         android:ems="10"
-        android:hint="술게임 제목"
-        android:inputType="text"
+        android:hint="인트로 제목"
 
+        android:inputType="text"
         android:paddingLeft="10dp"
         app:layout_constraintBottom_toTopOf="@+id/editTextText5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.873" />
@@ -65,15 +66,16 @@
         android:layout_width="360dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="56dp"
         android:background="@drawable/circle_white"
         android:ems="10"
-        android:hint="한줄 소개"
+        android:hint="인트로 가사"
         android:inputType="text"
         android:paddingLeft="10dp"
         app:layout_constraintBottom_toTopOf="@+id/editTextText6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -96,6 +98,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
 
+        android:layout_marginEnd="20dp"
         android:background="@drawable/circle_white"
         android:ems="10"
         android:hint="술게임의 진행 방식, 규칙 등 설명을 최대한 자세히 적어주세요"
@@ -103,7 +106,6 @@
         android:paddingLeft="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,43 +143,17 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="연관 술게임"
-        android:textStyle="bold"
-        android:textColor="#747474"
-        app:layout_constraintBottom_toTopOf="@+id/searchView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <SearchView
-        android:id="@+id/searchView2"
-        android:layout_width="360dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/circle_white"
-        android:paddingLeft="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
-
     <Button
         android:id="@+id/button2"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="76dp"
         android:backgroundTint="#2FE74D"
         android:text="등록하기"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView2"
-        app:layout_constraintVertical_bias="0.169" />
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
