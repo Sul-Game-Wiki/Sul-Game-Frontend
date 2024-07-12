@@ -14,6 +14,7 @@ import com.example.guhaejo.main.intro.IntroAdapter
 import com.example.guhaejo.main.intro.IntroDecoration
 import com.example.sul_game_frontend_practice1.databinding.FragmentHomeBinding
 
+
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null

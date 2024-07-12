@@ -14,12 +14,22 @@ android {
     defaultConfig {
         applicationId = "com.example.sul_game_frontend_practice1"
         minSdk = 33
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = "my-new-key-alias"
+            keyPassword = "Tjtocks178@"
+            storeFile = file("release-key.jks")
+            storePassword = "Tjtocks178@"
+        }
+    }
+
 
     buildTypes {
         release {
@@ -28,6 +38,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release") // 인증정보추가
         }
     }
     compileOptions {
@@ -45,7 +56,13 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
+    implementation("androidx.activity:activity:1.8.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // CircleImageView
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
