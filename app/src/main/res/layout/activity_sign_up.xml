@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/background"
+  android:paddingHorizontal="50dp"
+  tools:context=".SignUpActivity">
+
+  <Button
+    android:id="@+id/btnSignIn"
+    android:textStyle="bold"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roundedbox"
+    android:backgroundTint="@color/primaryGreen"
+    android:text="회원가입 완료"
+    android:textColor="@color/white"
+    android:textSize="20sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/etSchool"
+    app:layout_constraintVertical_bias="0.3" />
+
+  <EditText
+    android:id="@+id/etBirth"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/roundedbox"
+    android:clickable="false"
+    android:hint="생년월일 입력"
+    android:inputType="datetime"
+    android:maxLength="10"
+    android:textColor="@color/black"
+    android:textColorHint="#747474"
+    android:textSize="14sp"
+    app:layout_constraintTop_toBottomOf="@id/etName" />
+
+  <EditText
+    android:id="@+id/etSchool"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/roundedbox"
+    android:clickable="false"
+    android:drawableEnd="@drawable/ic_search"
+    android:drawablePadding="3dp"
+    android:hint="대학교 선택"
+    android:textColor="@color/black"
+    android:textColorHint="#747474"
+    android:textSize="14sp"
+    app:layout_constraintTop_toBottomOf="@id/etBirth" />
+
+  <EditText
+    android:id="@+id/etName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:background="@drawable/roundedbox"
+    android:clickable="false"
+    android:hint="닉네임 입력"
+    android:textColor="@color/black"
+    android:textColorHint="#747474"
+    android:textSize="14sp"
+    app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+
+  <ImageView
+    android:id="@+id/ivLogo"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:src="@drawable/ic_image_not_supported"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.25" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

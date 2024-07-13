@@ -10,15 +10,22 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.ibtnGoogleLogin.setOnClickListener{
+            login()
         }
 
         binding.ibtnKakaoLogin.setOnClickListener{
+            login()
         }
+    }
+
+    private fun login(){
+        Toast.makeText(this, "회원가입을 해주세요", Toast.LENGTH_SHORT).show();
+        val intent = Intent(this, SignUpActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
