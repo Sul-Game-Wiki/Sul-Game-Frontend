@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@drawable/roundedbox">
+
+  <TextView
+    android:id="@+id/tv_name_game_intro_item"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:maxEms="10"
+    android:textColor="@color/primaryGreen"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="바니바니 삽" />
+
+  <TextView
+    android:id="@+id/tv_date_game_intro_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:textColor="#505050"
+    android:textSize="10sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv_name_game_intro_item"
+    tools:text="06/29 00:00" />
+
+  <de.hdodenhof.circleimageview.CircleImageView
+    android:id="@+id/civ_school_logo_game_intro_item"
+    android:layout_width="21dp"
+    android:layout_height="21dp"
+    android:layout_marginEnd="7dp"
+    app:layout_constraintEnd_toStartOf="@+id/tv_school_name_game_intro_item"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toEndOf="@+id/tv_name_game_intro_item"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:src="@drawable/ic_launcher_background" />
+
+  <TextView
+    android:id="@+id/tv_school_name_game_intro_item"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="5dp"
+    android:ellipsize="end"
+    android:maxLength="7"
+    android:textColor="#747474"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toStartOf="@+id/tv_id_game_intro_item"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="세종사이버고등학교대학교" />
+
+  <TextView
+    android:id="@+id/tv_id_game_intro_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:maxLength="5"
+    android:textColor="#747474"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="구해조" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
