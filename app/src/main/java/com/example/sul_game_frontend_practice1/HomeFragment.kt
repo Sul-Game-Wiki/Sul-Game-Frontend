@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
+        ButtonClick()
         return binding.root
     }
 
@@ -127,7 +127,7 @@ class HomeFragment : Fragment() {
         binding.btnCreateHome.setOnClickListener{
             // Fragment 전환을 처리합니다.
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, PopularListFragment())
+            transaction.replace(R.id.fragment_container, CreateListFragment())
             transaction.addToBackStack(null)
             transaction.commit()
         }
