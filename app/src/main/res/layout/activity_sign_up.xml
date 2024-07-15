@@ -9,7 +9,7 @@
   tools:context=".SignUpActivity">
 
   <Button
-    android:id="@+id/btnSignIn"
+    android:id="@+id/btn_submit_sign_up"
     android:textStyle="bold"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,11 +19,11 @@
     android:textColor="@color/white"
     android:textSize="20sp"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/etSchool"
+    app:layout_constraintTop_toBottomOf="@id/et_school_sign_up"
     app:layout_constraintVertical_bias="0.3" />
 
   <EditText
-    android:id="@+id/etBirth"
+    android:id="@+id/et_birth_sign_up"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
@@ -35,10 +35,10 @@
     android:textColor="@color/black"
     android:textColorHint="#747474"
     android:textSize="14sp"
-    app:layout_constraintTop_toBottomOf="@id/etName" />
+    app:layout_constraintTop_toBottomOf="@id/et_name_sign_up" />
 
   <EditText
-    android:id="@+id/etSchool"
+    android:id="@+id/et_school_sign_up"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
@@ -50,10 +50,10 @@
     android:textColor="@color/black"
     android:textColorHint="#747474"
     android:textSize="14sp"
-    app:layout_constraintTop_toBottomOf="@id/etBirth" />
+    app:layout_constraintTop_toBottomOf="@id/et_birth_sign_up" />
 
   <EditText
-    android:id="@+id/etName"
+    android:id="@+id/et_name_sign_up"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="30dp"
@@ -63,10 +63,10 @@
     android:textColor="@color/black"
     android:textColorHint="#747474"
     android:textSize="14sp"
-    app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+    app:layout_constraintTop_toBottomOf="@id/iv_logo_sign_up" />
 
   <ImageView
-    android:id="@+id/ivLogo"
+    android:id="@+id/iv_logo_sign_up"
     android:layout_width="200dp"
     android:layout_height="200dp"
     android:src="@drawable/ic_image_not_supported"
