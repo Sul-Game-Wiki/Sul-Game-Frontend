@@ -14,6 +14,12 @@
     tools:targetApi="31">
     <activity
       android:exported="false"
+      android:name=".SignUpActivity" />
+    <activity
+      android:exported="false"
+      android:name=".LoginActivity" />
+    <activity
+      android:exported="false"
       android:name=".create.introCreateActivity" />
     <activity
       android:exported="false"
@@ -24,7 +30,6 @@
     <activity
       android:exported="false"
       android:name=".detail.gameDetailActivity" />
-
     <activity
       android:exported="false"
       android:name=".EditProfileImageActivity" />

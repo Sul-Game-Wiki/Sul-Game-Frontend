@@ -1,10 +1,12 @@
 package com.example.sul_game_frontend_practice1
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.guhaejo.main.notification.Alarm
 import com.example.guhaejo.main.notification.AlarmAdapter
@@ -12,6 +14,7 @@ import com.example.guhaejo.main.notification.AlarmDecoration
 import com.example.sul_game_frontend_practice1.databinding.FragmentAlarmBinding
 
 class AlarmFragment : Fragment() {
+
     private var _binding: FragmentAlarmBinding? = null
     private val binding get() = _binding!!
 

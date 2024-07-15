@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
+        ButtonClick()
         return binding.root
     }
 
@@ -90,5 +90,55 @@ class HomeFragment : Fragment() {
         binding.rvIntroHome.addItemDecoration(ver_space_decoration)
         binding.rvIntroHome.layoutManager =
             LinearLayoutManager(context)
+    }
+
+    /**
+     * Button Click Event
+     */
+    private fun ButtonClick(){
+        // 인기 '...' 클릭 이벤트
+        binding.btnPopularDetailHome.setOnClickListener{
+            // Fragment 전환을 처리합니다.
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, PopularListFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        // '인기 게임 더보기' 클릭 이벤트
+        binding.btnPopularHome.setOnClickListener{
+            // Fragment 전환을 처리합니다.
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, PopularListFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        // 창작 '...' 클릭 이벤트
+        binding.btnCreateDetailHome.setOnClickListener{
+            // Fragment 전환을 처리합니다.
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, CreateListFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        // '창작 게임 더보기' 클릭 이벤트
+        binding.btnCreateHome.setOnClickListener{
+            // Fragment 전환을 처리합니다.
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, CreateListFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        // 인트로 '...' 클릭 이벤트
+        binding.btnIntroDetailHome.setOnClickListener{
+            // Fragment 전환을 처리합니다.
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, IntroListFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
     }
 }
