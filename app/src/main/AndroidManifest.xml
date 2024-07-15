@@ -20,11 +20,24 @@
       android:name=".LoginActivity" />
     <activity
       android:exported="false"
+      android:name=".create.introCreateActivity" />
+    <activity
+      android:exported="false"
+      android:name=".create.gameCreateActivity" />
+    <activity
+      android:exported="false"
+      android:name=".detail.introDetailActivity" />
+    <activity
+      android:exported="false"
+      android:name=".detail.gameDetailActivity" />
+    <activity
+      android:exported="false"
       android:name=".EditProfileImageActivity" />
     <activity
       android:exported="false"
       android:name=".EditProfileActivity"
       android:theme="@style/Theme.SulGameFrontendpractice1" />
+
     <activity
       android:exported="true"
       android:name=".MainActivity">

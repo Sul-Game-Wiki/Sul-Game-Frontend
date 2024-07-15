@@ -22,15 +22,12 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-          android:id="@+id/civ_info"
+        <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/iv_info"
           android:layout_width="80dp"
           android:layout_height="80dp"
-          app:civ_border_color="#000"
-          app:civ_border_width="5dp"
           android:src="@drawable/img_student"
           app:layout_constraintStart_toStartOf="parent" />
-
 
         <TextView
           android:id="@+id/tv_info_univ"
