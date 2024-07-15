@@ -1,5 +1,6 @@
 package com.example.sul_game_frontend_practice1
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,7 +26,7 @@ class InfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        buttonClicked()
     }
 
     override fun onDestroyView() {
@@ -33,5 +34,16 @@ class InfoFragment : Fragment() {
         _binding = null
     }
 
+    private fun buttonClicked(){
+        binding.btn3Info.setOnClickListener{
+            val intent = Intent(activity, EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btn4Info.setOnClickListener{
+            val intent = Intent(activity, EditProfileImageActivity::class.java)
+            startActivity(intent)
+        }
+    }
 
 }
