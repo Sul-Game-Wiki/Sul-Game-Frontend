@@ -7,7 +7,7 @@ import com.example.sul_game_frontend_practice1.databinding.ActivityGamecreateBin
 
 import com.example.sul_game_frontend_practice1.databinding.ActivityIntrocreateBinding
 
-class IntroCreateActivity : AppCompatActivity() {
+class introCreateActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntrocreateBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

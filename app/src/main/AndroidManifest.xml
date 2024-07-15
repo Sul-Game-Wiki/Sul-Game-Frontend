@@ -21,9 +21,15 @@
     <activity
       android:exported="false"
       android:name=".detail.introDetailActivity" />
+
+
     <activity
       android:exported="false"
-      android:name=".detail.createDetailActivity" />
+      android:name=".EditProfileImageActivity" />
+    <activity
+      android:exported="false"
+      android:name=".EditProfileActivity"
+      android:theme="@style/Theme.SulGameFrontendpractice1" />
     <activity
       android:exported="true"
       android:name=".MainActivity">
