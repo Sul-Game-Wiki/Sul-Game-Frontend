@@ -21,13 +21,11 @@
     <activity
       android:exported="false"
       android:name=".detail.introDetailActivity" />
-
-
     <activity
       android:exported="false"
-      android:name=".detail.createDetailActivity" />
+      android:name=".detail.gameDetailActivity" />
 
-<activity
+    <activity
       android:exported="false"
       android:name=".EditProfileImageActivity" />
     <activity
