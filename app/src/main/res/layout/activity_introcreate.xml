@@ -28,7 +28,8 @@
               android:textStyle="bold"
               android:layout_width="250dp"
               android:layout_height="40dp"
-              android:background="@drawable/circle_green"
+              android:background="@drawable/roundedbox"
+              android:backgroundTint="#2FE74D"
               android:text="등록하기"
               android:textColor="@color/white"
               android:layout_marginTop="30dp"
@@ -46,7 +47,8 @@
 
 
               android:paddingLeft="10dp"
-              android:background="@drawable/circle_white"
+              android:background="@drawable/roundedbox"
+              android:backgroundTint="@color/white"
               android:ems="10"
 
               android:hint="인트로 제목"
@@ -63,7 +65,8 @@
               android:layout_height="40dp"
               android:layout_marginTop="12dp"
               android:paddingLeft="10dp"
-              android:background="@drawable/circle_white"
+              android:background="@drawable/roundedbox"
+              android:backgroundTint="@color/white"
               android:ems="10"
               android:hint="인트로 가사"
 
@@ -78,7 +81,8 @@
               android:layout_height="wrap_content"
               android:minHeight="120dp"
               android:paddingLeft="10dp"
-              android:background="@drawable/circle_white"
+              android:background="@drawable/roundedbox"
+              android:backgroundTint="@color/white"
               android:ems="10"
               android:hint="인트로에 관련된 설명을 최대한\n자세히 적어주세요"
               android:inputType="text"
