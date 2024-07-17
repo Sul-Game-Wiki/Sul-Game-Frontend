@@ -1,10 +1,8 @@
-package com.example.sul_game_frontend_practice1
+package com.example.sul_game_frontend_practice1.editprofile
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sul_game_frontend_practice1.databinding.ActivityEditProfileBinding
-import com.example.sul_game_frontend_practice1.databinding.ActivityEditProfileImageBinding
 
 class EditProfileActivity : AppCompatActivity() {
 

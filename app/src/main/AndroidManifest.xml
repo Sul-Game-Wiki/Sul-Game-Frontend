@@ -32,10 +32,10 @@
       android:name=".detail.gameDetailActivity" />
     <activity
       android:exported="false"
-      android:name=".EditProfileImageActivity" />
+      android:name=".editprofile.EditProfileImageActivity" />
     <activity
       android:exported="false"
-      android:name=".EditProfileActivity"
+      android:name=".editprofile.EditProfileActivity"
       android:theme="@style/Theme.SulGameFrontendpractice1" />
 
     <activity

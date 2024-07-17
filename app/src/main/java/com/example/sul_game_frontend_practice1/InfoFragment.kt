@@ -7,8 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.example.sul_game_frontend_practice1.databinding.FragmentHomeBinding
 import com.example.sul_game_frontend_practice1.databinding.FragmentInfoBinding
+import com.example.sul_game_frontend_practice1.editprofile.EditProfileActivity
+import com.example.sul_game_frontend_practice1.editprofile.EditProfileImageActivity
 
 class InfoFragment : Fragment() {
 
