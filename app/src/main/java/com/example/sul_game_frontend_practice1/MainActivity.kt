@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.sul_game_frontend_practice1.databinding.ActivityMainBinding
+import com.example.sul_game_frontend_practice1.search.CustomSearchView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +29,21 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+        // SearchView 쿼리 설정
+        binding.searchView.setOnQueryTextListener(object : CustomSearchView.OnQueryTextListener {
+            // 검색어가 변경될 때의 동작
+            override fun onQueryTextChange(newText: String): Boolean {
+                // 예: 필터링, 자동 완성 등
+                return true
+            }
+
+            // 검색어가 제출될 때의 동작을 여기에 정의합니다.
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // 예: 검색 실행
+                return true
+            }
+        })
 
         // Default fragment
         if (savedInstanceState == null) {
