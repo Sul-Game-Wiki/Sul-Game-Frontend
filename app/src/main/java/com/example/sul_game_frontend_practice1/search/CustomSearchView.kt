@@ -21,6 +21,7 @@ class CustomSearchView @JvmOverloads constructor(
     private val searchEditText: EditText = binding.searchSrcText
     private val searchButton: ImageView = binding.searchButton
     private var queryTextListener: OnQueryTextListener? = null
+    private var focusChangeListener: OnFocusChangeListener? = null
 
     init {
         searchButton.setOnClickListener {
@@ -30,10 +31,18 @@ class CustomSearchView @JvmOverloads constructor(
         searchEditText.addTextChangedListener { text ->
             queryTextListener?.onQueryTextChange(text.toString())
         }
+
+        searchEditText.setOnFocusChangeListener { _, hasFocus ->
+            focusChangeListener?.onFocusChange(hasFocus)
+        }
     }
 
     fun setOnQueryTextListener(listener: OnQueryTextListener) {
         queryTextListener = listener
+    }
+
+    fun setOnFocusChangeListener(listener: OnFocusChangeListener) {
+        focusChangeListener = listener
     }
 
     var query: String
@@ -52,5 +61,9 @@ class CustomSearchView @JvmOverloads constructor(
     interface OnQueryTextListener {
         fun onQueryTextChange(newText: String): Boolean
         fun onQueryTextSubmit(query: String): Boolean
+    }
+
+    interface OnFocusChangeListener {
+        fun onFocusChange(hasFocus: Boolean)
     }
 }
