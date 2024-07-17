@@ -50,6 +50,7 @@
       android:minHeight="48dp"
       android:layout_weight="4"
       android:paddingHorizontal="5dp"
+      android:inputType="textEmailAddress"
       android:background="@drawable/roundedbox_edittext"
       android:text="" />
 
@@ -83,7 +84,7 @@
       android:paddingHorizontal="5dp"
       android:background="@drawable/roundedbox_edittext"
       android:layout_weight="4"
-      android:text="" />
+      android:inputType="date" />
 
   </LinearLayout>
 
