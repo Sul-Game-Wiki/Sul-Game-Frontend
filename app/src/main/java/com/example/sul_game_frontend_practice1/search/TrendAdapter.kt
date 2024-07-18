@@ -35,10 +35,11 @@ class TrendAdapter(val postList: List<Post>) : RecyclerView.Adapter<RecyclerView
         }
     }
 
+    inner class TrendViewHolder(val binding : TrendListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        val title = binding.tvTitleTrendItem
+        val content = binding.tvContentTrendItem
+        val heart = binding.tvHeartTrendItem
+    }
+
 }
 
-class TrendViewHolder(val binding : TrendListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    val title = binding.tvTitleTrendItem
-    val content = binding.tvContentTrendItem
-    val heart = binding.tvHeartTrendItem
-}

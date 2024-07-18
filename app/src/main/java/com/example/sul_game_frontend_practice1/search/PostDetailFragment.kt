@@ -6,38 +6,43 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sul_game_frontend_practice1.PopularListFragment
 import com.example.sul_game_frontend_practice1.R
 import com.example.sul_game_frontend_practice1.data.Post
 import com.example.sul_game_frontend_practice1.data.User
+import com.example.sul_game_frontend_practice1.databinding.FragmentPopularListBinding
+import com.example.sul_game_frontend_practice1.databinding.FragmentPostDetailBinding
 import com.example.sul_game_frontend_practice1.databinding.FragmentSearchBinding
 import java.time.LocalDateTime
 
-class SearchFragment : Fragment() {
-    private var _binding: FragmentSearchBinding? = null
+class PostDetailFragment : Fragment() {
+
+    private var _binding: FragmentPostDetailBinding? = null
     private val binding get() = _binding!!
+
+    var postTitle = "실시간 순위"
+    lateinit var postType : String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        // Inflate the layout for this fragment
+        _binding = FragmentPostDetailBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initSearchFragment()
+
+        initPostDetail()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    private fun initPostDetail(){
+        postType = arguments?.getString("postType").toString()
+        postTitle = "실시간 $postType 순위"
+        binding.tvPostDetail.text = postTitle
 
-    private fun initSearchFragment(){
         // Post 더미데이터 생성
         val dummyUser = User("구해조", "세종대", R.drawable.img_student)
         val dummyDateTime = LocalDateTime.of(2024, 6, 29, 0, 0)
@@ -60,57 +65,9 @@ class SearchFragment : Fragment() {
             entry.value.sortedByDescending { it.heartCnt }
         }
 
-        // 타입별로 변수에 할당
-        val introPosts = groupedAndSortedPosts["인트로"] ?: emptyList()
-        val popularPosts = groupedAndSortedPosts["인기"] ?: emptyList()
-        val creativePosts = groupedAndSortedPosts["창작"] ?: emptyList()
+        val postData = groupedAndSortedPosts[postType] ?: emptyList()
 
-        binding.rv1TrendSearch.adapter = TrendAdapter(popularPosts)
-        binding.rv1TrendSearch.layoutManager = LinearLayoutManager(context)
-
-        binding.rv2TrendSearch.adapter = TrendAdapter(creativePosts)
-        binding.rv2TrendSearch.layoutManager = LinearLayoutManager(context)
-
-        binding.rv3TrendSearch.adapter = TrendAdapter(introPosts)
-        binding.rv3TrendSearch.layoutManager = LinearLayoutManager(context)
-
-        buttonClicked()
-
-    }
-
-    private fun buttonClicked(){
-        val bundle = Bundle()
-
-        val postDetailFragment = PostDetailFragment()
-
-        binding.btn1DetailSearch.setOnClickListener {
-            bundle.putString("postType", "인기")
-            postDetailFragment.arguments = bundle
-
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, postDetailFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
-
-        binding.btn2DetailSearch.setOnClickListener {
-            bundle.putString("postType", "창작")
-            postDetailFragment.arguments = bundle
-
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, postDetailFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
-
-        binding.btn3DetailSearch.setOnClickListener {
-            bundle.putString("postType", "인트로")
-            postDetailFragment.arguments = bundle
-
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, postDetailFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
+        binding.rvPostDetail.adapter = PostDetailAdapter(postData)
+        binding.rvPostDetail.layoutManager = LinearLayoutManager(context)
     }
 }
