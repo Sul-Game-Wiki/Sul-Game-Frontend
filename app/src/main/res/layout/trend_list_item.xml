@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tv_intro_name_intro_item"
+        android:id="@+id/tv_title_trend_item"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:ellipsize="end"
@@ -20,7 +20,7 @@
         tools:text="1. 바니바니" />
 
     <TextView
-        android:id="@+id/tv_intro_detail_intro_item"
+        android:id="@+id/tv_content_trend_item"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:ellipsize="end"
@@ -29,13 +29,13 @@
         android:maxLines="1"
         android:textStyle="bold"
         android:layout_marginHorizontal="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_heart_intro_item"
+        app:layout_constraintEnd_toStartOf="@+id/tv_heart_trend_item"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@+id/tv_intro_name_intro_item"
+        app:layout_constraintStart_toEndOf="@+id/tv_title_trend_item"
         tools:text="하늘에서 내려온 토끼가 하는 말~" />
 
     <TextView
-        android:id="@+id/tv_heart_intro_item"
+        android:id="@+id/tv_heart_trend_item"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:textColor="@color/primaryGreen"
