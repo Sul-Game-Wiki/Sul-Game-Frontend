@@ -12,6 +12,7 @@ import com.example.sul_game_frontend_practice1.data.User
 import com.example.sul_game_frontend_practice1.databinding.FragmentPopularListBinding
 import com.example.sul_game_frontend_practice1.databinding.FragmentPostDetailBinding
 import com.example.sul_game_frontend_practice1.databinding.FragmentSearchBinding
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class PostDetailFragment : Fragment() {
@@ -44,7 +45,7 @@ class PostDetailFragment : Fragment() {
         binding.tvPostDetail.text = postTitle
 
         // Post 더미데이터 생성
-        val dummyUser = User("구해조", "세종대", R.drawable.img_student)
+        val dummyUser = User("구해조", "세종대학교", R.drawable.img_student,"user@gmail.com", LocalDate.of(2000, 1, 1))
         val dummyDateTime = LocalDateTime.of(2024, 6, 29, 0, 0)
 
         val dummyPostData = arrayListOf<Post>(

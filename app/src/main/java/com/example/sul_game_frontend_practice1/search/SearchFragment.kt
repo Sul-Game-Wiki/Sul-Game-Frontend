@@ -11,6 +11,7 @@ import com.example.sul_game_frontend_practice1.R
 import com.example.sul_game_frontend_practice1.data.Post
 import com.example.sul_game_frontend_practice1.data.User
 import com.example.sul_game_frontend_practice1.databinding.FragmentSearchBinding
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class SearchFragment : Fragment() {
@@ -39,7 +40,7 @@ class SearchFragment : Fragment() {
 
     private fun initSearchFragment(){
         // Post 더미데이터 생성
-        val dummyUser = User("구해조", "세종대", R.drawable.img_student)
+        val dummyUser = User("구해조", "세종대학교", R.drawable.img_student,"user@gmail.com", LocalDate.of(2000, 1, 1))
         val dummyDateTime = LocalDateTime.of(2024, 6, 29, 0, 0)
 
         val dummyPostData = arrayListOf<Post>(

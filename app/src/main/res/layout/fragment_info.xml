@@ -21,8 +21,8 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-          android:id="@+id/iv_info"
+        <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/civ_info"
           android:layout_width="80dp"
           android:layout_height="80dp"
           android:src="@drawable/img_student"
@@ -32,7 +32,7 @@
           android:id="@+id/tv_info_univ"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="소속 기관"
+          android:text="소속대학교"
           android:layout_marginHorizontal="10dp"
           android:textColor="#000"
           android:textSize="20dp"
@@ -42,7 +42,7 @@
           android:id="@+id/tv_info_name"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="유저 이름님"
+          android:text="유저님"
           android:textSize="20dp"
           android:textColor="#000" />
 

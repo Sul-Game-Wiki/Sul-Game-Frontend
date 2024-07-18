@@ -44,6 +44,7 @@
       android:text="이메일"
       android:textSize="16sp" />
     <EditText
+      android:id="@+id/et2_editprofile"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:minWidth="48dp"
@@ -52,7 +53,7 @@
       android:paddingHorizontal="5dp"
       android:inputType="textEmailAddress"
       android:background="@drawable/roundedbox_edittext"
-      android:text="" />
+      android:text="xxx@xxx.xx" />
 
   </LinearLayout>
 
@@ -77,6 +78,7 @@
       android:text="생년월일"
       android:textSize="16sp" />
     <EditText
+      android:id="@+id/et3_editprofile"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:minWidth="48dp"
@@ -84,7 +86,8 @@
       android:paddingHorizontal="5dp"
       android:background="@drawable/roundedbox_edittext"
       android:layout_weight="4"
-      android:inputType="date" />
+      android:inputType="date"
+      android:text="2000.01.01"/>
 
   </LinearLayout>
 
@@ -109,6 +112,7 @@
       android:text="대학교"
       android:textSize="16sp" />
     <EditText
+      android:id="@+id/et4_editprofile"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:minWidth="48dp"
@@ -116,7 +120,7 @@
       android:layout_weight="4"
       android:paddingHorizontal="5dp"
       android:background="@drawable/roundedbox_edittext"
-      android:text="" />
+      android:text="세종대학교" />
 
   </LinearLayout>
 
@@ -141,6 +145,7 @@
       android:text="닉네임"
       android:textSize="16sp" />
     <EditText
+      android:id="@+id/et1_editprofile"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:minWidth="48dp"
@@ -148,7 +153,7 @@
       android:layout_weight="4"
       android:paddingHorizontal="5dp"
       android:background="@drawable/roundedbox_edittext"
-      android:text="" />
+      android:text="구해조" />
 
   </LinearLayout>
 
