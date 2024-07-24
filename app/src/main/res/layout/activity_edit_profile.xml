@@ -6,7 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/background"
-  tools:context=".EditProfileActivity">
+  tools:context=".editprofile.EditProfileActivity">
 
   <Button
     android:textStyle="bold"
@@ -17,7 +17,8 @@
     android:backgroundTint="#2FE74D"
     android:text="변경내용 저장"
     android:textColor="#fff"
-    android:textSize="20dp"
+    android:textSize="20sp"
+    android:background="@drawable/roundedbox"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/linear4_editprofile" />
@@ -31,24 +32,28 @@
     android:padding="5dp"
     android:background="@drawable/roundedbox"
     android:orientation="horizontal"
-    android:weightSum="7"
+    android:weightSum="5"
     app:layout_constraintTop_toBottomOf="@id/linear1_editprofile">
-
 
     <TextView
       android:textStyle="bold"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
+      android:paddingStart="5dp"
       android:text="이메일"
-      android:textSize="16dp" />
+      android:textSize="16sp" />
     <EditText
+      android:id="@+id/et2_editprofile"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:minWidth="48dp"
       android:minHeight="48dp"
-      android:layout_weight="6"
-      android:text="xxxx@gmail.com" />
+      android:layout_weight="4"
+      android:paddingHorizontal="5dp"
+      android:inputType="textEmailAddress"
+      android:background="@drawable/roundedbox_edittext"
+      android:text="xxx@xxx.xx" />
 
   </LinearLayout>
 
@@ -61,24 +66,28 @@
     android:padding="5dp"
     android:background="@drawable/roundedbox"
     android:orientation="horizontal"
-    android:weightSum="7"
+    android:weightSum="5"
     app:layout_constraintTop_toBottomOf="@id/linear2_editprofile">
-
 
     <TextView
       android:textStyle="bold"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
+      android:paddingStart="5dp"
       android:text="생년월일"
-      android:textSize="16dp" />
+      android:textSize="16sp" />
     <EditText
+      android:id="@+id/et3_editprofile"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:minWidth="48dp"
       android:minHeight="48dp"
-      android:layout_weight="6"
-      android:text="xxxx.xx.xx" />
+      android:paddingHorizontal="5dp"
+      android:background="@drawable/roundedbox_edittext"
+      android:layout_weight="4"
+      android:inputType="date"
+      android:text="2000.01.01"/>
 
   </LinearLayout>
 
@@ -91,23 +100,26 @@
     android:padding="5dp"
     android:background="@drawable/roundedbox"
     android:orientation="horizontal"
-    android:weightSum="7"
+    android:weightSum="5"
     app:layout_constraintTop_toBottomOf="@id/linear3_editprofile">
-
 
     <TextView
       android:textStyle="bold"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
+      android:paddingStart="5dp"
       android:text="대학교"
-      android:textSize="16dp" />
+      android:textSize="16sp" />
     <EditText
+      android:id="@+id/et4_editprofile"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:minWidth="48dp"
       android:minHeight="48dp"
-      android:layout_weight="6"
+      android:layout_weight="4"
+      android:paddingHorizontal="5dp"
+      android:background="@drawable/roundedbox_edittext"
       android:text="세종대학교" />
 
   </LinearLayout>
@@ -121,23 +133,26 @@
     android:padding="5dp"
     android:background="@drawable/roundedbox"
     android:orientation="horizontal"
-    android:weightSum="7"
+    android:weightSum="5"
     app:layout_constraintTop_toBottomOf="@id/tv_editprofile">
-
 
     <TextView
       android:textStyle="bold"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
+      android:paddingStart="5dp"
       android:text="닉네임"
-      android:textSize="16dp" />
+      android:textSize="16sp" />
     <EditText
+      android:id="@+id/et1_editprofile"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:minWidth="48dp"
       android:minHeight="48dp"
-      android:layout_weight="6"
+      android:layout_weight="4"
+      android:paddingHorizontal="5dp"
+      android:background="@drawable/roundedbox_edittext"
       android:text="구해조" />
 
   </LinearLayout>
@@ -150,7 +165,7 @@
     android:layout_marginTop="30dp"
     android:text="회원정보수정"
     android:textColor="#000"
-    android:textSize="24dp"
+    android:textSize="24sp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
