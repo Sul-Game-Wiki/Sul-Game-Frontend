@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingHorizontal="48dp"
+  tools:context=".SignInActivity">
+
+  <TextView
+    android:id="@+id/tv_prompt1_signin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="59dp"
+    android:fontFamily="@font/galmuri11_bold"
+    android:text="회원가입"
+    android:textColor="@color/main_color"
+    android:textSize="32sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <EditText
+    android:id="@+id/et_mail_signin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="28dp"
+    android:background="@drawable/roundedbox_line_20"
+    android:clickable="false"
+    android:ellipsize="end"
+    android:focusable="false"
+    android:maxLength="30"
+    android:paddingHorizontal="9dp"
+    android:paddingVertical="12dp"
+    android:singleLine="true"
+    android:textColor="@color/deep_gray"
+    android:textSize="14sp"
+    app:layout_constraintTop_toBottomOf="@+id/tv_prompt1_signin"
+    tools:text="xxxx@gmail.com" />
+
+  <EditText
+    android:id="@+id/et_name_signin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="21dp"
+    android:background="@drawable/roundedbox_line_20"
+    android:hint="닉네임 입력"
+    android:maxLength="30"
+    android:paddingHorizontal="9dp"
+    android:paddingVertical="12dp"
+    android:singleLine="true"
+    android:textColor="@color/black"
+    android:textColorHint="@color/deep_gray"
+    android:textSize="14sp"
+    app:layout_constraintTop_toBottomOf="@+id/et_mail_signin" />
+
+  <EditText
+    android:id="@+id/et_birth_date_signin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="21dp"
+    android:background="@drawable/roundedbox_line_20"
+    android:hint="생년월일 입력"
+    android:maxLength="30"
+    android:paddingHorizontal="9dp"
+    android:paddingVertical="12dp"
+    android:singleLine="true"
+    android:textColor="@color/black"
+    android:textColorHint="@color/deep_gray"
+    android:textSize="14sp"
+    app:layout_constraintTop_toBottomOf="@+id/et_name_signin" />
+
+  <EditText
+    android:id="@+id/et_school_signin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="21dp"
+    android:background="@drawable/roundedbox_line_20"
+    android:drawableEnd="@drawable/ic_search"
+    android:drawablePadding="4dp"
+    android:hint="대학교 선택"
+    android:paddingHorizontal="9dp"
+    android:paddingVertical="12dp"
+    android:singleLine="true"
+    android:textColor="@color/black"
+    android:textColorHint="@color/deep_gray"
+    android:textSize="14sp"
+    app:layout_constraintTop_toBottomOf="@+id/et_birth_date_signin" />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_container1_signin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="27dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/et_school_signin">
+
+    <CheckBox
+      android:id="@+id/cb_agree_all_signin"
+      android:layout_width="13dp"
+      android:layout_height="13dp"
+      android:layout_marginEnd="8dp"
+      android:background="@drawable/custom_checkbox"
+      android:button="@null"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/tv_prompt2_signin"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+      android:id="@+id/tv_prompt2_signin"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="아래 약관에 모두 동의합니다."
+      android:textColor="@color/deep_gray"
+      android:textSize="11sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/cb_agree_all_signin"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <Button
+    android:id="@+id/btn_submit_signin"
+    android:textStyle="bold"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="139dp"
+    android:background="@drawable/roundedbox_20"
+    android:backgroundTint="@color/main_color"
+    android:paddingVertical="8dp"
+    android:text="회원가입 완료"
+    android:textColor="@color/white"
+    android:textSize="20sp"
+    app:layout_constraintTop_toBottomOf="@id/cl_container1_signin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
