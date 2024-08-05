@@ -75,6 +75,7 @@ class CustomSearchView @JvmOverloads constructor(
         if (!useEditText){
             searchEditText.isClickable = false
             searchEditText.isFocusable = false
+            searchEditText.visibility = View.GONE
         }
     }
 
