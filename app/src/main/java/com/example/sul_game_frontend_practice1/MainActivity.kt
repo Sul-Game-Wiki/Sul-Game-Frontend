@@ -1,12 +1,20 @@
 package com.example.sul_game_frontend_practice1
 
 import android.content.Intent
+import android.icu.lang.UCharacter.VerticalOrientation
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.example.sul_game_frontend_practice1.databinding.ActivityMainBinding
+import com.example.sul_game_frontend_practice1.mypage.FavorPost
+import com.example.sul_game_frontend_practice1.mypage.FavorPostAdapter
+import com.example.sul_game_frontend_practice1.mypage.MyPost
+import com.example.sul_game_frontend_practice1.mypage.MyPostAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     /* 현재 열려있는 BottomSheet의 Child를 확인할 수 있는 변수
     0 : 마이페이지, 1 : 내게시글, 2 : 즐겨찾기게시글, 3 : 프로필 수정 */
     private var displayedChildBottomSheet : Int = 0
-    companion object {
+    private companion object {
         const val MYPAGE = 0
         const val MYPOST = 1
         const val FAVORPOST = 2
@@ -93,6 +101,29 @@ class MainActivity : AppCompatActivity() {
             setDisplayedChildBottomSheet(MYPAGE)
         }
 
+        // 내 게시글 처리
+        initRecyclerView()
+
+
+    }
+
+    private fun initRecyclerView() {
+        val myPostList = mutableListOf<MyPost>()
+        val favorPostList = mutableListOf<FavorPost>()
+
+        myPostList.add(MyPost("어목조동", "자연과 함께하는 술게임"))
+        myPostList.add(MyPost("딸기당근수박참외 찍고", "지목이 더해진 과일게임"))
+
+        favorPostList.add(FavorPost("어목조동", "자연과 함께하는 술게임", true, "구해조"))
+        favorPostList.add(FavorPost("딸기당근수박참외 찍고", "지목이 더해진 과일게임", true, "구해조"))
+
+        binding.recyclerviewMypost.adapter = MyPostAdapter(myPostList)
+        binding.recyclerviewMypost.layoutManager = LinearLayoutManager(this)
+        binding.recyclerviewMypost.addItemDecoration(DividerItemDecoration(this, VERTICAL))
+
+        binding.recyclerviewFavorpost.adapter = FavorPostAdapter(favorPostList)
+        binding.recyclerviewFavorpost.layoutManager = LinearLayoutManager(this)
+        binding.recyclerviewMypost.addItemDecoration(DividerItemDecoration(this, VERTICAL))
 
     }
 

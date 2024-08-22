@@ -216,6 +216,16 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerview_mypost"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          tools:listitem="@layout/item_mypost_recyclerview"/>
+
       </androidx.constraintlayout.widget.ConstraintLayout>
 
       <!-- 즐겨찾기 게시글 -->
@@ -223,6 +233,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerview_favorpost"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          tools:listitem="@layout/item_favorpost_recyclerview"/>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -429,10 +449,8 @@
 
 
       </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ViewFlipper>
-
-
-
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
