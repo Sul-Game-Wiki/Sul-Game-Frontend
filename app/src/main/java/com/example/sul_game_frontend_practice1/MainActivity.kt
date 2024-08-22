@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.recyclerviewFavorpost.adapter = FavorPostAdapter(favorPostList)
         binding.recyclerviewFavorpost.layoutManager = LinearLayoutManager(this)
-        binding.recyclerviewMypost.addItemDecoration(DividerItemDecoration(this, VERTICAL))
+        binding.recyclerviewFavorpost.addItemDecoration(DividerItemDecoration(this, VERTICAL))
 
     }
 
