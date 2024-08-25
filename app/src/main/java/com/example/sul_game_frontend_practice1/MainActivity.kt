@@ -4,6 +4,7 @@ import android.content.Intent
 import android.icu.lang.UCharacter.VerticalOrientation
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -25,13 +26,14 @@ class MainActivity : AppCompatActivity() {
     private var isBottomSheetExpanded : Boolean = false
 
     /* 현재 열려있는 BottomSheet의 Child를 확인할 수 있는 변수
-    0 : 마이페이지, 1 : 내게시글, 2 : 즐겨찾기게시글, 3 : 프로필 수정 */
+    0 : 마이페이지, 1 : 내게시글, 2 : 즐겨찾기게시글, 3 : 프로필 수정, 4 : 내 정보 보기*/
     private var displayedChildBottomSheet : Int = 0
     private companion object {
         const val MYPAGE = 0
         const val MYPOST = 1
         const val FAVORPOST = 2
         const val EDITPROFILE = 3
+        const val MYINFO = 4
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnMypostMypage.setOnClickListener { setDisplayedChildBottomSheet(MYPOST) }
         binding.btnFavorpostMypage.setOnClickListener { setDisplayedChildBottomSheet(FAVORPOST) }
         binding.btnEditprofileMypage.setOnClickListener { setDisplayedChildBottomSheet(EDITPROFILE) }
+        binding.btnMyinfoMypage.setOnClickListener { setDisplayedChildBottomSheet(MYINFO) }
 
         // 프로필 편집 처리
         binding.btnSumbitEditprofile.setOnClickListener {
@@ -129,7 +132,7 @@ class MainActivity : AppCompatActivity() {
 
     // BottomSheet의 child 설정
     private fun setDisplayedChildBottomSheet(child: Int){
-        val bottomSheetTitle = arrayListOf<String>("마이 페이지", "내 게시글", "즐겨찾기 게시글", "프로필 편집")
+        val bottomSheetTitle = arrayListOf<String>("마이 페이지", "내 게시글", "즐겨찾기 게시글", "프로필 편집", "내 정보보기")
 
         binding.viewflipperBottomsheet.displayedChild = child
         binding.tvTitleMypage.text = bottomSheetTitle[child]
