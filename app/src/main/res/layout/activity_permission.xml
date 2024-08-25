@@ -4,6 +4,357 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:background="@color/white"
   tools:context=".PermissionActivity">
+
+  <ImageButton
+    android:id="@+id/btn_close_birth"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp"
+    android:background="@null"
+    android:src="@drawable/ic_close"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/tv_prompt1_birth"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/galmuri11_bold"
+    android:text="이용 약관에 동의해주세요"
+    android:textColor="@color/black"
+    android:textSize="20sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.2" />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_container1_permission"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:background="#F8F8F8"
+    android:layout_marginTop="30dp"
+    android:paddingHorizontal="20dp"
+    app:layout_constraintTop_toBottomOf="@+id/tv_prompt1_birth">
+
+    <CheckBox
+      android:id="@+id/cb_permission1_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:button="@drawable/custom_checkbox"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:checked="true"/>
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="모두 동의합니다."
+      android:textStyle="bold"
+      android:textColor="@color/black"
+      android:textSize="20sp"
+      android:layout_marginStart="14dp"
+      app:layout_constraintStart_toEndOf="@+id/cb_permission1_permission"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_container2_permission"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:background="@color/white"
+    app:layout_constraintTop_toBottomOf="@+id/cl_container1_permission">
+
+    <CheckBox
+      android:id="@+id/cb_permission2_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="20dp"
+      android:button="@drawable/custom_checkbox"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:checked="true"/>
+
+    <TextView
+      android:id="@+id/tv_permission2_prompt_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="(필수) 계정 이용 약관 동의"
+      android:textStyle="bold"
+      android:textColor="@color/deep_gray"
+      android:textSize="15sp"
+      android:layout_marginStart="14dp"
+      app:layout_constraintStart_toEndOf="@+id/cb_permission2_permission"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+      android:id="@+id/btn_permission2_detail_permission"
+      android:layout_width="12dp"
+      android:layout_height="20dp"
+      android:layout_marginEnd="20dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:background="@drawable/ic_arrow_right"/>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:background="#EFEFEF"
+      app:layout_constraintBottom_toBottomOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_container3_permission"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:background="@color/white"
+    app:layout_constraintTop_toBottomOf="@+id/cl_container2_permission">
+
+    <CheckBox
+      android:id="@+id/cb_permission3_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="20dp"
+      android:button="@drawable/custom_checkbox"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:checked="true"/>
+
+    <TextView
+      android:id="@+id/tv_permission3_prompt_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="(필수) 계정 개인 정보 수집 이용 동의"
+      android:textStyle="bold"
+      android:textColor="@color/deep_gray"
+      android:textSize="15sp"
+      android:layout_marginStart="14dp"
+      app:layout_constraintStart_toEndOf="@+id/cb_permission3_permission"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+      android:id="@+id/btn_permission3_detail_permission"
+      android:layout_width="12dp"
+      android:layout_height="20dp"
+      android:layout_marginEnd="20dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:background="@drawable/ic_arrow_right"/>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:background="#EFEFEF"
+      app:layout_constraintBottom_toBottomOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_container4_permission"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:background="@color/white"
+    app:layout_constraintTop_toBottomOf="@+id/cl_container3_permission">
+
+    <CheckBox
+      android:id="@+id/cb_permission4_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:button="@drawable/custom_checkbox"
+      android:layout_marginStart="20dp"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:checked="true"/>
+
+    <TextView
+      android:id="@+id/tv_permission4_prompt_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="(필수) 술겜위키 이용 약관 동의"
+      android:textStyle="bold"
+      android:textColor="@color/deep_gray"
+      android:textSize="15sp"
+      android:layout_marginStart="14dp"
+      app:layout_constraintStart_toEndOf="@+id/cb_permission4_permission"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+      android:id="@+id/btn_permission4_detail_permission"
+      android:layout_width="12dp"
+      android:layout_height="20dp"
+      android:layout_marginEnd="20dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:background="@drawable/ic_arrow_right"/>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:background="#EFEFEF"
+      app:layout_constraintBottom_toBottomOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_container5_permission"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:background="@color/white"
+    app:layout_constraintTop_toBottomOf="@+id/cl_container4_permission">
+
+    <CheckBox
+      android:id="@+id/cb_permission5_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:button="@drawable/custom_checkbox"
+      android:layout_marginStart="20dp"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:checked="true"/>
+
+    <TextView
+      android:id="@+id/tv_permission5_prompt_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="(필수) 술겜위키 개인 정보 수집 이용 동의"
+      android:textStyle="bold"
+      android:textColor="@color/deep_gray"
+      android:textSize="15sp"
+      android:layout_marginStart="14dp"
+      app:layout_constraintStart_toEndOf="@+id/cb_permission5_permission"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+      android:id="@+id/btn_permission5_detail_permission"
+      android:layout_width="12dp"
+      android:layout_height="20dp"
+      android:layout_marginEnd="20dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:background="@drawable/ic_arrow_right"/>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:background="#EFEFEF"
+      app:layout_constraintBottom_toBottomOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_container6_permission"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:background="@color/white"
+    app:layout_constraintTop_toBottomOf="@+id/cl_container5_permission">
+
+    <CheckBox
+      android:id="@+id/cb_permission6_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:button="@drawable/custom_checkbox"
+      android:layout_marginStart="20dp"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:checked="true"/>
+
+    <TextView
+      android:id="@+id/tv_permission6_prompt_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="(필수) 술겜위키 개인 정보 제 3자 제공 동의"
+      android:textStyle="bold"
+      android:textColor="@color/deep_gray"
+      android:textSize="15sp"
+      android:layout_marginStart="14dp"
+      app:layout_constraintStart_toEndOf="@+id/cb_permission6_permission"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+      android:id="@+id/btn_permission6_detail_permission"
+      android:layout_width="12dp"
+      android:layout_height="20dp"
+      android:layout_marginEnd="20dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:background="@drawable/ic_arrow_right"/>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:background="#EFEFEF"
+      app:layout_constraintBottom_toBottomOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_container7_permission"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:background="@color/white"
+    android:paddingHorizontal="20dp"
+    app:layout_constraintTop_toBottomOf="@+id/cl_container6_permission">
+
+    <CheckBox
+      android:id="@+id/cb_permission7_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:button="@drawable/custom_checkbox"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:checked="true"/>
+
+    <TextView
+      android:id="@+id/tv_permission7_prompt_permission"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="(필수) 만 14세 이상입니다."
+      android:textStyle="bold"
+      android:textColor="@color/deep_gray"
+      android:textSize="15sp"
+      android:layout_marginStart="14dp"
+      app:layout_constraintStart_toEndOf="@+id/cb_permission7_permission"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <Button
+    android:id="@+id/btn_next_birth"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="52dp"
+    android:layout_marginHorizontal="28dp"
+    android:background="@drawable/roundedbox_20"
+    android:backgroundTint="@color/light_gray"
+    android:text="다음"
+    android:enabled="false"
+    android:textColor="@color/white"
+    android:textSize="20sp"
+    app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
