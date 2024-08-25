@@ -43,18 +43,17 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/tv_prompt1_school" />
 
-  <EditText
-    android:id="@+id/et_school_school"
+  <AutoCompleteTextView
+    android:id="@+id/tv_school_school"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
     android:background="@drawable/roundedbox_line_20"
     android:paddingHorizontal="15dp"
-    android:maxLength="10"
+    android:completionThreshold="1"
+    android:dropDownVerticalOffset="8dp"
     android:drawableEnd="@drawable/ic_arrow_down"
     android:paddingVertical="12dp"
-    android:focusable="false"
-    android:clickable="true"
     android:textColor="@color/deep_gray"
     android:textSize="14sp"
     android:hint="대학교 검색"
