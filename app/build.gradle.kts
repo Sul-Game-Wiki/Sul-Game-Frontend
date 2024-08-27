@@ -64,6 +64,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("de.hdodenhof:circleimageview:2.2.0")
+    implementation("com.nambimobile.widgets:expandable-fab:1.0.2")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

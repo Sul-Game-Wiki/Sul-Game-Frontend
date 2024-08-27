@@ -46,7 +46,8 @@
     </activity>
     <activity
       android:exported="true"
-      android:name=".MainActivity" />
+      android:name=".MainActivity" >
+    </activity>
   </application>
 
 </manifest>
