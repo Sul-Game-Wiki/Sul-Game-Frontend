@@ -3,8 +3,10 @@ package com.example.sul_game_frontend_practice1
 import android.content.Intent
 import android.icu.lang.UCharacter.VerticalOrientation
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -16,11 +18,20 @@ import com.example.sul_game_frontend_practice1.mypage.FavorPost
 import com.example.sul_game_frontend_practice1.mypage.FavorPostAdapter
 import com.example.sul_game_frontend_practice1.mypage.MyPost
 import com.example.sul_game_frontend_practice1.mypage.MyPostAdapter
+import com.example.sul_game_frontend_practice1.retrofit.ApiService
+import com.example.sul_game_frontend_practice1.retrofit.Member
+import com.example.sul_game_frontend_practice1.retrofit.MemberContentInteraction
+import com.example.sul_game_frontend_practice1.retrofit.ProfileResponse
+import com.example.sul_game_frontend_practice1.retrofit.RetrofitClient
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var behavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var apiService: ApiService
 
     // BottomSheet가 완전히 펼쳐진 상태인지 확인할 수 있는 변수
     private var isBottomSheetExpanded : Boolean = false
@@ -36,10 +47,16 @@ class MainActivity : AppCompatActivity() {
         const val MYINFO = 4
     }
 
+    private var memberId = 5L
+    private lateinit var member: Member
+    private lateinit var memberContentInteraction: MemberContentInteraction
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        getProfile(memberId)
 
         initEvent()
         persistentBottomSheetEvent()
@@ -88,12 +105,16 @@ class MainActivity : AppCompatActivity() {
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 binding.backgroundDimMain.alpha = slideOffset
-            } })
+            }
+        })
 
+        // Set up other UI elements that do not depend on member data here
+    }
 
+    private fun updateUIWithMemberData() {
         // 마이 페이지 처리
-        binding.tvUsernameMypage.text = "구해조"
-        binding.tvUniversityMypage.text = "세종대학교"
+        binding.tvUsernameMypage.text = member.nickname
+        binding.tvUniversityMypage.text = member.college
         binding.btnMypostMypage.setOnClickListener { setDisplayedChildBottomSheet(MYPOST) }
         binding.btnFavorpostMypage.setOnClickListener { setDisplayedChildBottomSheet(FAVORPOST) }
         binding.btnEditprofileMypage.setOnClickListener { setDisplayedChildBottomSheet(EDITPROFILE) }
@@ -106,8 +127,6 @@ class MainActivity : AppCompatActivity() {
 
         // 내 게시글 처리
         initRecyclerView()
-
-
     }
 
     private fun initRecyclerView() {
@@ -137,6 +156,37 @@ class MainActivity : AppCompatActivity() {
         binding.viewflipperBottomsheet.displayedChild = child
         binding.tvTitleMypage.text = bottomSheetTitle[child]
         displayedChildBottomSheet = child
+    }
+
+    private fun getProfile(memberId : Long) {
+        // API 호출
+        RetrofitClient.apiService
+            .getMemberProfile(memberId)
+            .enqueue(object : Callback<ProfileResponse> {
+            override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
+                if (response.isSuccessful) {
+                    // API 응답이 성공적일 때 데이터 처리
+                    val profileResponse = response.body()
+                    profileResponse?.let {
+                        member = it.member
+                        memberContentInteraction = it.memberContentInteraction
+                        Log.d("API_RESPONSE", "Member: $member")
+                        Log.d("API_RESPONSE", "MemberContentInteraction: $memberContentInteraction")
+
+                        updateUIWithMemberData()
+                    } ?: run {
+                        Log.e("API_ERROR", "Response body is null")
+                    }
+                } else {
+                    Log.e("API_ERROR", "Error: ${response.code()} ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                // 네트워크 오류 또는 기타 오류 처리
+                Log.e("API_ERROR", "Failure: ${t.message}")
+            }
+        })
     }
 
     // 뒤로가기 버튼 처리

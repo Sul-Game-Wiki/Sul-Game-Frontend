@@ -2,20 +2,19 @@ package com.example.sul_game_frontend_practice1.retrofit
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET("profile")
-    fun getProfile(
-        @Query("memberId") memberId: Long
-    ): Call<ProfileResponse>
+    @GET("members/profile")
+    fun getMemberProfile(@Query("memberId") memberId: Long): Call<ProfileResponse>
 
-    @GET("liked-post")
+    @GET("members/liked-post")
     fun getLikedPosts(
         @Query("memberId") memberId: Long
     ): Call<LikedPostsResponse>
 
-    @GET("bookmarked-post")
+    @GET("members/bookmarked-post")
     fun getBookmarkedPosts(
         @Query("memberId") memberId: Long
     ): Call<BookmarkedPostsResponse>
