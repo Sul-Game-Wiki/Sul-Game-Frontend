@@ -5,6 +5,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
+    @GET("home")
+    fun getHomeData(): Call<ApiResponse>
+
     @GET("profile")
     fun getProfile(
         @Query("memberId") memberId: Long

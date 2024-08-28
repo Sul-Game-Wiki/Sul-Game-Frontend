@@ -21,3 +21,24 @@ data class Member(
     val infoPopupVisible: Boolean,
     val lastLoginTime: Date
 )
+
+data class Intro(
+    val createdDate: String,
+    val updatedDate: String,
+    val isDeleted: Boolean,
+    val basePostId: Int,
+    val title: String,
+    val description: String,
+    val likes: Int,
+    val likedMemberIds: List<String>,
+    val views: Int,
+    val reportedCount: Int,
+    val member: Member,
+    val dailyScore: Int,
+    val weeklyScore: Int,
+    val lyrics: String
+)
+
+data class ApiResponse(
+    val latestIntros: List<Intro>
+)

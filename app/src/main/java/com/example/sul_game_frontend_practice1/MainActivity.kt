@@ -22,7 +22,10 @@ import com.example.sul_game_frontend_practice1.recyclerview.LiveChart.LiveChart
 import com.example.sul_game_frontend_practice1.recyclerview.LiveChart.LiveChartAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,11 +33,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var behavior: BottomSheetBehavior<ConstraintLayout>
 
     // BottomSheet가 완전히 펼쳐진 상태인지 확인할 수 있는 변수
-    private var isBottomSheetExpanded : Boolean = false
+    private var isBottomSheetExpanded: Boolean = false
 
     /* 현재 열려있는 BottomSheet의 Child를 확인할 수 있는 변수
     0 : 마이페이지, 1 : 내게시글, 2 : 즐겨찾기게시글, 3 : 프로필 수정, 4 : 내 정보 보기*/
-    private var displayedChildBottomSheet : Int = 0
+    private var displayedChildBottomSheet: Int = 0
+
     private companion object {
         const val MYPAGE = 0
         const val MYPOST = 1
@@ -53,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         recyclerMain()
     }
 
-    private fun recyclerMain(){
+    private fun recyclerMain() {
         recentRecyclerMain()
         popularGameRecyclerMain()
         liveChartRecyclerMain()
@@ -61,19 +65,68 @@ class MainActivity : AppCompatActivity() {
         hotGameRecyclerMain()
     }
 
+    // 함수를 통해 데이터를 불러온다.
+    fun JSON_Parse(obj: JSONObject, data: String): String {
+        // 원하는 정보를 불러와 리턴받고 없는 정보는 캐치하여 "없습니다."로 리턴받는다.
+        return try {
+            obj.getString(data)
+        } catch (e: Exception) {
+            "없습니다."
+        }
+    }
+
+    /** 리사이클러뷰 변수 선언 */
+    private val gameIntroData = arrayListOf<Game>()
+
+    inner class NetworkThread: Thread() {
+        override fun run() {
+            val url = URL("https://api.sul-game.info/api/home")
+            val conn = url.openConnection()
+            val input = conn.getInputStream()
+            val isr = InputStreamReader(input)
+            // br: 라인 단위로 데이터를 읽어오기 위해서 만듦
+            val br = BufferedReader(isr)
+
+            // Json 문서는 일단 문자열로 데이터를 모두 읽어온 후, Json에 관련된 객체를 만들어서 데이터를 가져옴
+            var str: String? = null
+            val buf = StringBuffer()
+
+            do {
+                str = br.readLine()
+
+                if (str != null) {
+                    buf.append(str)
+                }
+            } while (str != null)
+
+            // 전체가 객체로 묶여있기 때문에 객체형태로 가져옴
+            val root = JSONObject(buf.toString())
+            val response = root.getJSONArray("latestIntros")
+            for(i in 0 until response.length()){
+                val item = response.getJSONObject(i)
+                val jObject = response.getJSONObject(i)
+                val title = JSON_Parse(jObject,"title")
+                val contents = JSON_Parse(jObject,"description")
+                val nickname = item.getString("title")
+                val cntHeart = JSON_Parse(jObject,"likes")
+                gameIntroData.add(Game(title, contents, nickname.toString(), cntHeart.toInt()))
+                gameIntroData.add(Game(title, contents, nickname.toString(), cntHeart.toInt()))
+                gameIntroData.add(Game(title, contents, nickname.toString(), cntHeart.toInt()))
+            }
+        }
+    }
+
     // 최신 게시물의 리사이클러뷰
-    private fun recentRecyclerMain(){
+    private fun recentRecyclerMain() {
         val gameCreationData = arrayListOf<Game>(
             Game("어목조동", "자연과 함께하는 술게임", "구해조", 30),
             Game("딸기당근수박참외 찍고", "지목이 더해진 과일게임", "구해조", 30),
             Game("딸기당근수박참외 리버스", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
-        val gameIntroData = arrayListOf<Game>(
-            Game("어목조동 intro", "자연과 함께하는 술게임", "구해조", 30),
-            Game("딸기당근수박참외 찍고 intro", "지목이 더해진 과일게임", "구해조", 30),
-            Game("딸기당근수박참외 리버스 intro", "거꾸로 말하기 도전!", "구해조", 30)
-        )
+        val thread = NetworkThread()
+        thread.start()
+        thread.join()
 
         binding.rvRecentMain.adapter = GameAdapter(gameCreationData)
         binding.rvRecentMain.layoutManager =
