@@ -21,6 +21,7 @@ import com.example.sul_game_frontend_practice1.mypage.MyPostAdapter
 import com.example.sul_game_frontend_practice1.retrofit.ApiService
 import com.example.sul_game_frontend_practice1.retrofit.Member
 import com.example.sul_game_frontend_practice1.retrofit.MemberContentInteraction
+import com.example.sul_game_frontend_practice1.retrofit.NicknameResponse
 import com.example.sul_game_frontend_practice1.retrofit.ProfileResponse
 import com.example.sul_game_frontend_practice1.retrofit.RetrofitClient
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -124,6 +125,11 @@ class MainActivity : AppCompatActivity() {
         binding.btnSumbitEditprofile.setOnClickListener {
             setDisplayedChildBottomSheet(MYPAGE)
         }
+        binding.et1Editprofile.setText(member.nickname)
+        binding.et2Editprofile.setText(member.email)
+        binding.et3Editprofile.setText(member.birthDate)
+        binding.et4Editprofile.setText(member.college)
+
 
         // 내 게시글 처리
         initRecyclerView()
@@ -187,6 +193,42 @@ class MainActivity : AppCompatActivity() {
                 Log.e("API_ERROR", "Failure: ${t.message}")
             }
         })
+    }
+
+    private fun updateNickname(memberId: Long, newNickname: String) {
+        // API 호출
+        RetrofitClient.apiService
+            .updateNickname(memberId, newNickname)
+            .enqueue(object : Callback<NicknameResponse> {
+                override fun onResponse(
+                    call: Call<NicknameResponse>,
+                    response: Response<NicknameResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        // API 응답이 성공적일 때 데이터 처리
+                        val nicknameResponse = response.body()
+                        nicknameResponse?.let {
+                            member = it.member
+                            Log.d("API_RESPONSE", "Member: $member")
+                            Toast.makeText(this@MainActivity, "닉네임 변경 성공!", Toast.LENGTH_SHORT).show()
+
+                            updateUIWithMemberData()
+                        } ?: run {
+                            Log.e("API_ERROR", "Response body is null")
+                        }
+                    } else {
+                        Log.e("API_ERROR", "Error: ${response.code()} ${response.message()}")
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<NicknameResponse>,
+                    t: Throwable
+                ) {
+                    // 네트워크 오류 또는 기타 오류 처리
+                    Log.e("API_ERROR", "Failure: ${t.message}")
+                }
+            })
     }
 
     // 뒤로가기 버튼 처리
