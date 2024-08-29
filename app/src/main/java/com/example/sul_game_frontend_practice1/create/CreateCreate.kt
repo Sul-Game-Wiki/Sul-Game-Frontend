@@ -71,9 +71,9 @@ class CreateCreate : AppCompatActivity() {
         if (!validSelection) {
             Toast.makeText(this, "정보를 전부 입력해야합니다", Toast.LENGTH_SHORT).show()
         }
-        val jsonObject= JSONObject()
-        jsonObject.put("email", email.toString())
-        jsonObject.put("password", binding.etNewPasswordOkInput.text.toString())
+//        val jsonObject= JSONObject()
+//        jsonObject.put("email", email.toString())
+//        jsonObject.put("password", binding.etNewPasswordOkInput.text.toString())
 
 
     }
