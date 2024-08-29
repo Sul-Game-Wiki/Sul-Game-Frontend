@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
+  <uses-permission android:name="android.permission.INTERNET" />
 
   <application
     android:allowBackup="true"
@@ -12,20 +13,30 @@
     android:theme="@style/Theme.SulGameFrontendpractice1"
     tools:targetApi="31">
     <activity
+      android:exported="true"
+      android:name=".create.Create">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity
       android:exported="false"
-      android:name=".detail.FamousDetail" />
+      android:name=".create.IntroCreate" />
+    <activity
+      android:exported="false"
+      android:name=".create.OfficialCreate" />
+    <activity
+      android:exported="false"
+      android:name=".create.CreateCreate" />
+    <activity
+      android:exported="false"
+      android:name=".detail.OfficialDetail" />
     <activity
       android:exported="false"
       android:name=".detail.CreateDetail" />
     <activity
-      android:exported="true"
-      android:name=".MainActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
+      android:exported="false"
+      android:name=".MainActivity" />
   </application>
-
 </manifest>
