@@ -62,147 +62,147 @@
       android:id="@+id/btn_icon_create"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"/>
-<!--    <com.google.android.material.chip.ChipGroup-->
-<!--      android:id="@+id/chipGroup_level_create"-->
+    <com.google.android.material.chip.ChipGroup
+      android:id="@+id/chipGroup_level_create"
 
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:layout_marginBottom="16dp"-->
-<!--      app:singleSelection="false">-->
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="16dp"
+      app:singleSelection="false">
 
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_easy_create"-->
-<!--        style="@style/CustomChipChoice"-->
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_easy_create"
+        style="@style/CustomChipChoice"
 
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 1.1"/>-->
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 1.1"/>
 
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_hard_create"-->
-<!--        style="@style/CustomChipChoice"-->
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_hard_create"
+        style="@style/CustomChipChoice"
 
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 1.2"/>-->
-<!--    </com.google.android.material.chip.ChipGroup>-->
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 1.2"/>
+    </com.google.android.material.chip.ChipGroup>
 
-<!--    <com.google.android.material.chip.ChipGroup-->
-<!--      android:id="@+id/chipGroup_count_create"-->
+    <com.google.android.material.chip.ChipGroup
+      android:id="@+id/chipGroup_count_create"
 
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:layout_marginBottom="16dp"-->
-<!--      app:singleSelection="false">-->
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="16dp"
+      app:singleSelection="false">
 
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_anynumber_create"-->
-<!--        style="@style/CustomChipChoice"-->
-
-
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 2.1"/>-->
-
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_least4_create"-->
-<!--        style="@style/CustomChipChoice"-->
-
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 2.2"/>-->
-<!--    </com.google.android.material.chip.ChipGroup>-->
-
-<!--    <com.google.android.material.chip.ChipGroup-->
-<!--      android:id="@+id/chipGroup_noise_create"-->
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_anynumber_create"
+        style="@style/CustomChipChoice"
 
 
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:layout_marginBottom="16dp"-->
-<!--      app:singleSelection="false">-->
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 2.1"/>
 
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_quiet_create"-->
-<!--        style="@style/CustomChipChoice"-->
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_least4_create"
+        style="@style/CustomChipChoice"
 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 2.2"/>
+    </com.google.android.material.chip.ChipGroup>
 
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 3.1"/>-->
-
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_loud_create"-->
-<!--        style="@style/CustomChipChoice"-->
-
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 3.2"/>-->
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_idk_create"-->
-<!--        style="@style/CustomChipChoice"-->
+    <com.google.android.material.chip.ChipGroup
+      android:id="@+id/chipGroup_noise_create"
 
 
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 3.3"/>-->
-<!--    </com.google.android.material.chip.ChipGroup>-->
-<!--    <com.google.android.material.chip.ChipGroup-->
-<!--      android:id="@+id/chipGroup_etc_create"-->
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="16dp"
+      app:singleSelection="false">
 
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:layout_marginBottom="16dp"-->
-<!--      app:singleSelection="false">-->
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_quiet_create"
+        style="@style/CustomChipChoice"
 
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_love_official"-->
-<!--        style="@style/CustomChipChoice"-->
 
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 4.1"/>-->
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 3.1"/>
 
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_tension_official"-->
-<!--        style="@style/CustomChipChoice"-->
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_loud_create"
+        style="@style/CustomChipChoice"
 
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 4.2"/>-->
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_move_official"-->
-<!--        style="@style/CustomChipChoice"-->
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 3.2"/>
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_idk_create"
+        style="@style/CustomChipChoice"
 
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 4.3"/>-->
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_brain_official"-->
-<!--        style="@style/CustomChipChoice"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tag 4.1"/>-->
 
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_touch_official"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        style="@style/CustomChipChoice"-->
-<!--        android:text="Tag 4.2"/>-->
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_fast_official"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        style="@style/CustomChipChoice"-->
-<!--        android:text="Tag 4.3"/>-->
-<!--      <com.google.android.material.chip.Chip-->
-<!--        android:id="@+id/chip_calm_official"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        style="@style/CustomChipChoice"-->
-<!--        android:text="Tag 4.3"/>-->
-<!--    </com.google.android.material.chip.ChipGroup>-->
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 3.3"/>
+    </com.google.android.material.chip.ChipGroup>
+    <com.google.android.material.chip.ChipGroup
+      android:id="@+id/chipGroup_etc_create"
+
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="16dp"
+      app:singleSelection="false">
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_love_official"
+        style="@style/CustomChipChoice"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 4.1"/>
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_tension_official"
+        style="@style/CustomChipChoice"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 4.2"/>
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_move_official"
+        style="@style/CustomChipChoice"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 4.3"/>
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_brain_official"
+        style="@style/CustomChipChoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tag 4.1"/>
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_touch_official"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/CustomChipChoice"
+        android:text="Tag 4.2"/>
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_fast_official"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/CustomChipChoice"
+        android:text="Tag 4.3"/>
+      <com.google.android.material.chip.Chip
+        android:id="@+id/chip_calm_official"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/CustomChipChoice"
+        android:text="Tag 4.3"/>
+    </com.google.android.material.chip.ChipGroup>
     <RadioGroup
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
