@@ -1,18 +1,16 @@
 package com.example.sul_game_frontend_practice1
 
 import android.content.Intent
-import android.icu.lang.UCharacter.VerticalOrientation
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import com.bumptech.glide.Glide
 import com.example.sul_game_frontend_practice1.databinding.ActivityMainBinding
 import com.example.sul_game_frontend_practice1.mypage.FavorPost
 import com.example.sul_game_frontend_practice1.mypage.FavorPostAdapter
@@ -21,10 +19,11 @@ import com.example.sul_game_frontend_practice1.mypage.MyPostAdapter
 import com.example.sul_game_frontend_practice1.retrofit.ApiService
 import com.example.sul_game_frontend_practice1.retrofit.Member
 import com.example.sul_game_frontend_practice1.retrofit.MemberContentInteraction
-import com.example.sul_game_frontend_practice1.retrofit.NicknameResponse
 import com.example.sul_game_frontend_practice1.retrofit.ProfileResponse
 import com.example.sul_game_frontend_practice1.retrofit.RetrofitClient
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -109,27 +108,48 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        // Set up other UI elements that do not depend on member data here
+        binding.btnSumbitEditprofile.setOnClickListener {
+            updateNickname(memberId, binding.et1Editprofile.text.toString())
+            setDisplayedChildBottomSheet(MYPAGE)
+        }
+
+        binding.btnMypostMypage.setOnClickListener { setDisplayedChildBottomSheet(MYPOST) }
+        binding.btnFavorpostMypage.setOnClickListener { setDisplayedChildBottomSheet(FAVORPOST) }
+        binding.btnEditprofileMypage.setOnClickListener { setDisplayedChildBottomSheet(EDITPROFILE) }
+        binding.btnMyinfoMypage.setOnClickListener { setDisplayedChildBottomSheet(MYINFO) }
     }
 
     private fun updateUIWithMemberData() {
         // 마이 페이지 처리
         binding.tvUsernameMypage.text = member.nickname
         binding.tvUniversityMypage.text = member.college
-        binding.btnMypostMypage.setOnClickListener { setDisplayedChildBottomSheet(MYPOST) }
-        binding.btnFavorpostMypage.setOnClickListener { setDisplayedChildBottomSheet(FAVORPOST) }
-        binding.btnEditprofileMypage.setOnClickListener { setDisplayedChildBottomSheet(EDITPROFILE) }
-        binding.btnMyinfoMypage.setOnClickListener { setDisplayedChildBottomSheet(MYINFO) }
+
+        val defaultImage = R.color.light_gray
+        Glide.with(this)
+            .load(member.profileUrl) // 불러올 이미지 url
+            .placeholder(defaultImage) // 이미지 로딩 시작하기 전 표시할 이미지
+            .error(defaultImage) // 로딩 에러 발생 시 표시할 이미지
+            .fallback(defaultImage) // 로드할 url 이 비어있을(null 등) 경우 표시할 이미지
+            .circleCrop() // 동그랗게 자르기
+            .into(binding.civProfileMypage) // 이미지를 넣을 뷰
 
         // 프로필 편집 처리
-        binding.btnSumbitEditprofile.setOnClickListener {
-            setDisplayedChildBottomSheet(MYPAGE)
-        }
+
         binding.et1Editprofile.setText(member.nickname)
         binding.et2Editprofile.setText(member.email)
         binding.et3Editprofile.setText(member.birthDate)
         binding.et4Editprofile.setText(member.college)
 
+        // 내 정보 보기
+        binding.tvExplevelMyinfo.text = "${member.expLevel}등급"
+        binding.tvExpMyinfo.text = "현재 exp : ${member.exp}"
+        binding.progressbarExpMyinfo.progress = member.exp
+        binding.tvTotalLikeMyinfo.text = memberContentInteraction.totalLikeCount.toString()
+        binding.tvTotalCommentMyinfo.text = memberContentInteraction.totalCommentCount.toString()
+        binding.tvTotalPostMyinfo.text = memberContentInteraction.totalPostCount.toString()
+        binding.tvTotalCommentlikeMyinfo.text = memberContentInteraction.totalCommentLikeCount.toString()
+        binding.tvTotalPostlikeMyinfo.text = memberContentInteraction.totalPostLikeCount.toString()
+        binding.tvTotalMediaMyinfo.text = memberContentInteraction.totalMediaCount.toString()
 
         // 내 게시글 처리
         initRecyclerView()
@@ -196,39 +216,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateNickname(memberId: Long, newNickname: String) {
+        val memberIdBody = RequestBody.create("text/plain".toMediaTypeOrNull(), memberId.toString())
+        val nicknameBody = RequestBody.create("text/plain".toMediaTypeOrNull(), newNickname)
+
         // API 호출
         RetrofitClient.apiService
-            .updateNickname(memberId, newNickname)
-            .enqueue(object : Callback<NicknameResponse> {
-                override fun onResponse(
-                    call: Call<NicknameResponse>,
-                    response: Response<NicknameResponse>
-                ) {
+            .updateNickname(memberIdBody, nicknameBody)
+            .enqueue(object : Callback<Member> {
+                override fun onResponse(call: Call<Member>,response: Response<Member>) {
                     if (response.isSuccessful) {
                         // API 응답이 성공적일 때 데이터 처리
                         val nicknameResponse = response.body()
                         nicknameResponse?.let {
-                            member = it.member
+                            member = it
                             Log.d("API_RESPONSE", "Member: $member")
                             Toast.makeText(this@MainActivity, "닉네임 변경 성공!", Toast.LENGTH_SHORT).show()
 
-                            updateUIWithMemberData()
+                            getProfile(memberId)
                         } ?: run {
                             Log.e("API_ERROR", "Response body is null")
                         }
                     } else {
-                        Log.e("API_ERROR", "Error: ${response.code()} ${response.message()}")
+                        Log.e("API_ERROR", "Error body: ${response.errorBody()?.string()}")
+                        // 상태 코드로 예외를 구분
+                        when (response.code()) {
+                            409 -> Log.e("API_ERROR", "이미 존재하는 닉네임입니다!")
+                            else -> Log.e("API_ERROR", "Error ${response.code()}: ${response.message()}")
+                        }
                     }
                 }
 
-                override fun onFailure(
-                    call: Call<NicknameResponse>,
-                    t: Throwable
-                ) {
+                override fun onFailure(call: Call<Member>, t: Throwable) {
                     // 네트워크 오류 또는 기타 오류 처리
                     Log.e("API_ERROR", "Failure: ${t.message}")
                 }
             })
+    }
+
+    private fun updateProfileImage(memberId: Long, ) {
+        val memberIdBody = RequestBody.create("text/plain".toMediaTypeOrNull(), memberId.toString())
     }
 
     // 뒤로가기 버튼 처리
