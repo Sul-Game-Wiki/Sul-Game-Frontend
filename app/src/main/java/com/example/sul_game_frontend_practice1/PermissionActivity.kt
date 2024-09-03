@@ -1,15 +1,11 @@
 package com.example.sul_game_frontend_practice1
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.sul_game_frontend_practice1.databinding.ActivityPermissionBinding
-import com.example.sul_game_frontend_practice1.databinding.ActivitySchoolBinding
 
 class PermissionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPermissionBinding

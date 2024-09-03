@@ -1,22 +1,15 @@
 package com.example.sul_game_frontend_practice1
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
-import com.example.sul_game_frontend_practice1.databinding.ActivityNicknameBinding
 import com.example.sul_game_frontend_practice1.databinding.ActivitySignUpBinding
 import org.json.JSONArray
 import org.json.JSONObject
