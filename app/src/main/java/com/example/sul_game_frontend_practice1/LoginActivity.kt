@@ -19,12 +19,12 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnGoogleLogin.setOnClickListener{
-            startActivity(Intent(this, NicknameActivity::class.java))
+            startActivity(Intent(this, SignUpActivity::class.java))
             finish()
         }
 
         binding.btnKakaoLogin.setOnClickListener{
-            startActivity(Intent(this, NicknameActivity::class.java))
+            startActivity(Intent(this, SignUpActivity::class.java))
             finish()
         }
     }
