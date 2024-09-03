@@ -59,12 +59,15 @@
     <activity
       android:exported="false"
       android:name=".intro.IntroCreate" />
-    <activity
-      android:exported="false"
-      android:name=".create.Create" />
+
     <activity
       android:exported="false"
       android:name=".official.OfficialCreate" />
+
+      <activity
+      android:exported="false"
+  android:name=".create.Create"/>
+
     <activity
       android:exported="false"
       android:name=".create.CreateCreate" />
