@@ -1,3 +1,4 @@
+
 <resources>
   <string name="app_name">Sul-Game-Frontend-practice1</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -5,3 +6,4 @@
 
   <string name="edit_profile_img"><u>프로필 이미지 수정</u></string>
 </resources>
+
