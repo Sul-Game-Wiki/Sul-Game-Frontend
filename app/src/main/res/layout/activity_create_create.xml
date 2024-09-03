@@ -7,7 +7,6 @@
   android:layout_height="match_parent"
   android:background="#EFEFEF">
 
-
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,39 +24,56 @@
       android:id="@+id/et_intro_lyrics_create"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
-    <EditText
-      android:id="@+id/et_intro_description_create"
+
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_height="70dp"
+      android:orientation="horizontal">
     <ImageButton
       android:id="@+id/btn_intro_camera_create"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_width="100dp"
+      android:layout_height="match_parent"/>
     <ImageButton
       android:id="@+id/btn_intro_gallery_create"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_width="100dp"
+      android:layout_height="match_parent"/>
     <ImageButton
       android:id="@+id/btn_intro_record_create"
+      android:layout_width="100dp"
+      android:layout_height="match_parent"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_height="match_parent"
+      android:visibility="gone"/>
+    
     <EditText
       android:id="@+id/et_description_create"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="70dp"
+      android:orientation="horizontal">
     <ImageButton
       android:id="@+id/btn_camera_create"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_width="100dp"
+      android:layout_height="match_parent"/>
     <ImageButton
       android:id="@+id/btn_gallery_create"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_width="100dp"
+      android:layout_height="match_parent"/>
     <ImageButton
       android:id="@+id/btn_record_create"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_width="100dp"
+      android:layout_height="match_parent"/>
+    </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone"
+      android:id="@+id/rv_media_create"/>
     <Button
       android:id="@+id/btn_icon_create"
       android:layout_width="wrap_content"
