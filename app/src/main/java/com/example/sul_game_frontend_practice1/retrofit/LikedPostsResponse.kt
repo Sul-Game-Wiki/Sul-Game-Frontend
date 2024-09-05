@@ -1,5 +1,8 @@
 package com.example.sul_game_frontend_practice1.retrofit
 
-class LikedPostsResponse{
+data class LikedPostsResponse(
+    val likedOfficalGames : List<BasePost>,
+    val likedCreationGames : List<BasePost>,
+    val likedIntros : List<BasePost>
+)
 
-}
