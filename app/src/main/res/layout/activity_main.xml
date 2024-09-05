@@ -86,72 +86,6 @@
         android:background="@color/white">
 
         <LinearLayout
-          android:id="@+id/container_button_mypage"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center_vertical"
-          android:orientation="vertical"
-          android:paddingHorizontal="28dp"
-          app:layout_constraintBottom_toTopOf="@id/container_footer_mypage"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/tv_university_mypage">
-
-          <Button
-            android:id="@+id/btn_mypost_mypage"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_round_border_20"
-            android:backgroundTint="@color/main_color"
-            android:paddingVertical="9dp"
-            android:text="내 게시글"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-          <Button
-            android:id="@+id/btn_favorpost_mypage"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:background="@drawable/white_round_border_20"
-            android:backgroundTint="@color/main_color"
-            android:paddingVertical="9dp"
-            android:text="즐겨찾기 게시글"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-          <Button
-            android:id="@+id/btn_editprofile_mypage"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:background="@drawable/white_round_border_20"
-            android:backgroundTint="@color/main_color"
-            android:paddingVertical="9dp"
-            android:text="프로필 편집"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-          <Button
-            android:id="@+id/btn_myinfo_mypage"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:background="@drawable/white_round_border_20"
-            android:backgroundTint="@color/main_color"
-            android:paddingVertical="9dp"
-            android:text="내 정보 보기"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
           android:id="@+id/container_footer_mypage"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -183,13 +117,14 @@
             android:textSize="14sp" />
         </LinearLayout>
 
+
         <de.hdodenhof.circleimageview.CircleImageView
           android:id="@+id/civ_profile_mypage"
-          android:layout_width="149dp"
-          android:layout_height="149dp"
-          android:layout_marginTop="35dp"
+          android:layout_width="64dp"
+          android:layout_height="64dp"
           android:src="@color/light_gray"
-          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_marginTop="52dp"
+          android:layout_marginStart="25dp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
 
@@ -197,27 +132,188 @@
           android:id="@+id/tv_username_mypage"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="11dp"
           android:fontFamily="@font/galmuri11bold"
-          android:text="유저명"
-          android:textColor="@color/deep_gray"
-          android:textSize="36sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/civ_profile_mypage" />
+          android:text="구해조님"
+          android:textColor="@color/black"
+          android:textSize="24sp"
+          android:layout_marginStart="17dp"
+          app:layout_constraintStart_toEndOf="@+id/civ_profile_mypage"
+          app:layout_constraintTop_toTopOf="@id/civ_profile_mypage" />
 
         <TextView
           android:id="@+id/tv_university_mypage"
           android:textStyle="bold"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:text="XX대학교"
+          android:text="세종대학교"
+          android:textColor="@color/deep_gray"
+          android:textSize="18sp"
+          app:layout_constraintBottom_toBottomOf="@+id/civ_profile_mypage"
+          app:layout_constraintStart_toStartOf="@+id/tv_username_mypage"
+          app:layout_constraintTop_toBottomOf="@id/tv_username_mypage" />
+
+        <ImageView
+          android:id="@+id/iv_emblem_mypage"
+          android:layout_width="23dp"
+          android:layout_height="23dp"
+          android:src="@color/light_gray"
+          android:layout_marginStart="10dp"
+          app:layout_constraintBottom_toTopOf="@+id/tv_university_mypage"
+          app:layout_constraintStart_toEndOf="@+id/tv_username_mypage"
+          app:layout_constraintTop_toTopOf="@+id/tv_username_mypage" />
+
+        <TextView
+          android:id="@+id/tv_text1_mypage"
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="다음 등급까지 남은 포인트"
+          android:textColor="#424242"
+          android:textSize="18sp"
+          android:layout_marginTop="25dp"
+          app:layout_constraintStart_toStartOf="@+id/civ_profile_mypage"
+          app:layout_constraintTop_toBottomOf="@+id/civ_profile_mypage" />
+
+        <TextView
+          android:id="@+id/tv_exp_mypage"
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="300 포인트"
+          android:textColor="@color/main_color"
+          android:textSize="24sp"
+          app:layout_constraintStart_toStartOf="@+id/tv_text1_mypage"
+          app:layout_constraintTop_toBottomOf="@+id/tv_text1_mypage" />
+
+        <ProgressBar
+          android:id="@+id/progressbar_exp_mypage"
+          style="@style/HorizontalProgressBarStyle"
+          android:layout_width="0dp"
+          android:layout_height="12dp"
+          android:layout_marginEnd="14dp"
+          android:max="700"
+          android:progress="80"
+          android:progressDrawable="@drawable/progress_bar_green"
+          app:layout_constraintBottom_toBottomOf="@+id/iv_next_emblem_mypage"
+          app:layout_constraintEnd_toStartOf="@+id/iv_next_emblem_mypage"
+          app:layout_constraintStart_toStartOf="@+id/tv_text1_mypage"
+          app:layout_constraintTop_toBottomOf="@+id/tv_exp_mypage" />
+
+        <ImageView
+          android:id="@+id/iv_next_emblem_mypage"
+          android:layout_width="32dp"
+          android:layout_height="32dp"
+          android:layout_marginEnd="17dp"
+          android:src="@color/light_gray"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/tv_exp_mypage" />
+
+        <TextView
+          android:id="@+id/tv_min_exp_mypage"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="0 포인트"
+          android:textSize="15sp"
+          android:textColor="@color/deep_gray"
+          android:layout_marginTop="3dp"
+          app:layout_constraintStart_toStartOf="@+id/progressbar_exp_mypage"
+          app:layout_constraintTop_toBottomOf="@+id/progressbar_exp_mypage" />
+
+        <TextView
+          android:id="@+id/tv_max_exp_mypage"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="700 포인트"
           android:textColor="@color/deep_gray"
           android:textSize="15sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/tv_username_mypage" />
+          app:layout_constraintEnd_toEndOf="@+id/progressbar_exp_mypage"
+          app:layout_constraintTop_toBottomOf="@+id/progressbar_exp_mypage" />
+
+
+        <LinearLayout
+          android:id="@+id/linearLayout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="15dp"
+          android:gravity="center"
+          android:orientation="horizontal"
+          app:layout_constraintBottom_toTopOf="@+id/linearLayout2">
+
+          <TextView
+            android:id="@+id/tv_mypost_mypage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:text="내 게시글"
+            android:textColor="@color/deep_gray"
+            android:textSize="14sp" />
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:text="즐겨찾기"
+            android:textColor="@color/deep_gray"
+            android:textSize="14sp" />
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:text="좋아요 게시글"
+            android:textColor="@color/deep_gray"
+            android:textSize="14sp" />
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="계정 설정"
+            android:textColor="@color/deep_gray"
+            android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/linearLayout2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="120dp"
+          android:gravity="center"
+          android:orientation="horizontal"
+          app:layout_constraintTop_toBottomOf="@+id/progressbar_exp_mypage">
+
+          <Button
+            android:id="@+id/btn_mypost_mypage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ic_mypost" />
+
+          <Button
+            android:id="@+id/btn_bookmark_mypage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/ic_bookmarked_post" />
+
+          <Button
+            android:id="@+id/btn_likedpost_mypage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/ic_liked_post" />
+
+          <Button
+            android:id="@+id/btn_profile_setting_mypage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:background="@drawable/ic_setting" />
+
+
+        </LinearLayout>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -246,7 +342,25 @@
         android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/recyclerview_favorpost"
+          android:id="@+id/recyclerview_bookmarkedpost"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          tools:listitem="@layout/item_favorpost_recyclerview"/>
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <!-- 좋아요 게시글 -->
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerview_likedpost"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -462,103 +576,6 @@
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 
-      <!-- 내 정보보기 -->
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:background="@color/white">
-
-        <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="@drawable/white_round_border_20"
-          android:orientation="vertical"
-          android:elevation="5dp"
-          android:padding="15dp">
-
-          <TextView
-            android:id="@+id/tv_explevel_myinfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A등급"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
-
-          <ProgressBar
-            android:id="@+id/progressbar_exp_myinfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:max="100"
-            android:progress="0"/>
-
-          <TextView
-            android:id="@+id/tv_exp_myinfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="현재 exp : 0"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
-
-        </LinearLayout>
-
-        <TextView
-          android:id="@+id/tv_total_like_myinfo"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="좋아요 개수 : 0"
-          android:textColor="@color/black"
-          android:layout_marginTop="20dp"
-          android:textSize="20sp"/>
-
-        <TextView
-          android:id="@+id/tv_total_comment_myinfo"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="댓글 개수 : 0"
-          android:textColor="@color/black"
-          android:layout_marginTop="5dp"
-          android:textSize="20sp"/>
-
-        <TextView
-          android:id="@+id/tv_total_post_myinfo"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="게시글 개수 : 0"
-          android:textColor="@color/black"
-          android:layout_marginTop="5dp"
-          android:textSize="20sp"/>
-
-        <TextView
-          android:id="@+id/tv_total_commentlike_myinfo"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="댓글 좋아요 개수 : 0"
-          android:textColor="@color/black"
-          android:layout_marginTop="5dp"
-          android:textSize="20sp"/>
-
-        <TextView
-          android:id="@+id/tv_total_postlike_myinfo"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="게시글 좋아요 개수 : 0"
-          android:textColor="@color/black"
-          android:layout_marginTop="5dp"
-          android:textSize="20sp"/>
-
-        <TextView
-          android:id="@+id/tv_total_media_myinfo"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="미디어 개수 : 0"
-          android:textColor="@color/black"
-          android:layout_marginTop="5dp"
-          android:textSize="20sp"/>
-
-      </LinearLayout>
 
     </ViewFlipper>
 

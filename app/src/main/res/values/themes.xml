@@ -6,4 +6,9 @@
     </style>
 
     <style name="Theme.SulGameFrontendpractice1" parent="Base.Theme.SulGameFrontendpractice1" />
+    <style name="HorizontalProgressBarStyle" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:max">100</item>
+    </style>
 </resources>

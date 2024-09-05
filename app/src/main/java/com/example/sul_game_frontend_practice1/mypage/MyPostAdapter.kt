@@ -25,7 +25,7 @@ class MyPostAdapter(private var item : List<MyPost>) : RecyclerView.Adapter<MyPo
         position: Int
     ) {
         holder.tvTitle.text = item[position].title
-        holder.tvSentence.text = item[position].sentence
+        holder.tvSentence.text = item[position].introduction
         holder.tvEdit.text = "수정"
     }
 

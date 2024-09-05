@@ -1,6 +1,5 @@
 package com.example.sul_game_frontend_practice1.retrofit
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -15,8 +14,11 @@ import retrofit2.Response
 import java.io.File
 
 object NetworkManager {
+    private const val memberId = 5L
 
-    fun getProfile(memberId : Long, context: Context) {
+    fun getProfile(context: Context) {
+//        val memberIdBody = RequestBody.create("text/plain".toMediaTypeOrNull(), memberId.toString())
+
         // API 호출
         RetrofitClient.apiService
             .getMemberProfile(memberId)
@@ -48,7 +50,30 @@ object NetworkManager {
             })
     }
 
-    fun updateNickname(memberId: Long, newNickname: String, context: Context) {
+    fun getLikedPosts(context: Context){
+        RetrofitClient.apiService
+            .getLikedPosts(memberId)
+            .enqueue(object : Callback<LikedPostsResponse>{
+                override fun onResponse(
+                    call: Call<LikedPostsResponse>,
+                    response: Response<LikedPostsResponse>
+                ) {
+                    if(response.isSuccessful){
+                        val postResponse = response.body()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<LikedPostsResponse>,
+                    t: Throwable
+                ) {
+                    Log.e("API_ERROR", "Failure: ${t.message}")
+                }
+
+            })
+    }
+
+    fun updateNickname(newNickname: String, context: Context) {
         val memberIdBody = RequestBody.create("text/plain".toMediaTypeOrNull(), memberId.toString())
         val nicknameBody = RequestBody.create("text/plain".toMediaTypeOrNull(), newNickname)
 
@@ -66,7 +91,7 @@ object NetworkManager {
                             Log.d("API_RESPONSE", "Member: $it")
                             Toast.makeText(context, "닉네임 변경 성공!", Toast.LENGTH_SHORT).show()
 
-                            getProfile(memberId, context)
+                            getProfile(context)
                         } ?: run {
                             Log.e("API_ERROR", "Response body is null")
                         }
@@ -87,9 +112,9 @@ object NetworkManager {
             })
     }
 
-    fun updateProfileImage(memberId: Long, imageFile: File, context: Context) {
-        val memberIdBody = RequestBody.create("text/plain".toMediaTypeOrNull(), memberId.toString())
+    fun updateProfileImage(imageFile: File, context: Context) {
         val requestFile = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val memberIdBody = RequestBody.create("text/plain".toMediaTypeOrNull(), memberId.toString())
         val body = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
 
         RetrofitClient.apiService.updateProfileImage(memberIdBody, body)
