@@ -2,10 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
 
+  <uses-feature
+    android:name="android.hardware.camera"
+    android:required="false" />
+
   <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.CAMERA" />
+  <!-- Android 33 이상에서는 READ_MEDIA_IMAGES 권한을 사용 -->
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+  <!-- Android 32 이하에서는 기존의 저장소 권한을 사용 -->
+  <uses-permission
+    android:name="android.permission.READ_EXTERNAL_STORAGE"
+    android:maxSdkVersion="32" />
 
   <application
+    android:name=".MyApplication"
     android:allowBackup="true"
+    android:usesCleartextTraffic="true"
     android:dataExtractionRules="@xml/data_extraction_rules"
     android:fullBackupContent="@xml/backup_rules"
     android:icon="@mipmap/ic_launcher"
@@ -38,15 +51,17 @@
     <activity
       android:exported="true"
       android:name=".StartActivity">
+
+    </activity>
+    <activity
+      android:exported="true"
+      android:name=".MainActivity" >
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity
-      android:exported="true"
-      android:name=".MainActivity" />
   </application>
 
 </manifest>
