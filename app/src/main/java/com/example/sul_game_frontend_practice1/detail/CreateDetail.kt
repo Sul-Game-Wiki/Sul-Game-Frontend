@@ -6,7 +6,6 @@ import com.example.sul_game_frontend_practice1.R
 import com.example.sul_game_frontend_practice1.databinding.ActivityCreateDetailBinding
 
 
-
 class CreateDetail : AppCompatActivity() {
     private lateinit var binding: ActivityCreateDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
