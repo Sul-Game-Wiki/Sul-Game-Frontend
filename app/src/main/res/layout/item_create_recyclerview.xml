@@ -2,16 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="70dp"
-  android:layout_height="70dp"
+  android:layout_width="90dp"
+  android:layout_height="90dp"
   android:layout_gravity="center">
+
   <ImageView
     android:id="@+id/iv_thumnail_item_create_rv"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="70dp"
+    android:layout_height="70dp"
     android:scaleType="centerCrop"
-    />
-
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
   <ImageView
     android:id="@+id/iv_videoIcon_item_create_rv"
     android:layout_width="35dp"
@@ -21,16 +24,17 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:visibility="gone"/>
+    app:layout_constraintTop_toTopOf="parent" />
 
-  <Button
+
+
+  <ImageButton
     android:id="@+id/btn_delete_item_create_rv"
     android:layout_width="18dp"
     android:layout_height="18dp"
-    android:background="@drawable/btn_delete_create_rv"
-    android:backgroundTint="@color/white"
+
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="@drawable/btn_delete_create_rv"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
