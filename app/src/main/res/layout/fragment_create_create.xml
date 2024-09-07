@@ -50,7 +50,9 @@
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical">
+      android:orientation="vertical"
+      android:id="@+id/ll_intro_create"
+      android:visibility="gone">
     <TextView
       android:id="@+id/tv2_create"
       android:layout_width="match_parent"
@@ -71,11 +73,11 @@
       android:layout_height="match_parent"
       android:src="@drawable/btn_camera"/>
     <ImageButton
-      android:id="@+id/btn_intro_gallery_create"
+      android:id="@+id/btn_intro_record_create"
       android:layout_width="100dp"
       android:layout_height="match_parent"/>
     <ImageButton
-      android:id="@+id/btn_intro_record_create"
+      android:id="@+id/btn_intro_file_create"
       android:layout_width="100dp"
       android:layout_height="match_parent"/>
     </LinearLayout>

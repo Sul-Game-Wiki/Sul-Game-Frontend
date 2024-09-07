@@ -31,53 +31,50 @@
     </provider>
     <activity
       android:exported="false"
-      android:name=".SearchActivity" />
+      android:name="info.sul_game.ui.search.SearchActivity" />
     <activity
       android:exported="false"
-      android:name=".ConfirmationActivity" />
+      android:name="info.sul_game.ConfirmationActivity" />
     <activity
       android:exported="false"
-      android:name=".PermissionActivity"/>
+      android:name="info.sul_game.PermissionActivity"/>
     <activity
       android:exported="false"
-      android:name=".SchoolActivity" />
+      android:name="info.sul_game.SchoolActivity" />
     <activity
       android:exported="false"
-      android:name=".BirthActivity" />
+      android:name="info.sul_game.BirthActivity" />
     <activity
       android:exported="false"
-      android:name=".NicknameActivity" />
+      android:name="info.sul_game.NicknameActivity" />
     <activity
       android:exported="false"
-      android:name=".LoginActivity" />
+      android:name="info.sul_game.LoginActivity" />
     <activity
       android:exported="true"
-      android:name=".create.Create">
+      android:name="info.sul_game.ui.create.Create">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity
-      android:exported="false"
-      android:name=".intro.IntroCreateFragment" />
 
     <activity
       android:exported="false"
-      android:name=".official.OfficialCreate" />
+      android:name="info.sul_game.ui.official.OfficialCreate" />
 
 
     <activity
       android:exported="false"
-      android:name=".StartActivity" />
+      android:name="info.sul_game.StartActivity" />
     <activity
       android:exported="false"
-      android:name=".detail.OfficialDetail" />
+      android:name="info.sul_game.ui.detail.OfficialDetail" />
     <activity
       android:exported="false"
-      android:name=".detail.CreateDetail" />
+      android:name="info.sul_game.ui.detail.CreateDetail" />
     <activity
       android:exported="false"
-      android:name=".MainActivity" />
+      android:name="info.sul_game.ui.main.MainActivity" />
   </application>
 </manifest>

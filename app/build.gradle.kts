@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.sul_game_frontend_practice1"
+    namespace = "info.sul_game"
     compileSdk = 34
 
     buildFeatures{
@@ -14,7 +14,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.sul_game_frontend_practice1"
+        applicationId = "info.sul_game"
         minSdk = 33
         targetSdk = 34
         versionCode = 1
