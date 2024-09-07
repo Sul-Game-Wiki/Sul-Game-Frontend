@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:paddingHorizontal="20dp"
   android:layout_height="match_parent"
-  tools:context=".BirthActivity">
+  tools:context="info.sul_game.BirthActivity">
 
   <ImageButton
     android:id="@+id/btn_close_birth"

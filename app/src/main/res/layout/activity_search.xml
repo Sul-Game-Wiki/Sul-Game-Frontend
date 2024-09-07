@@ -5,9 +5,9 @@
   android:id="@+id/main"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context="SearchActivity">
+  tools:context=".ui.search.SearchActivity">
 
-  <com.example.sul_game_frontend_practice1.search.CustomSearchView
+  <info.sul_game.ui.search.CustomSearchView
     android:id="@+id/searchview_search"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
