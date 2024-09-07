@@ -8,9 +8,14 @@ android {
     namespace = "com.example.sul_game_frontend_practice1"
     compileSdk = 34
 
+
     buildFeatures{
         viewBinding = true
         buildConfig = true
+    }
+
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
     }
 
     defaultConfig {
@@ -72,6 +77,8 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 
     implementation("com.nambimobile.widgets:expandable-fab:1.0.2")
+    implementation("org.jsoup:jsoup:1.14.3")
+    implementation("org.apache.httpcomponents:httpclient:4.5.14")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 
@@ -81,4 +88,6 @@ dependencies {
 
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    implementation ("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 }
