@@ -2,8 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.CAMERA"/>
+  <uses-feature android:name="android.hardware.camera" android:required="true" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-  <uses-permission android:name="android.permission.INTERNET"/>
+
 
   <application
     android:allowBackup="true"
@@ -12,8 +17,18 @@
     android:icon="@mipmap/ic_launcher"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/Theme.SulGameFrontendpractice1"
+    android:requestLegacyExternalStorage="true"
+   android:theme="@style/Theme.SulGameFrontendpractice1"
     tools:targetApi="31">
+    <provider
+      android:name="androidx.core.content.FileProvider"
+      android:authorities="${applicationId}.fileprovider"
+      android:exported="false"
+      android:grantUriPermissions="true">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/file_paths" />
+    </provider>
     <activity
       android:exported="false"
       android:name=".SearchActivity" />
@@ -37,9 +52,7 @@
       android:name=".LoginActivity" />
     <activity
       android:exported="true"
-
-      android:name=".StartActivity">
-
+      android:name=".create.Create">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
@@ -47,16 +60,16 @@
     </activity>
     <activity
       android:exported="false"
-      android:name=".create.IntroCreate" />
+      android:name=".intro.IntroCreateFragment" />
+
     <activity
       android:exported="false"
-      android:name=".create.OfficialCreate" />
-      <activity
-      android:exported="false"
-  android:name=".create.Create"/>
+      android:name=".official.OfficialCreate" />
+
+
     <activity
       android:exported="false"
-      android:name=".create.CreateCreate" />
+      android:name=".StartActivity" />
     <activity
       android:exported="false"
       android:name=".detail.OfficialDetail" />

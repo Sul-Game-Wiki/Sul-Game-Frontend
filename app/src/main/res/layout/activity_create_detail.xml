@@ -139,7 +139,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="22dp"
-          android:text="하늘에서 내려오는 토끼가하는말 "
+          android:text="제목"
           android:textSize="15dp"
           android:paddingEnd="20dp"
           app:layout_constraintEnd_toEndOf="parent"
@@ -157,12 +157,6 @@
         android:background="@color/white"
         android:layout_marginTop="10dp">
 
-        <ImageView
-          android:id="@+id/imageView6"
-          android:layout_width="match_parent"
-          android:layout_height="141dp"
-          tools:layout_editor_absoluteX="218dp"
-          tools:srcCompat="@tools:sample/avatars" />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
       <androidx.constraintlayout.widget.ConstraintLayout
@@ -187,12 +181,11 @@
           android:id="@+id/tv_description_createdetail"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:maxHeight="320dp"
 
           android:minHeight="25dp"
-          android:text="밥만 잘 먹더라 밥만 잘 먹더라밥만 잘 먹더라밥만 잘 먹더라밥만 잘 먹더라밥만 잘 먹더라밥만 잘 먹더라밥만 잘 먹더라밥만 잘 먹더라밥만 잘 먹더라"
+          android:text="가나다라"
           android:paddingHorizontal="20dp"
-
+          app:layout_constraintHorizontal_bias="0"
 
           app:layout_constraintEnd_toEndOf="parent"
 
