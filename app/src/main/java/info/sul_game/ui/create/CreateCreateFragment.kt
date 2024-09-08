@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,7 +27,9 @@ import info.sul_game.utils.FileUtil
 import info.sul_game.databinding.FragmentCreateCreateBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import info.sul_game.R
 import java.io.File
+import java.io.IOException
 
 
 class CreateCreateFragment : Fragment() {
@@ -36,18 +40,21 @@ class CreateCreateFragment : Fragment() {
     private fun requestPermissionsIfNecessary() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
             ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(
                     Manifest.permission.CAMERA,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.RECORD_AUDIO
                 ),
                 REQUEST_CODE_WRITE_EXTERNAL_STORAGE
             )
         }
     }
+
 
     private lateinit var binding: FragmentCreateCreateBinding
     private val selectedChipsCreate = mutableListOf<Chip>()
@@ -58,6 +65,12 @@ class CreateCreateFragment : Fragment() {
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var videoLauncher: ActivityResultLauncher<Intent>
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
+    private lateinit var audioLauncher: ActivityResultLauncher<Intent>
+    private lateinit var audiofileLauncher:ActivityResultLauncher<Intent>
+    private var mediaRecorder: MediaRecorder? = null
+    private var audioFilePath: String? = null
+    private var isIntroMode = false
+    private lateinit var recordButton: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,10 +102,22 @@ class CreateCreateFragment : Fragment() {
 
         videoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                gameCreateAdapter.addMedia(videoUri,isVideo = true,isAudio =false)
+                if (isIntroMode) {
+                    introCreateAdapter.addMedia(videoUri, isVideo = true, isAudio = false)
+                } else {
+                    gameCreateAdapter.addMedia(videoUri, isVideo = true, isAudio = false)
+                }
                 checkRecyclerViewVisibility()
             }
         }
+        audioLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+            if(result.resultCode == RESULT_OK){
+                introCreateAdapter.addMedia(videoUri,isVideo = false,isAudio = true)
+                checkRecyclerViewVisibility()
+            }
+
+        }
+
 
         galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -101,22 +126,77 @@ class CreateCreateFragment : Fragment() {
                 val isVideo = tempFile.extension in listOf("mp4", "avi", "mov")
                 val isAudio = tempFile.extension in listOf("mp3", "wav", "aac")
 
-                if (isVideo && gameCreateAdapter.isVideoExist()) {
-                    Toast.makeText(requireContext(), "비디오는 하나만 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                if (isIntroMode) {
+                    if (isAudio && introCreateAdapter.isAudioExist()) {
+                        Toast.makeText(requireContext(), "인트로는 하나만 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        introCreateAdapter.addMedia(uri, isVideo, isAudio)
+                        checkRecyclerViewVisibility()
+                    }
                 } else {
-                    gameCreateAdapter.addMedia(uri, isVideo,isAudio)
-                    checkRecyclerViewVisibility()
+                    if (isVideo && gameCreateAdapter.isVideoExist()) {
+                        Toast.makeText(requireContext(), "비디오는 하나만 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        gameCreateAdapter.addMedia(uri, isVideo, isAudio)
+                        checkRecyclerViewVisibility()
+                    }
                 }
             }
         }
 
+        audiofileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+            if(result.resultCode == RESULT_OK){
+                val uri = result.data?.data?:return@registerForActivityResult
+                val tempFile = FileUtil.createTempFile(requireContext(),uri)
+                val isVideo = tempFile.extension in listOf("mp4", "avi", "mov")
+                val isAudio = tempFile.extension in listOf("mp3", "wav", "aac")
+                if (isAudio && introCreateAdapter.isAudioExist()) {
+                    Toast.makeText(requireContext(), "오디오는 하나만 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    introCreateAdapter.addMedia(uri, isVideo=false,isAudio=true)
+                    checkRecyclerViewVisibility()
+                }
+
+            }
+
+        }
+        binding.rgIntroCreate.setOnCheckedChangeListener { _,checkedId ->
+            when(checkedId){
+                R.id.btn_introexist_create -> binding.llIntroCreate.visibility = VISIBLE
+                R.id.btn_intronothing_create -> binding.llIntroCreate.visibility = GONE
+            }
+
+        }
+
 
         binding.btnCameraCreate.setOnClickListener {
-            showMediaSelectionDialog()
+            showTutorialMediaSelectionDialog()
         }
         binding.btnGalleryCreate.setOnClickListener {
             openGallery()
         }
+        binding.btnIntroVideoCreate.setOnClickListener{
+            if (introCreateAdapter.isTotalExists()) {
+                Toast.makeText(requireContext(), "인트로는 하나만 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                isIntroMode = true
+                recordVideo()  // 비디오 촬영
+            }
+        }
+        recordButton = binding.btnIntroAudioCreate
+        recordButton.setImageResource(R.drawable.btn_audio)
+        recordButton.setOnClickListener{
+            if(introCreateAdapter.isTotalExists()){
+                Toast.makeText(requireContext(),"인트로는 하나만 추가할 수 있습니다",Toast.LENGTH_SHORT).show()
+            }else{ recordAudio()
+
+            }
+        }
+        binding.btnIntroFileCreate.setOnClickListener{
+            showIntroMediaSelectionDialog()
+
+        }
+
 
         checkRecyclerViewVisibility()
         /*여기까지 create안에 카메라기능*/
@@ -139,23 +219,60 @@ class CreateCreateFragment : Fragment() {
             checkSelectionOnButtonClick(chipGroups)
         }
     }
-/*여기서 부터 카메라 기능임 */
-    private fun showMediaSelectionDialog() {
-        val options = arrayOf("사진촬영", "비디오 촬영")
+    private fun showIntroMediaSelectionDialog() {
+        val options = arrayOf("녹음파일", "비디오 파일")
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("선택하세요")
             .setItems(options) { _, which ->
                 when (which) {
-                    0 -> openCamera()
-                    1 -> if (gameCreateAdapter.isVideoExist()) {
-                        Toast.makeText(requireContext(), "비디오는 하나만 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                    0 -> if (introCreateAdapter.isTotalExists()) {
+                        Toast.makeText(requireContext(), "인트로는 하나만 추가할 수 있습니다", Toast.LENGTH_SHORT).show()
                     } else {
-                        recordVideo()  // 비디오 촬영
+                        openAudioFilePicker()
+                    }
+                    1 -> if (introCreateAdapter.isTotalExists()) {
+                        Toast.makeText(requireContext(), "인트로는 하나만 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        openVideoFilePicker()
                     }
                 }
             }
+        isIntroMode = true // Intro 모드로 설정
         builder.show()
     }
+    private fun openAudioFilePicker() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "audio/*"
+        }
+        audiofileLauncher.launch(intent)
+    }
+
+    private fun openVideoFilePicker() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "video/*"
+        }
+        galleryLauncher.launch(intent)
+    }
+
+
+/*여기서 부터 함수 카메라 기능임 */
+private fun showTutorialMediaSelectionDialog() {
+    val options = arrayOf("사진촬영", "비디오 촬영")
+    val builder = AlertDialog.Builder(requireContext())
+    builder.setTitle("선택하세요")
+        .setItems(options) { _, which ->
+            when (which) {
+                0 -> openCamera()
+                1 -> if (gameCreateAdapter.isVideoExist()) {
+                    Toast.makeText(requireContext(), "비디오는 하나만 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    recordVideo()  // 비디오 촬영
+                }
+            }
+        }
+    isIntroMode = false // Tutorial 모드로 설정
+    builder.show()
+}
 
     private fun openCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -207,19 +324,62 @@ class CreateCreateFragment : Fragment() {
         return FileUtil.createVideoFile(requireContext(), extension)
     }
 /*여기까지 카메라기능*/
+    /*여기부터는 오디오 기능*/
+private fun startRecording() {
+    val audioFile = createAudioFile()
+    audioFilePath = audioFile.absolutePath
 
-    fun checkRecyclerViewVisibility() {
-        if (gameCreateAdapter.itemCount > 0) {
-            binding.rvMediaCreate.visibility = VISIBLE
-        } else {
-            binding.rvMediaCreate.visibility = GONE
-        }
-        if(introCreateAdapter.itemCount>0){
-            binding.rvIntroCreate.visibility = VISIBLE
-        }else{
-            binding.rvIntroCreate.visibility =GONE
+    mediaRecorder = MediaRecorder().apply {
+        setAudioSource(MediaRecorder.AudioSource.MIC)
+        setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+        setOutputFile(audioFilePath)
+
+        try {
+            prepare()
+            start()
+            Toast.makeText(requireContext(), "녹음 시작", Toast.LENGTH_SHORT).show()
+        } catch (e: IOException) {
+            Toast.makeText(requireContext(), "녹음 시작 실패: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
+}
+
+    private fun stopRecording() {
+        mediaRecorder?.apply {
+            stop()
+            release()
+        }
+        mediaRecorder = null
+        Toast.makeText(requireContext(), "녹음 종료", Toast.LENGTH_SHORT).show()
+        // Notify adapter with the recorded audio file
+        val audioUri = Uri.fromFile(File(audioFilePath))
+        introCreateAdapter.addMedia(audioUri, isVideo = false, isAudio = true)
+        checkRecyclerViewVisibility()
+    }
+
+    private fun createAudioFile(extension: String = ".mp3"): File {
+        return FileUtil.createAudioFile(requireContext(), extension)
+    }
+
+    private fun recordAudio() {
+        if (mediaRecorder == null) {
+            startRecording()
+        recordButton.setImageResource(R.drawable.btn_record)// 녹음 시작
+        } else {
+            stopRecording()
+            recordButton.setImageResource(R.drawable.btn_audio)// 녹음 중지
+        }
+    }
+
+
+    /*여기까지 오디오 녹음 기능*/
+    fun checkRecyclerViewVisibility() {
+        binding.rvMediaCreate.visibility = if (gameCreateAdapter.itemCount > 0) VISIBLE else GONE
+        binding.rvIntroCreate.visibility = if (introCreateAdapter.itemCount > 0) VISIBLE else GONE
+    }
+
+
 
     private fun checkSelectionOnChipChange(chipGroups: List<ChipGroup>) {
         // 4개 이상의 Chip이 선택된 경우 즉시 처리
