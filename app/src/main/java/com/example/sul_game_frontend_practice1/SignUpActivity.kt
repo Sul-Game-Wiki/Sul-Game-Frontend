@@ -1,16 +1,21 @@
 package com.example.sul_game_frontend_practice1
 
 import android.app.AlertDialog
-import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.DialogFragment
 import com.example.sul_game_frontend_practice1.databinding.ActivitySignUpBinding
+import com.example.sul_game_frontend_practice1.dialog.DateDialog
+import com.example.sul_game_frontend_practice1.dialog.ModalBottomSheetDialog
+import com.example.sul_game_frontend_practice1.dialog.WarningDialog
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -19,14 +24,18 @@ import java.util.Locale
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
+    private var previousName: String = ""
     private val calendar: Calendar = Calendar.getInstance()
-    private lateinit var schoolNames: List<String>
+    private lateinit var universityNames: List<String>
+    private lateinit var checkBoxList: List<CheckBox>
+    private var isAllCheckBoxChecked = false
+    private var isPermissionState = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadSchoolNames()
+        loadUniversityNames()
 
         binding.btnCloseSignup.setOnClickListener {
             startActivity(Intent(this, StartActivity::class.java))
@@ -34,27 +43,35 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.etNameSignup.addTextChangedListener {
-            val maxLength = "/10"
+            val maxLength = "/15"
             binding.tvCountLengthSignup.text =
                 binding.etNameSignup.text.length.toString() + maxLength
 
-            val text = binding.etNameSignup.text.toString()
-
-            // 사용 가능 닉네임인지 확인
-            if (text.isEmpty()) {
-                binding.tvHint1Signup.visibility = View.VISIBLE
-                binding.tvHint2Signup.visibility = View.INVISIBLE
-                binding.tvHint3Signup.visibility = View.INVISIBLE
-            } else if (availableName(text)) {
+            if(binding.etNameSignup.text.toString() == previousName && previousName != ""){
                 binding.tvHint1Signup.visibility = View.INVISIBLE
                 binding.tvHint2Signup.visibility = View.VISIBLE
                 binding.tvHint3Signup.visibility = View.INVISIBLE
-            } else {
+            } else{
+                binding.tvHint1Signup.visibility = View.VISIBLE
+                binding.tvHint2Signup.visibility = View.INVISIBLE
+                binding.tvHint3Signup.visibility = View.INVISIBLE
+            }
+            buttonClickable()
+        }
+
+        binding.btnCheckNameSignup.setOnClickListener {
+            // 사용 가능 닉네임인지 확인
+            if (isAvailableName(binding.etNameSignup.text.toString())) {
+                binding.tvHint1Signup.visibility = View.INVISIBLE
+                binding.tvHint2Signup.visibility = View.VISIBLE
+                binding.tvHint3Signup.visibility = View.INVISIBLE
+                previousName = binding.etNameSignup.text.toString()
+                binding.btnCheckNameSignup.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.main_color))
+            } else{
                 binding.tvHint1Signup.visibility = View.INVISIBLE
                 binding.tvHint2Signup.visibility = View.INVISIBLE
                 binding.tvHint3Signup.visibility = View.VISIBLE
             }
-
             buttonClickable()
         }
 
@@ -63,19 +80,80 @@ class SignUpActivity : AppCompatActivity() {
         binding.etDateSignup.isClickable = true
 
         binding.etDateSignup.setOnClickListener{
-            showDatePickerDialog()
+            val dlg = DateDialog(this)
+            dlg.listener = object : DateDialog.DateDialogListener {
+                override fun onDateSelected(year: Int, month: Int, day: Int) {
+                    binding.etDateSignup.setText("$year / $month / $day")
+                }
+            }
+            dlg.show()
         }
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, schoolNames)
-        binding.tvSchoolSignup.setAdapter(adapter)
+        binding.tvUniversitySignup.setOnClickListener{
+            val modal = ModalBottomSheetDialog()
+            modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.TransParentBottomSheetDialogTheme)
+            modal.onUniversitySelected = { universityName ->
+                binding.tvUniversitySignup.setText(universityName) // 선택된 대학명을 텍스트뷰에 설정
+            }
+            modal.show(supportFragmentManager, ModalBottomSheetDialog.TAG)
+        }
 
-        binding.tvSchoolSignup.addTextChangedListener {
+//        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, universityNames)
+//        binding.tvUniversitySignup.setAdapter(adapter)
+
+        binding.tvUniversitySignup.addTextChangedListener {
             buttonClickable()
         }
 
+        checkBoxList = listOf(
+            binding.cbPermission2Signup,
+            binding.cbPermission3Signup,
+            binding.cbPermission4Signup,
+            binding.cbPermission5Signup,
+            binding.cbPermission6Signup,
+            binding.cbPermission7Signup,
+        )
+
+        // '모두 동의합니다' 체크박스 클릭 이벤트
+        binding.cbPermission1Signup.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                isAllCheckBoxChecked = true
+                isPermissionState = true
+                buttonClickable()
+                checkBoxList.forEach { checkBox ->
+                    checkBox.isChecked = true
+                }
+            } else {
+                if (isAllCheckBoxChecked) {
+                    isAllCheckBoxChecked = false
+                    isPermissionState = false
+                    buttonClickable()
+                    checkBoxList.forEach { checkBox ->
+                        checkBox.isChecked = false
+                    }
+                }
+            }
+        }
+
+        // 개별 체크박스 클릭 이벤트
+        checkBoxList.forEach { checkBox ->
+            checkBox.setOnCheckedChangeListener { _, _ ->
+                if (!checkBox.isChecked) {
+                    isAllCheckBoxChecked = false
+                    binding.cbPermission1Signup.isChecked = false
+                    isPermissionState = false
+                    buttonClickable()
+                } else if (checkBoxList.all { it.isChecked }) {
+                    isAllCheckBoxChecked = true
+                    binding.cbPermission1Signup.isChecked = true
+                    isPermissionState = true
+                    buttonClickable()
+                }
+            }
+        }
+
         binding.btnNextSignup.setOnClickListener{
-            startActivity(Intent(this, PermissionActivity::class.java))
-            finish()
+            WarningDialog(this).show()
         }
     }
 
@@ -83,31 +161,13 @@ class SignUpActivity : AppCompatActivity() {
      * TODO : 서버랑 합체해야됨
      * 사용 가능 닉네임인지 확인
      */
-    private fun availableName(name: String): Boolean {
+    private fun isAvailableName(name: String): Boolean {
         return true
     }
 
-    private fun showDatePickerDialog() {
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(
-            this,
-            { _, selectedYear, selectedMonth, selectedDay ->
-                val formattedDate = String.format("%04d/%02d/%02d", selectedYear, selectedMonth + 1, selectedDay)
-                binding.etDateSignup.setText(formattedDate)
-
-                buttonClickable()
-            },
-            year, month, day
-        )
-        datePickerDialog.show()
-    }
-
-    private fun availableBirth(birth: String): Boolean {
+    private fun isAvailableBirth(birth: String): Boolean {
         return try {
-            val sdf = SimpleDateFormat("yyyy/MM/dd", Locale.US)
+            val sdf = SimpleDateFormat("yyyy / MM / dd", Locale.US)
             val birthDate = sdf.parse(birth) ?: return false
             val today = Calendar.getInstance()
             val birthCalendar = Calendar.getInstance().apply { time = birthDate }
@@ -142,14 +202,14 @@ class SignUpActivity : AppCompatActivity() {
         alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.main_color))
     }
 
-    private fun loadSchoolNames() {
-        val inputStream = resources.openRawResource(R.raw.school)
+    private fun loadUniversityNames() {
+        val inputStream = resources.openRawResource(R.raw.university)
         val jsonFile = inputStream.bufferedReader().use { it.readText() }
 
         val jsonObject = JSONObject(jsonFile)
         val recordsArray: JSONArray = jsonObject.getJSONArray("records")
 
-        schoolNames = mutableListOf<String>().apply {
+        universityNames = mutableListOf<String>().apply {
             for (i in 0 until recordsArray.length()) {
                 val record: JSONObject = recordsArray.getJSONObject(i)
                 add(record.getString("학교명"))
@@ -164,10 +224,10 @@ class SignUpActivity : AppCompatActivity() {
     private fun buttonClickable() {
         val dateText = binding.etDateSignup.text.toString()
         val isNameAvailable = binding.tvHint2Signup.visibility == View.VISIBLE
-        val isBirthValid = availableBirth(dateText)
-        val isSchoolValid = binding.tvSchoolSignup.text.toString() in schoolNames
+        val isBirthValid = isAvailableBirth(dateText)
+        val isUniversityValid = binding.tvUniversitySignup.text.toString() in universityNames
 
-        if (isNameAvailable && isBirthValid && isSchoolValid) {
+        if (isNameAvailable && isBirthValid && isUniversityValid && isPermissionState) {
             binding.btnNextSignup.isEnabled = true
             binding.btnNextSignup.backgroundTintList =
                 ContextCompat.getColorStateList(this, R.color.main_color)
