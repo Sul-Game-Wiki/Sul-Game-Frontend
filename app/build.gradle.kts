@@ -75,7 +75,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.activity:activity:1.9.0")
     testImplementation("junit:junit:4.13.2")
-
+    implementation("androidx.security:security-crypto:1.1.0-alpha03")
     implementation("com.nambimobile.widgets:expandable-fab:1.0.2")
     implementation("org.jsoup:jsoup:1.14.3")
     implementation("org.apache.httpcomponents:httpclient:4.5.14")

@@ -12,6 +12,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sul_game_frontend_practice1.databinding.ActivityLoginBinding
+import com.example.sul_game_frontend_practice1.token.SetToken
 import org.json.JSONObject
 
 
@@ -146,6 +147,8 @@ class LoginActivity : AppCompatActivity() {
 
         if (refreshToken.isNotEmpty()) {
             saveRefreshToken(refreshToken)
+            // TODO : 나중에 네트워크에서 accesstoken 가져오기 해봐야됨!!!!!!
+            saveAccessToken(refreshToken)
             saveUserInfo(loginAccountStatus, nickname, email)
 
             runOnUiThread {
@@ -158,7 +161,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveAccessToken(accessToken: String) {
-        val sharedPreferences = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
+        val sharedPreferences = SetToken().getEncryptedSharedPreferences(this)
         with(sharedPreferences.edit()) {
             putString("accessToken", accessToken)
             apply()
@@ -167,7 +170,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveRefreshToken(refreshToken: String) {
-        val sharedPreferences = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
+        val sharedPreferences = SetToken().getEncryptedSharedPreferences(this)
         with(sharedPreferences.edit()) {
             putString("refreshToken", refreshToken)
             apply()
