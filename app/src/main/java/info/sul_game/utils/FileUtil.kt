@@ -8,10 +8,7 @@ import java.io.File
 object FileUtil {
     fun createImageFile(context: Context, extension: String = ".jpg"): File {
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val validExtension = when (extension.lowercase()) {
-            ".jpg", ".jpeg", ".png" -> extension
-            else -> ".jpg"
-        }
+        val validExtension = if (extension.lowercase() in MediaExtensions.IMAGE_EXTENSIONS) extension else ".jpg"
         return File.createTempFile(
             "IMG_${System.currentTimeMillis()}_", /* 파일 이름 */
             validExtension,
@@ -21,10 +18,7 @@ object FileUtil {
 
     fun createVideoFile(context: Context, extension: String = ".mp4"): File {
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_MOVIES)
-        val validExtension = when (extension.lowercase()) {
-            ".mp4", ".avi", ".mov" -> extension
-            else -> ".mp4"
-        }
+        val validExtension = if (extension.lowercase() in MediaExtensions.VIDEO_EXTENSIONS) extension else ".mp4"
         return File.createTempFile(
             "VIDEO_${System.currentTimeMillis()}_", /* 파일 이름 */
             validExtension, /* 파일 확장자 */
@@ -34,10 +28,7 @@ object FileUtil {
 
     fun createAudioFile(context: Context, extension: String = ".mp3"): File {
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
-        val validExtension = when (extension.lowercase()) {
-            ".mp3", ".wav", ".aac" -> extension
-            else -> ".mp3"
-        }
+        val validExtension = if (extension.lowercase() in MediaExtensions.AUDIO_EXTENSIONS) extension else ".aac"
         return File.createTempFile(
             "AUDIO_${System.currentTimeMillis()}_", /* 파일 이름 */
             validExtension, /* 파일 확장자 */
@@ -47,10 +38,12 @@ object FileUtil {
 
     fun createTempFile(context: Context, uri: Uri): File {
         val inputStream = context.contentResolver.openInputStream(uri)
-        val file = when (getFileExtension(context, uri)) {
-            "mp4", "avi", "mov" -> createVideoFile(context, ".${getFileExtension(context, uri)}")
-            "mp3", "wav", "aac" -> createAudioFile(context, ".${getFileExtension(context, uri)}")
-            else -> createImageFile(context, ".${getFileExtension(context, uri)}")
+        val fileExtension = getFileExtension(context, uri)
+        val file = when {
+            fileExtension in MediaExtensions.VIDEO_EXTENSIONS -> createVideoFile(context, ".${fileExtension}")
+            fileExtension in MediaExtensions.AUDIO_EXTENSIONS -> createAudioFile(context, ".${fileExtension}")
+            fileExtension in MediaExtensions.IMAGE_EXTENSIONS -> createImageFile(context, ".${fileExtension}")
+            else -> createImageFile(context)  // 기본값으로 이미지 파일 생성
         }
         inputStream?.use { input ->
             file.outputStream().use { output ->
