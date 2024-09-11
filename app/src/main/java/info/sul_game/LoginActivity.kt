@@ -1,5 +1,6 @@
-package com.example.sul_game_frontend_practice1
+package info.sul_game
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,11 +12,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sul_game_frontend_practice1.databinding.ActivityLoginBinding
-import com.example.sul_game_frontend_practice1.token.SetToken
-import org.json.JSONObject
-
 import info.sul_game.databinding.ActivityLoginBinding
+import info.sul_game.ui.SignUpActivity
+import info.sul_game.ui.main.MainActivity
+import info.sul_game.ui.token.SetToken
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -47,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("JavascriptInterface")
     private fun setupWebView() {
         binding.wvSocialLoginLogin.settings.apply {
             javaScriptEnabled = true

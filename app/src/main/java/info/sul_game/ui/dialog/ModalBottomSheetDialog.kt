@@ -1,21 +1,21 @@
-package com.example.sul_game_frontend_practice1.dialog
+package info.sul_game.ui.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sul_game_frontend_practice1.R
-import com.example.sul_game_frontend_practice1.databinding.DialogUniversityBinding
 import info.sul_game.ui.recyclerview.University.University
 import info.sul_game.ui.recyclerview.University.UniversityAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import info.sul_game.R
+import info.sul_game.databinding.DialogUniversityBinding
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.Collator
 import java.util.Locale
 
-class ModalBottomSheetDialog  : BottomSheetDialogFragment()  {
+class ModalBottomSheetDialog : BottomSheetDialogFragment() {
     private lateinit var binding: DialogUniversityBinding
     private lateinit var universityNames: List<String>
     private lateinit var sortedUniversityNames: ArrayList<University>
@@ -42,7 +42,12 @@ class ModalBottomSheetDialog  : BottomSheetDialogFragment()  {
         groupedUniversities.forEach { name ->
             if (name.length == 1 && name[0] in 'ㄱ'..'ㅎ') {
                 // 초성인 경우
-                sortedUniversityNames.add(University(0, name)) // "header" 타입을 추가하여 구분
+                sortedUniversityNames.add(
+                    University(
+                        0,
+                        name
+                    )
+                ) // "header" 타입을 추가하여 구분
             } else {
                 // 대학 이름인 경우
                 sortedUniversityNames.add(University(1, name)) // "item" 타입으로 구분

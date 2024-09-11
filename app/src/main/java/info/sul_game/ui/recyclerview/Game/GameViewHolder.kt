@@ -1,9 +1,9 @@
-package com.example.sul_game_frontend_practice1.recyclerview.Game
+package info.sul_game.ui.recyclerview.Game
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sul_game_frontend_practice1.databinding.ItemGameRecyclerviewBinding
+import info.sul_game.databinding.ItemGameRecyclerviewBinding
 
-class GameViewHolder (binding:ItemGameRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
+class GameViewHolder (binding: ItemGameRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
     val title = binding.tvTitleGameItem
     val contents = binding.tvContentsGameItem
     val userName = binding.tvUsernameGameItem

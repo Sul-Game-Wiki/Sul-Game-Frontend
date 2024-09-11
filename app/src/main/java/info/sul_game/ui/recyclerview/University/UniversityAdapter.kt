@@ -1,11 +1,12 @@
-package com.example.sul_game_frontend_practice1.recyclerview.University
+package info.sul_game.ui.recyclerview.University
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sul_game_frontend_practice1.databinding.ItemUniversityNameRecyclerviewBinding
-import com.example.sul_game_frontend_practice1.databinding.ItemUniversitySectionRecyclerviewBinding
+import com.example.sul_game_frontend_practice1.recyclerview.University.UniversityNameViewHolder
+import info.sul_game.databinding.ItemUniversityNameRecyclerviewBinding
+import info.sul_game.databinding.ItemUniversitySectionRecyclerviewBinding
 
 class UniversityAdapter(val universityList: ArrayList<University>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

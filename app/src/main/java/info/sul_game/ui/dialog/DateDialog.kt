@@ -1,4 +1,4 @@
-package com.example.sul_game_frontend_practice1.dialog
+package info.sul_game.ui.dialog
 
 import android.app.Dialog
 import android.graphics.Color
@@ -6,7 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sul_game_frontend_practice1.databinding.DialogDateBinding
+import info.sul_game.databinding.DialogDateBinding
 import java.util.Calendar
 
 class DateDialog (private val context : AppCompatActivity) {

@@ -1,4 +1,4 @@
-package com.example.sul_game_frontend_practice1.recyclerview.Game
+package info.sul_game.ui.recyclerview.Game
 
 data class Game (
     var title: String,

@@ -1,10 +1,10 @@
-package com.example.sul_game_frontend_practice1.recyclerview.LiveChart
+package info.sul_game.ui.recyclerview.LiveChart
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sul_game_frontend_practice1.databinding.ItemChartRecyclerviewBinding
+import info.sul_game.databinding.ItemChartRecyclerviewBinding
 
 class LiveChartAdapter(val liveCharList: ArrayList<LiveChart>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

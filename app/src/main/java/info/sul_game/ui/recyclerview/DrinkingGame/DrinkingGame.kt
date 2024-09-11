@@ -1,4 +1,4 @@
-package com.example.sul_game_frontend_practice1.recyclerview.DrinkingGame
+package info.sul_game.ui.recyclerview.DrinkingGame
 
 data class DrinkingGame (
     var image: Int,

@@ -1,4 +1,4 @@
-package com.example.sul_game_frontend_practice1.token
+package info.sul_game.ui.token
 
 import android.content.Context
 import android.content.SharedPreferences

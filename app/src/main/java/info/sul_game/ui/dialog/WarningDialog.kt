@@ -1,4 +1,4 @@
-package com.example.sul_game_frontend_practice1.dialog
+package info.sul_game.ui.dialog
 
 import android.app.Dialog
 import android.content.Intent
@@ -7,10 +7,8 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sul_game_frontend_practice1.ConfirmationActivity
-import com.example.sul_game_frontend_practice1.databinding.DialogDateBinding
-import com.example.sul_game_frontend_practice1.databinding.DialogWarningBinding
-import java.util.Calendar
+import info.sul_game.ConfirmationActivity
+import info.sul_game.databinding.DialogWarningBinding
 
 class WarningDialog (private val context : AppCompatActivity) {
 

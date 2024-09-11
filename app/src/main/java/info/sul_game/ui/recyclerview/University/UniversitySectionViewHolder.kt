@@ -1,8 +1,7 @@
-package com.example.sul_game_frontend_practice1.recyclerview.University
+package info.sul_game.ui.recyclerview.University
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sul_game_frontend_practice1.databinding.ItemUniversityNameRecyclerviewBinding
-import com.example.sul_game_frontend_practice1.databinding.ItemUniversitySectionRecyclerviewBinding
+import info.sul_game.databinding.ItemUniversitySectionRecyclerviewBinding
 
 class UniversitySectionViewHolder(binding: ItemUniversitySectionRecyclerviewBinding) :
     RecyclerView.ViewHolder(binding.root) {

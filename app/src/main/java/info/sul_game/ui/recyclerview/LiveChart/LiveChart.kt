@@ -1,4 +1,4 @@
-package com.example.sul_game_frontend_practice1.recyclerview.LiveChart
+package info.sul_game.ui.recyclerview.LiveChart
 
 data class LiveChart(
     var image: Int,

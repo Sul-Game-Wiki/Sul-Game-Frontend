@@ -16,6 +16,7 @@ class CreateCreateGameAdapter(private val items: MutableList<MediaItem>, private
     private var totalItemCnt = 0
     private var videoExists = false
     private var audioExists = false
+    private var totalExists = false
     fun isVideoExist(): Boolean{
         if(videoItemCnt<=0){
             videoExists=false
@@ -28,6 +29,12 @@ class CreateCreateGameAdapter(private val items: MutableList<MediaItem>, private
         }else{audioExists=true}
         return audioExists
 
+    }
+    fun isTotalExists():Boolean{
+        if(totalItemCnt>0){
+            totalExists = true
+        }else{totalExists = false}
+        return totalExists
     }
 
     override fun onCreateViewHolder(

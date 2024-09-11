@@ -1,4 +1,4 @@
-package com.example.sul_game_frontend_practice1
+package info.sul_game.ui
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -6,16 +6,17 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
-import com.example.sul_game_frontend_practice1.databinding.ActivitySignUpBinding
-import com.example.sul_game_frontend_practice1.dialog.DateDialog
-import com.example.sul_game_frontend_practice1.dialog.ModalBottomSheetDialog
-import com.example.sul_game_frontend_practice1.dialog.WarningDialog
+import info.sul_game.R
+import info.sul_game.ui.dialog.DateDialog
+import info.sul_game.ui.dialog.ModalBottomSheetDialog
+import info.sul_game.ui.dialog.WarningDialog
+import info.sul_game.StartActivity
+import info.sul_game.databinding.ActivitySignUpBinding
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat

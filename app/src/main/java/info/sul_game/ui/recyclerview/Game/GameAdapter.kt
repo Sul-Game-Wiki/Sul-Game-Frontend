@@ -1,10 +1,10 @@
-package com.example.sul_game_frontend_practice1.recyclerview.Game
+package info.sul_game.ui.recyclerview.Game
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sul_game_frontend_practice1.databinding.ItemGameRecyclerviewBinding
+import info.sul_game.databinding.ItemGameRecyclerviewBinding
 
 class GameAdapter (val gameList: ArrayList<Game>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
