@@ -1,9 +1,8 @@
-package com.example.sul_game_frontend_practice1.info
+package info.sul_game.data.source.remote
 
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import com.example.sul_game_frontend_practice1.MyApplication
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

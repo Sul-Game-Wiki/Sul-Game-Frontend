@@ -10,17 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 
 import info.sul_game.databinding.ActivityMainBinding
-import info.sul_game.ui.mypage.FavorPost
-import info.sul_game.ui.mypage.FavorPostAdapter
-import info.sul_game.ui.mypage.MyPost
-import info.sul_game.ui.mypage.MyPostAdapter
 import com.bumptech.glide.Glide
-import com.example.sul_game_frontend_practice1.databinding.ActivityMainBinding
-import com.example.sul_game_frontend_practice1.mypage.LikedPost
-import com.example.sul_game_frontend_practice1.mypage.LikedPostAdapter
-import com.example.sul_game_frontend_practice1.mypage.MyPost
-import com.example.sul_game_frontend_practice1.mypage.MyPostAdapter
-import com.example.sul_game_frontend_practice1.retrofit.NetworkManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import info.sul_game.ui.search.SearchActivity
 import android.Manifest
@@ -35,8 +25,15 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.sul_game_frontend_practice1.mypage.BookmarkedPost
-import com.example.sul_game_frontend_practice1.mypage.BookmarkedPostAdapter
+import info.sul_game.ui.mypage.BookmarkedPost
+import info.sul_game.ui.mypage.BookmarkedPostAdapter
+import info.sul_game.ui.mypage.LikedPost
+import info.sul_game.ui.mypage.LikedPostAdapter
+import info.sul_game.ui.mypage.MyPost
+import info.sul_game.ui.mypage.MyPostAdapter
+import info.sul_game.R
+import info.sul_game.data.source.remote.MyApplication
+import info.sul_game.data.source.remote.NetworkManager
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream

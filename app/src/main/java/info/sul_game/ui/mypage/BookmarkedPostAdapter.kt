@@ -3,11 +3,7 @@ package info.sul_game.ui.mypage
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-<<<<<<<< HEAD:app/src/main/java/info/sul_game/ui/mypage/BookmarkedPostAdapter.kt
-import com.example.sul_game_frontend_practice1.databinding.ItemFavorpostRecyclerviewBinding
-========
 import info.sul_game.databinding.ItemFavorpostRecyclerviewBinding
->>>>>>>> refs/heads/main:app/src/main/java/info/sul_game/ui/mypage/FavorPostAdapter.kt
 
 class BookmarkedPostAdapter(private var item : List<BookmarkedPost>) : RecyclerView.Adapter<BookmarkedPostAdapter.FavorPostHolder>() {
 

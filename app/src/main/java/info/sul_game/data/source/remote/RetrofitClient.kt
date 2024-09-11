@@ -39,21 +39,30 @@
 //}
 package info.sul_game.data.source.remote
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     private const val BASE_URL = "https://api.sul-game.info/api/"
-    private var retrofit: Retrofit? = null
 
-    fun getClient(): Retrofit {
-        if (retrofit == null) {
-            retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return retrofit!!
+    private val gson: Gson by lazy {
+        GsonBuilder()
+            .setLenient()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSS")  // 서버의 날짜 형식에 맞게 설정
+            .create()
+    }
+
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    val apiService: Api by lazy {
+        retrofit.create(Api::class.java)
     }
 }
 
