@@ -13,6 +13,7 @@
   <application
     android:allowBackup="true"
     android:dataExtractionRules="@xml/data_extraction_rules"
+    android:name=".data.source.remote.MyApplication"
     android:fullBackupContent="@xml/backup_rules"
     android:icon="@mipmap/ic_launcher"
     android:roundIcon="@mipmap/ic_launcher_round"
@@ -53,10 +54,10 @@
     <activity
       android:exported="true"
       android:name="info.sul_game.ui.create.Create">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
+<!--      <intent-filter>-->
+<!--        <action android:name="android.intent.action.MAIN" />-->
+<!--        <category android:name="android.intent.category.LAUNCHER" />-->
+<!--      </intent-filter>-->
     </activity>
 
     <activity
@@ -74,7 +75,12 @@
       android:exported="false"
       android:name="info.sul_game.ui.detail.CreateDetail" />
     <activity
-      android:exported="false"
-      android:name="info.sul_game.ui.main.MainActivity" />
+      android:exported="true"
+      android:name="info.sul_game.ui.main.MainActivity" >
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
   </application>
 </manifest>
