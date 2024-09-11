@@ -4,14 +4,14 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".MainActivity">
+  tools:context=".ui.main.MainActivity">
 
   <!-- 메인 화면의 content -->
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.sul_game_frontend_practice1.search.CustomSearchView
+    <info.sul_game.ui.search.CustomSearchView
       android:id="@+id/searchview_main"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
