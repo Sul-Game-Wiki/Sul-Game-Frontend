@@ -1,13 +1,12 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("com.android.application") version "8.6.0"
+    id("org.jetbrains.kotlin.android") version "1.9.0"
     id("kotlin-parcelize")
 }
 
 android {
-    namespace = "com.example.sul_game_frontend_practice1"
+    namespace = "info.sul_game"
     compileSdk = 34
-
 
     buildFeatures{
         viewBinding = true
@@ -19,7 +18,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.sul_game_frontend_practice1"
+        applicationId = "info.sul_game"
         minSdk = 33
         targetSdk = 34
         versionCode = 1
@@ -85,9 +84,6 @@ dependencies {
     // CircleImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
-
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    implementation ("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 }

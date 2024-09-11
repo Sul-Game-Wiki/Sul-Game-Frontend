@@ -4,6 +4,13 @@
   android:targetSandboxVersion="1">
 
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.CAMERA"/>
+  <uses-feature android:name="android.hardware.camera" android:required="true" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
 
   <application
     android:allowBackup="true"
@@ -15,61 +22,66 @@
     android:theme="@style/Theme.SulGameFrontendpractice1"
     android:networkSecurityConfig="@xml/network_security_config"
     android:usesCleartextTraffic="true"
+    android:requestLegacyExternalStorage="true"
     tools:targetApi="31">
     <activity
       android:exported="false"
       android:name=".SignUpActivity" />
+    <provider
+      android:name="androidx.core.content.FileProvider"
+      android:authorities="${applicationId}.fileprovider"
+      android:exported="false"
+      android:grantUriPermissions="true">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/file_paths" />
+    </provider>
     <activity
       android:exported="false"
-      android:name=".SearchActivity" />
+      android:name="info.sul_game.ui.search.SearchActivity" />
     <activity
       android:exported="false"
-      android:name=".ConfirmationActivity" />
+      android:name="info.sul_game.ConfirmationActivity" />
     <activity
       android:exported="false"
-      android:name=".PermissionActivity" />
+      android:name="info.sul_game.PermissionActivity"/>
     <activity
       android:exported="false"
-      android:name=".SchoolActivity" />
+      android:name="info.sul_game.SchoolActivity" />
     <activity
       android:exported="false"
-      android:name=".BirthActivity" />
+      android:name="info.sul_game.BirthActivity" />
     <activity
       android:exported="false"
-      android:name=".NicknameActivity" />
+      android:name="info.sul_game.NicknameActivity" />
     <activity
       android:exported="false"
-      android:name=".LoginActivity" />
+      android:name="info.sul_game.LoginActivity" />
     <activity
       android:exported="true"
-
-      android:name=".StartActivity">
-
+      android:name="info.sul_game.ui.create.Create">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+
     <activity
       android:exported="false"
-      android:name=".create.IntroCreate" />
+      android:name="info.sul_game.ui.official.OfficialCreate" />
+
+
     <activity
       android:exported="false"
-      android:name=".create.OfficialCreate" />
-      <activity
-      android:exported="false"
-  android:name=".create.Create"/>
+      android:name="info.sul_game.StartActivity" />
     <activity
       android:exported="false"
-      android:name=".create.CreateCreate" />
+      android:name="info.sul_game.ui.detail.OfficialDetail" />
     <activity
       android:exported="false"
-      android:name=".detail.OfficialDetail" />
+      android:name="info.sul_game.ui.detail.CreateDetail" />
     <activity
       android:exported="false"
-      android:name=".detail.CreateDetail" />
-    <activity
-      android:exported="false"
-      android:name=".MainActivity" />
+      android:name="info.sul_game.ui.main.MainActivity" />
   </application>
 </manifest>
