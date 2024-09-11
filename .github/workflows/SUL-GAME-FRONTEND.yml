@@ -35,10 +35,9 @@ jobs:
         echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
         echo "STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}" >> $GITHUB_ENV
 
-    - name: Update Gradle wrapper and dependencies
+    - name: Update Gradle wrapper
       run: |
-        ./gradlew wrapper --gradle-version 8.1.1
-        ./gradlew dependencies --refresh-dependencies
+        ./gradlew wrapper --gradle-version 8.7
 
     - name: Build with Gradle
       run: ./gradlew bundleRelease assembleRelease
