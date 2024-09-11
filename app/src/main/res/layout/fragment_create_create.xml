@@ -5,7 +5,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="#EFEFEF"
   android:id="@+id/create_create_xml">
 
   <LinearLayout
@@ -31,6 +30,7 @@
       android:layout_height="wrap_content"
       android:text="인트로가 있나요?"/>
     <RadioGroup
+      android:id="@+id/rg_intro_create"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingHorizontal="10dp"
@@ -52,40 +52,44 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"
       android:id="@+id/ll_intro_create"
-      android:visibility="gone">
-    <TextView
-      android:id="@+id/tv2_create"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="인트로"/>
-    <EditText
-      android:id="@+id/et_intro_lyrics_create"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:visibility="gone"
 
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="70dp"
-      android:orientation="horizontal">
-    <ImageButton
-      android:id="@+id/btn_intro_camera_create"
-      android:layout_width="100dp"
-      android:layout_height="match_parent"
-      android:src="@drawable/btn_camera"/>
-    <ImageButton
-      android:id="@+id/btn_intro_record_create"
-      android:layout_width="100dp"
-      android:layout_height="match_parent"/>
-    <ImageButton
-      android:id="@+id/btn_intro_file_create"
-      android:layout_width="100dp"
-      android:layout_height="match_parent"/>
-    </LinearLayout>
-      <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:visibility="gone"
-        android:id="@+id/rv_intro_create"/>
+      >
+            <TextView
+              android:id="@+id/tv2_create"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="인트로"/>
+            <EditText
+              android:id="@+id/et_intro_lyrics_create"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+
+            <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="70dp"
+              android:orientation="horizontal">
+                    <ImageButton
+                      android:id="@+id/btn_intro_Video_create"
+                      android:layout_width="100dp"
+                      android:layout_height="match_parent"
+                      android:src="@drawable/btn_camera"/>
+                    <ImageButton
+                      android:id="@+id/btn_intro_Audio_create"
+                      android:layout_width="100dp"
+                      android:layout_height="match_parent"
+                      android:src="@drawable/btn_audio"/>
+                    <ImageButton
+                      android:id="@+id/btn_intro_file_create"
+                      android:layout_width="100dp"
+                      android:layout_height="match_parent"
+                      android:src="@drawable/btn_file"/>
+            </LinearLayout>
+              <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:visibility="gone"
+                android:id="@+id/rv_intro_create"/>
 
     </LinearLayout>
 
@@ -121,7 +125,7 @@
       android:id="@+id/btn_gallery_create"
       android:layout_width="100dp"
       android:layout_height="match_parent"
-      android:src="@drawable/btn_album"/>
+      android:src="@drawable/btn_gallery"/>
 
     </LinearLayout>
 
