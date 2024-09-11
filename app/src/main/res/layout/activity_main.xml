@@ -86,72 +86,6 @@
         android:background="@color/white">
 
         <LinearLayout
-          android:id="@+id/container_button_mypage"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center_vertical"
-          android:orientation="vertical"
-          android:paddingHorizontal="28dp"
-          app:layout_constraintBottom_toTopOf="@id/container_footer_mypage"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/tv_university_mypage">
-
-          <Button
-            android:id="@+id/btn_mypost_mypage"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_round_border_20"
-            android:backgroundTint="@color/main_color"
-            android:paddingVertical="9dp"
-            android:text="내 게시글"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-          <Button
-            android:id="@+id/btn_favorpost_mypage"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:background="@drawable/white_round_border_20"
-            android:backgroundTint="@color/main_color"
-            android:paddingVertical="9dp"
-            android:text="즐겨찾기 게시글"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-          <Button
-            android:id="@+id/btn_editprofile_mypage"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:background="@drawable/white_round_border_20"
-            android:backgroundTint="@color/main_color"
-            android:paddingVertical="9dp"
-            android:text="프로필 편집"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-          <Button
-            android:id="@+id/btn_myinfo_mypage"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:background="@drawable/white_round_border_20"
-            android:backgroundTint="@color/main_color"
-            android:paddingVertical="9dp"
-            android:text="내 정보 보기"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
           android:id="@+id/container_footer_mypage"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -163,21 +97,21 @@
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
+            android:layout_marginVertical="3dp"
             android:text="회월탈퇴 / 로그아웃"
             android:textColor="@color/deep_gray"
             android:textSize="14sp" />
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
+            android:layout_marginVertical="3dp"
             android:text="개인정보처리방침"
             android:textColor="@color/deep_gray"
             android:textSize="14sp" />
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
+            android:layout_marginVertical="3dp"
             android:text="이용약관"
             android:textColor="@color/deep_gray"
             android:textSize="14sp" />
@@ -185,11 +119,11 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
           android:id="@+id/civ_profile_mypage"
-          android:layout_width="149dp"
-          android:layout_height="149dp"
-          android:layout_marginTop="35dp"
-          android:src="#D9D9D9"
-          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_width="64dp"
+          android:layout_height="64dp"
+          android:src="@color/light_gray"
+          android:layout_marginTop="52dp"
+          android:layout_marginStart="25dp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
 
@@ -197,27 +131,225 @@
           android:id="@+id/tv_username_mypage"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="11dp"
           android:fontFamily="@font/galmuri11bold"
-          android:text="유저명"
-          android:textColor="@color/deep_gray"
-          android:textSize="36sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/civ_profile_mypage" />
+          android:text="구해조님"
+          android:textColor="@color/black"
+          android:textSize="24sp"
+          android:layout_marginStart="17dp"
+          app:layout_constraintStart_toEndOf="@+id/civ_profile_mypage"
+          app:layout_constraintTop_toTopOf="@id/civ_profile_mypage" />
 
         <TextView
           android:id="@+id/tv_university_mypage"
           android:textStyle="bold"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:text="XX대학교"
+          android:text="세종대학교"
+          android:textColor="@color/deep_gray"
+          android:textSize="18sp"
+          app:layout_constraintBottom_toBottomOf="@+id/civ_profile_mypage"
+          app:layout_constraintStart_toStartOf="@+id/tv_username_mypage"
+          app:layout_constraintTop_toBottomOf="@id/tv_username_mypage" />
+
+        <ImageView
+          android:id="@+id/iv_emblem_mypage"
+          android:layout_width="23dp"
+          android:layout_height="23dp"
+          android:src="@color/light_gray"
+          android:layout_marginStart="10dp"
+          app:layout_constraintBottom_toTopOf="@+id/tv_university_mypage"
+          app:layout_constraintStart_toEndOf="@+id/tv_username_mypage"
+          app:layout_constraintTop_toTopOf="@+id/tv_username_mypage" />
+
+        <TextView
+          android:id="@+id/tv_text1_mypage"
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="다음 등급까지 남은 포인트"
+          android:textColor="#424242"
+          android:textSize="18sp"
+          android:layout_marginTop="25dp"
+          app:layout_constraintStart_toStartOf="@+id/civ_profile_mypage"
+          app:layout_constraintTop_toBottomOf="@+id/civ_profile_mypage" />
+
+        <TextView
+          android:id="@+id/tv_exp_mypage"
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="300 포인트"
+          android:textColor="@color/main_color"
+          android:textSize="24sp"
+          app:layout_constraintStart_toStartOf="@+id/tv_text1_mypage"
+          app:layout_constraintTop_toBottomOf="@+id/tv_text1_mypage" />
+
+        <ProgressBar
+          android:id="@+id/progressbar_exp_mypage"
+          style="@style/HorizontalProgressBarStyle"
+          android:layout_width="0dp"
+          android:layout_height="12dp"
+          android:layout_marginEnd="14dp"
+          android:max="700"
+          android:progress="80"
+          android:progressDrawable="@drawable/progress_bar_green"
+          app:layout_constraintBottom_toBottomOf="@+id/iv_next_emblem_mypage"
+          app:layout_constraintEnd_toStartOf="@+id/iv_next_emblem_mypage"
+          app:layout_constraintStart_toStartOf="@+id/tv_text1_mypage"
+          app:layout_constraintTop_toBottomOf="@+id/tv_exp_mypage" />
+
+        <ImageView
+          android:id="@+id/iv_next_emblem_mypage"
+          android:layout_width="32dp"
+          android:layout_height="32dp"
+          android:layout_marginEnd="17dp"
+          android:src="@color/light_gray"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/tv_exp_mypage" />
+
+        <TextView
+          android:id="@+id/tv_min_exp_mypage"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="0 포인트"
+          android:textSize="15sp"
+          android:textColor="@color/deep_gray"
+          android:layout_marginTop="3dp"
+          app:layout_constraintStart_toStartOf="@+id/progressbar_exp_mypage"
+          app:layout_constraintTop_toBottomOf="@+id/progressbar_exp_mypage" />
+
+        <TextView
+          android:id="@+id/tv_max_exp_mypage"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="700 포인트"
           android:textColor="@color/deep_gray"
           android:textSize="15sp"
+          app:layout_constraintEnd_toEndOf="@+id/progressbar_exp_mypage"
+          app:layout_constraintTop_toBottomOf="@+id/progressbar_exp_mypage" />
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:layout_marginTop="60dp"
+          android:layout_marginHorizontal="15dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/tv_username_mypage" />
+          app:layout_constraintTop_toBottomOf="@+id/tv_min_exp_mypage">
+
+          <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+              android:id="@+id/tv_mypost_mypage"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="내 게시글"
+              android:textColor="@color/deep_gray"
+              android:textSize="14sp" />
+
+            <Button
+              android:id="@+id/btn_mypost_mypage"
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+              android:background="@drawable/ic_mypost" />
+          </LinearLayout>
+
+          <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:background="#EFEFEF"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+          <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="즐겨찾기"
+              android:textColor="@color/deep_gray"
+              android:textSize="14sp" />
+
+            <Button
+              android:id="@+id/btn_bookmark_mypage"
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+              android:background="@drawable/ic_bookmarked_post" />
+
+          </LinearLayout>
+
+          <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:background="#EFEFEF"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+          <LinearLayout
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="좋아요 게시글"
+              android:textColor="@color/deep_gray"
+              android:textSize="14sp" />
+
+            <Button
+              android:id="@+id/btn_likedpost_mypage"
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+              android:background="@drawable/ic_liked_post" />
+
+          </LinearLayout>
+
+          <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:background="#EFEFEF"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+          <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="계정 설정"
+              android:textColor="@color/deep_gray"
+              android:textSize="14sp" />
+
+            <Button
+              android:id="@+id/btn_profile_setting_mypage"
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+              android:background="@drawable/ic_setting" />
+
+          </LinearLayout>
+
+
+        </LinearLayout>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -246,7 +378,25 @@
         android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/recyclerview_favorpost"
+          android:id="@+id/recyclerview_bookmarkedpost"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          tools:listitem="@layout/item_favorpost_recyclerview"/>
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <!-- 좋아요 게시글 -->
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerview_likedpost"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -263,176 +413,15 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <LinearLayout
-          android:id="@+id/container_et_editprofile"
-          android:layout_width="match_parent"
-          android:layout_height="0dp"
-          android:gravity="center_vertical"
-          android:orientation="vertical"
-          android:layout_marginTop="60dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/civ_profile_editprofile"
+          android:layout_width="149dp"
+          android:layout_height="149dp"
+          android:layout_marginTop="35dp"
+          android:src="#D9D9D9"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/tv_editprofile_editprofile"
-          app:layout_constraintBottom_toBottomOf="parent">
-
-          <LinearLayout
-            android:id="@+id/linear1_editprofile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:padding="5dp"
-            android:background="@drawable/white_round_border_edittext"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:paddingStart="5dp"
-              android:text="닉네임"
-              android:textSize="14sp" />
-            <EditText
-              android:id="@+id/et1_editprofile"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:minWidth="48dp"
-              android:minHeight="36dp"
-              android:textSize="14sp"
-              android:textStyle="bold"
-              android:textColor="@color/deep_gray"
-              android:layout_marginEnd="6dp"
-              android:layout_weight="4"
-              android:paddingHorizontal="5dp"
-              android:background="@null"
-              android:text="구해조" />
-
-          </LinearLayout>
-
-          <LinearLayout
-            android:id="@+id/linear2_editprofile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:padding="5dp"
-            android:background="@drawable/white_round_border_edittext"
-            android:layout_marginTop="14dp"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:paddingStart="5dp"
-              android:text="이메일"
-              android:textSize="14sp" />
-            <EditText
-              android:id="@+id/et2_editprofile"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:minWidth="48dp"
-              android:minHeight="36dp"
-              android:textSize="14sp"
-              android:textStyle="bold"
-              android:textColor="@color/deep_gray"
-              android:layout_marginEnd="6dp"
-              android:layout_weight="4"
-              android:paddingHorizontal="5dp"
-              android:background="@null"
-              android:text="xxxx@gmail.com" />
-
-          </LinearLayout>
-
-          <LinearLayout
-            android:id="@+id/linear3_editprofile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:padding="5dp"
-            android:background="@drawable/white_round_border_edittext"
-            android:layout_marginTop="14dp"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:paddingStart="5dp"
-              android:text="생년월일"
-              android:textSize="14sp" />
-            <EditText
-              android:id="@+id/et3_editprofile"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:minWidth="48dp"
-              android:minHeight="36dp"
-              android:textSize="14sp"
-              android:textStyle="bold"
-              android:textColor="@color/deep_gray"
-              android:layout_marginEnd="6dp"
-              android:layout_weight="4"
-              android:paddingHorizontal="5dp"
-              android:background="@null"
-              android:text="xxxx.xx.xx" />
-
-          </LinearLayout>
-
-          <LinearLayout
-            android:id="@+id/linear4_editprofile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:padding="5dp"
-            android:background="@drawable/white_round_border_edittext"
-            android:layout_marginTop="14dp"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:paddingStart="5dp"
-              android:text="대학교"
-              android:textSize="14sp" />
-            <EditText
-              android:id="@+id/et4_editprofile"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:minWidth="48dp"
-              android:minHeight="36dp"
-              android:textSize="14sp"
-              android:textStyle="bold"
-              android:textColor="@color/deep_gray"
-              android:layout_marginEnd="6dp"
-              android:layout_weight="4"
-              android:paddingHorizontal="5dp"
-              android:background="@null"
-              android:text="세종대학교" />
-
-          </LinearLayout>
-
-
-
-
-          <Button
-            android:id="@+id/btn_sumbit_editprofile"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_round_border_20"
-            android:backgroundTint="@color/main_color"
-            android:layout_marginTop="60dp"
-            android:text="등록하기"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:layout_marginHorizontal="28dp" />
-
-
-
-        </LinearLayout>
+          app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
           android:id="@+id/tv_editprofile_editprofile"
@@ -446,65 +435,183 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/civ_profile_editprofile" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-          android:id="@+id/civ_profile_editprofile"
-          android:layout_width="149dp"
-          android:layout_height="149dp"
-          android:layout_marginTop="35dp"
-          android:src="#D9D9D9"
+        <LinearLayout
+          android:id="@+id/linear1_editprofile"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="10dp"
+          android:padding="5dp"
+          android:background="@drawable/white_round_border_edittext"
+          android:orientation="horizontal"
+          android:weightSum="5"
+          android:layout_marginTop="50dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+          app:layout_constraintTop_toBottomOf="@id/tv_editprofile_editprofile">
 
+          <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="5dp"
+            android:text="닉네임"
+            android:textSize="14sp" />
+          <EditText
+            android:id="@+id/et1_editprofile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="36dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/deep_gray"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="4"
+            android:paddingHorizontal="5dp"
+            android:background="@null"
+            android:text="구해조" />
 
+        </LinearLayout>
 
+        <LinearLayout
+          android:id="@+id/linear2_editprofile"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="10dp"
+          android:padding="5dp"
+          android:background="@drawable/white_round_border_edittext"
+          android:layout_marginTop="14dp"
+          android:orientation="horizontal"
+          android:weightSum="5"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/linear1_editprofile">
+
+          <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="5dp"
+            android:text="이메일"
+            android:textSize="14sp" />
+          <EditText
+            android:id="@+id/et2_editprofile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="36dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/deep_gray"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="4"
+            android:paddingHorizontal="5dp"
+            android:background="@null"
+            android:text="sejong@gmail.com" />
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/linear3_editprofile"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="10dp"
+          android:padding="5dp"
+          android:background="@drawable/white_round_border_edittext"
+          android:layout_marginTop="14dp"
+          android:orientation="horizontal"
+          android:weightSum="5"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/linear2_editprofile">
+
+          <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="5dp"
+            android:text="생년월일"
+            android:textSize="14sp" />
+          <EditText
+            android:id="@+id/et3_editprofile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="36dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/deep_gray"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="4"
+            android:paddingHorizontal="5dp"
+            android:maxLength="10"
+            android:drawableEnd="@drawable/ic_calendar"
+            android:focusable="false"
+            android:clickable="true"
+            android:background="@null"
+            android:text="2000-01-01" />
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/linear4_editprofile"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="10dp"
+          android:padding="5dp"
+          android:background="@drawable/white_round_border_edittext"
+          android:layout_marginTop="14dp"
+          android:orientation="horizontal"
+          android:weightSum="5"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/linear3_editprofile">
+
+          <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="5dp"
+            android:text="대학교"
+            android:textSize="14sp" />
+          <EditText
+            android:id="@+id/et4_editprofile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="36dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/deep_gray"
+            android:completionThreshold="1"
+            android:dropDownVerticalOffset="8dp"
+            android:drawableEnd="@drawable/ic_arrow_down"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="4"
+            android:paddingHorizontal="5dp"
+            android:background="@null"
+            android:text="세종대학교" />
+
+        </LinearLayout>
+
+        <Button
+          android:id="@+id/btn_sumbit_editprofile"
+          android:textStyle="bold"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@drawable/white_round_border_20"
+          android:backgroundTint="@color/main_color"
+          android:layout_marginTop="60dp"
+          android:text="등록하기"
+          android:textColor="@color/white"
+          android:textSize="20sp"
+          android:layout_marginHorizontal="28dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/linear4_editprofile"/>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 
-      <!-- 내 정보보기 -->
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:background="@color/white">
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="총 좋아요 개수 : 0"
-          android:textColor="@color/deep_gray"
-          android:textSize="20sp"/>
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="총 댓글 개수 : 0"
-          android:textColor="@color/deep_gray"
-          android:textSize="20sp"/>
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="총 게시글 개수 : 0"
-          android:textColor="@color/deep_gray"
-          android:textSize="20sp"/>
-
-        <ProgressBar
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          style="?android:attr/progressBarStyleHorizontal"
-          android:max="100"
-          android:progress="10"/>
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="10/100"
-          android:textColor="@color/deep_gray"
-          android:textSize="20sp"/>
-
-      </LinearLayout>
 
     </ViewFlipper>
 

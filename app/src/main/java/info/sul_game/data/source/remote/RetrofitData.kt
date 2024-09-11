@@ -7,7 +7,7 @@ data class OfficialCreateResponse(
     val memberId: Int,
     val description: String,
     val sourceType: String,
-    val basePost: Object,
+    val basePost: BasePost,
     val introductionr:String,
     val title:String,
     val multipartFiles: Array,

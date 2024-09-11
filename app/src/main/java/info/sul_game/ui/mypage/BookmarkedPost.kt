@@ -1,8 +1,7 @@
 package info.sul_game.ui.mypage
 
-data class FavorPost(
+data class BookmarkedPost(
     val title : String,
-    val sentence : String,
-    val isFavorite : Boolean,
+    val introduction : String,
     val writer : String
 )
