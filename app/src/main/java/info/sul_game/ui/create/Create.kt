@@ -1,11 +1,10 @@
 package info.sul_game.ui.create
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-
 import info.sul_game.databinding.ActivityCreateBinding
 import info.sul_game.ui.intro.IntroCreateFragment
 

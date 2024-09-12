@@ -1,7 +1,7 @@
 package info.sul_game.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import info.sul_game.R
 import info.sul_game.databinding.ActivityCreateDetailBinding
 
@@ -17,7 +17,7 @@ class CreateDetail : AppCompatActivity() {
         createDetailList.add(
             CreateDetailComment("다예"
                 ,"아아아아 힘들어"
-                ,R.drawable.btn_star_on
+                , R.drawable.btn_star_on
             )
         )
         createDetailList.add(
