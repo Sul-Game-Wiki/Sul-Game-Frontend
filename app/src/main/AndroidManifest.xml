@@ -10,8 +10,6 @@
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-
-
   <application
     android:allowBackup="true"
     android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,7 +26,7 @@
     tools:targetApi="31">
     <activity
       android:exported="false"
-      android:name=".ui.SignUpActivity" />
+      android:name=".activity.SignUpActivity" />
     <provider
       android:name="androidx.core.content.FileProvider"
       android:authorities="${applicationId}.fileprovider"
@@ -40,16 +38,16 @@
     </provider>
     <activity
       android:exported="false"
-      android:name="info.sul_game.ui.search.SearchActivity" />
+      android:name="info.sul_game.activity.SearchActivity" />
     <activity
       android:exported="false"
-      android:name="info.sul_game.ConfirmationActivity" />
+      android:name="info.sul_game.activity.SignUpConfirmationActivity" />
     <activity
       android:exported="false"
-      android:name=".LoginActivity" />
+      android:name=".activity.SignInActivity" />
     <activity
       android:exported="true"
-      android:name="info.sul_game.ui.create.Create">
+      android:name="info.sul_game.activity.CreatePostActivity">
 <!--      <intent-filter>-->
 <!--        <action android:name="android.intent.action.MAIN" />-->
 <!--        <category android:name="android.intent.category.LAUNCHER" />-->
@@ -62,21 +60,23 @@
 
 
     <activity
-      android:exported="false"
-      android:name="info.sul_game.StartActivity" />
-    <activity
-      android:exported="false"
-      android:name="info.sul_game.ui.detail.OfficialDetail" />
-    <activity
-      android:exported="false"
-      android:name="info.sul_game.ui.detail.CreateDetail" />
-    <activity
       android:exported="true"
-      android:name="info.sul_game.ui.main.MainActivity" >
+      android:name="info.sul_game.activity.SplashActivity" >
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
+    </activity>
+    <activity
+      android:exported="false"
+      android:name="info.sul_game.activity.OfficialGameDetailActivity" />
+    <activity
+      android:exported="false"
+      android:name="info.sul_game.activity.CreationGameDetailActivity" />
+    <activity
+      android:exported="true"
+      android:name="info.sul_game.activity.MainActivity" >
+
     </activity>
   </application>
 </manifest>
