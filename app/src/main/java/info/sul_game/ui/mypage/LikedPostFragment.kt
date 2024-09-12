@@ -26,12 +26,21 @@ class LikedPostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mockPostList = mutableListOf<LikedPost>()
+        val mockPostList = mutableListOf<MyPagePost>()
 
-        mockPostList.add(LikedPost("어목조동", "자연과 함께하는 술게임", "구해조"))
-        mockPostList.add(LikedPost("딸기당근수박참외 찍고", "지목이 더해진 과일게임", "구해조"))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
 
-        binding.recyclerviewLikedpost.adapter = LikedPostAdapter(mockPostList)
+
+        binding.recyclerviewLikedpost.adapter = MyPagePostAdapter(mockPostList)
         binding.recyclerviewLikedpost.layoutManager = LinearLayoutManager(context)
         binding.recyclerviewLikedpost.addItemDecoration(DividerItemDecoration(context, VERTICAL))
     }

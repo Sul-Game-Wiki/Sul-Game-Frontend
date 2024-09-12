@@ -27,12 +27,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import info.sul_game.ui.mypage.BookmarkedPost
-import info.sul_game.ui.mypage.BookmarkedPostAdapter
-import info.sul_game.ui.mypage.LikedPost
-import info.sul_game.ui.mypage.LikedPostAdapter
-import info.sul_game.ui.mypage.MyPost
-import info.sul_game.ui.mypage.MyPostAdapter
 import info.sul_game.R
 import info.sul_game.data.source.remote.MyApplication
 import info.sul_game.data.source.remote.NetworkManager

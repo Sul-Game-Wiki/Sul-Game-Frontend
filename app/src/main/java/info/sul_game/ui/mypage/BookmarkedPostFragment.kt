@@ -26,12 +26,20 @@ class BookmarkedPostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mockPostList = mutableListOf<BookmarkedPost>()
+        val mockPostList = mutableListOf<MyPagePost>()
 
-        mockPostList.add(BookmarkedPost("어목조동", "자연과 함께하는 술게임", "구해조"))
-        mockPostList.add(BookmarkedPost("딸기당근수박참외 찍고", "지목이 더해진 과일게임", "구해조"))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        mockPostList.add(MyPagePost("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
 
-        binding.recyclerviewBookmarkedpost.adapter = BookmarkedPostAdapter(mockPostList)
+        binding.recyclerviewBookmarkedpost.adapter = MyPagePostAdapter(mockPostList)
         binding.recyclerviewBookmarkedpost.layoutManager = LinearLayoutManager(context)
         binding.recyclerviewBookmarkedpost.addItemDecoration(DividerItemDecoration(context, VERTICAL))
     }
