@@ -12,9 +12,9 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import info.sul_game.ui.main.MainActivity
 import info.sul_game.databinding.ActivityLoginBinding
 import info.sul_game.ui.SignUpActivity
-import info.sul_game.ui.main.MainActivity
 import info.sul_game.ui.token.SetToken
 import org.json.JSONObject
 
@@ -156,7 +156,13 @@ class LoginActivity : AppCompatActivity() {
 
             runOnUiThread {
                 Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
-                // TODO: 다음 화면으로 이동하는 로직 추가
+                if(loginAccountStatus == "PENDING"){
+                    startActivity(Intent(this, SignUpActivity::class.java))
+                    finish()
+                }else{
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
             }
         } else {
             Log.e("술겜위키", "RefreshToken이 비어있습니다.")
@@ -188,14 +194,6 @@ class LoginActivity : AppCompatActivity() {
             putString("nickname", nickname)
             putString("email", email)
             apply()
-        }
-
-        if(loginAccountStatus == "PENDING"){
-            startActivity(Intent(this, SignUpActivity::class.java))
-            finish()
-        }else{
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
         }
     }
 }

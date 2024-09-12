@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sul_game_frontend_practice1.recyclerview.DrinkingGame.DrinkingGameViewHolder
+
 import info.sul_game.databinding.ItemDrinkingGameRecyclerviewBinding
 
 class DrinkingGameAdapter(val drinkingGameList: ArrayList<DrinkingGame>) :

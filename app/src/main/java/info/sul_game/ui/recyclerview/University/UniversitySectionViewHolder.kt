@@ -5,5 +5,5 @@ import info.sul_game.databinding.ItemUniversitySectionRecyclerviewBinding
 
 class UniversitySectionViewHolder(binding: ItemUniversitySectionRecyclerviewBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    val university_section = binding.tvSectionUniversityNameItem
+    var university_section = binding.tvSectionUniversityNameItem
 }

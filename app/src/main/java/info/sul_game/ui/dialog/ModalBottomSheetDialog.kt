@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import info.sul_game.ui.recyclerview.University.University
-import info.sul_game.ui.recyclerview.University.UniversityAdapter
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import info.sul_game.R
 import info.sul_game.databinding.DialogUniversityBinding
+import info.sul_game.ui.recyclerview.University.University
+import info.sul_game.ui.recyclerview.University.UniversityAdapter
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.Collator

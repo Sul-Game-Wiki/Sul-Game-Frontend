@@ -35,6 +35,7 @@ import info.sul_game.ui.mypage.LikedPostAdapter
 import info.sul_game.ui.mypage.MyPost
 import info.sul_game.ui.mypage.MyPostAdapter
 import info.sul_game.ui.recyclerview.DrinkingGame.DrinkingGame
+import info.sul_game.ui.recyclerview.DrinkingGame.DrinkingGameAdapter
 import info.sul_game.ui.recyclerview.Game.Game
 import info.sul_game.ui.recyclerview.Game.GameAdapter
 import info.sul_game.ui.recyclerview.LiveChart.LiveChart
@@ -108,7 +109,7 @@ class MainActivity : AppCompatActivity() {
     /** 리사이클러뷰 변수 선언 */
     private val gameIntroData = arrayListOf<Game>()
 
-    inner class NetworkThread: Thread() {
+    inner class NetworkThread : Thread() {
         override fun run() {
             val url = URL("https://api.sul-game.info/api/home")
             val conn = url.openConnection()
@@ -132,16 +133,37 @@ class MainActivity : AppCompatActivity() {
             // 전체가 객체로 묶여있기 때문에 객체형태로 가져옴
             val root = JSONObject(buf.toString())
             val response = root.getJSONArray("latestIntros")
-            for(i in 0 until response.length()){
+            for (i in 0 until response.length()) {
                 val item = response.getJSONObject(i)
                 val jObject = response.getJSONObject(i)
-                val title = JSON_Parse(jObject,"title")
-                val contents = JSON_Parse(jObject,"description")
+                val title = JSON_Parse(jObject, "title")
+                val contents = JSON_Parse(jObject, "description")
                 val nickname = item.getString("title")
-                val cntHeart = JSON_Parse(jObject,"likes")
-                gameIntroData.add(Game(title, contents, nickname.toString(), cntHeart.toInt()))
-                gameIntroData.add(Game(title, contents, nickname.toString(), cntHeart.toInt()))
-                gameIntroData.add(Game(title, contents, nickname.toString(), cntHeart.toInt()))
+                val cntHeart = JSON_Parse(jObject, "likes")
+                gameIntroData.add(
+                    Game(
+                        title,
+                        contents,
+                        nickname.toString(),
+                        cntHeart.toInt()
+                    )
+                )
+                gameIntroData.add(
+                    Game(
+                        title,
+                        contents,
+                        nickname.toString(),
+                        cntHeart.toInt()
+                    )
+                )
+                gameIntroData.add(
+                    Game(
+                        title,
+                        contents,
+                        nickname.toString(),
+                        cntHeart.toInt()
+                    )
+                )
             }
         }
     }
@@ -154,25 +176,33 @@ class MainActivity : AppCompatActivity() {
             Game("딸기당근수박참외 리버스", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
-        val thread = NetworkThread()
-        thread.start()
-        thread.join()
+//        val thread = NetworkThread()
+//        thread.start()
+//        thread.join()
 
         binding.rvRecentMain.adapter = GameAdapter(gameCreationData)
         binding.rvRecentMain.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        binding.tvRecentCreationMain.setOnClickListener{
+        binding.tvRecentCreationMain.setOnClickListener {
             binding.tvRecentCreationMain.setTextColor(getColor(R.color.main_color))
-            binding.tvRecentIntroMain.setTextColor(android.graphics.Color.parseColor("#8C8C8C"))
+            binding.tvRecentIntroMain.setTextColor(
+                android.graphics.Color.parseColor(
+                    "#8C8C8C"
+                )
+            )
 
             binding.rvRecentMain.adapter = GameAdapter(gameCreationData)
             binding.rvRecentMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
 
-        binding.tvRecentIntroMain.setOnClickListener{
-            binding.tvRecentCreationMain.setTextColor(android.graphics.Color.parseColor("#8C8C8C"))
+        binding.tvRecentIntroMain.setOnClickListener {
+            binding.tvRecentCreationMain.setTextColor(
+                android.graphics.Color.parseColor(
+                    "#8C8C8C"
+                )
+            )
             binding.tvRecentIntroMain.setTextColor(getColor(R.color.main_color))
 
             binding.rvRecentMain.adapter = GameAdapter(gameIntroData)
@@ -181,93 +211,278 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun popularGameRecyclerMain(){
+    private fun popularGameRecyclerMain() {
         val popularGameData = arrayListOf<DrinkingGame>(
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30)
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            )
         )
 
         binding.rvPopularMain.apply {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.HORIZONTAL, false)
+            layoutManager = GridLayoutManager(
+                this@MainActivity,
+                3,
+                GridLayoutManager.HORIZONTAL,
+                false
+            )
             adapter = DrinkingGameAdapter(popularGameData)
         }
     }
 
-    private fun liveChartRecyclerMain(){
+    private fun liveChartRecyclerMain() {
         val liveChartCreationData = arrayListOf<LiveChart>(
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 창작", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 창작", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 창작", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 창작", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 창작", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 창작", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 창작", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 창작", "하늘에서 내려와버린 토끼", 30)
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 창작",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 창작",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 창작",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 창작",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 창작",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 창작",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 창작",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 창작",
+                "하늘에서 내려와버린 토끼",
+                30
+            )
         )
 
         val liveChartIntroData = arrayListOf<LiveChart>(
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 인트로", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 인트로", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 인트로", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 인트로", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 인트로", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 인트로", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 인트로", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 인트로", "하늘에서 내려와버린 토끼", 30)
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 인트로",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 인트로",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 인트로",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 인트로",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 인트로",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 인트로",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 인트로",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 인트로",
+                "하늘에서 내려와버린 토끼",
+                30
+            )
         )
 
         val liveChartPopularData = arrayListOf<LiveChart>(
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 국룰", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 국룰", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 국룰", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 국룰", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 국룰", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 국룰", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 국룰", "하늘에서 내려와버린 토끼", 30),
-            LiveChart(R.drawable.ic_launcher_background, "바니바니 국룰", "하늘에서 내려와버린 토끼", 30)
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 국룰",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 국룰",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 국룰",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 국룰",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 국룰",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 국룰",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 국룰",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            LiveChart(
+                R.drawable.ic_launcher_background,
+                "바니바니 국룰",
+                "하늘에서 내려와버린 토끼",
+                30
+            )
         )
 
         binding.rvLiveMain.apply {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.HORIZONTAL, false)
+            layoutManager = GridLayoutManager(
+                this@MainActivity,
+                3,
+                GridLayoutManager.HORIZONTAL,
+                false
+            )
             adapter = LiveChartAdapter(liveChartCreationData)
         }
 
         // 각 Chip에 클릭 리스너 추가 (선택 상태 유지 보장)
-        binding.cpCreationMain.setOnClickListener {
-                v -> ensureOneSelected(binding.cpCreationMain)
-                binding.rvLiveMain.apply {
-                    setHasFixedSize(true)
-                    layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.HORIZONTAL, false)
-                    adapter = LiveChartAdapter(liveChartCreationData)
-                }
+        binding.cpCreationMain.setOnClickListener { v ->
+            ensureOneSelected(binding.cpCreationMain)
+            binding.rvLiveMain.apply {
+                setHasFixedSize(true)
+                layoutManager = GridLayoutManager(
+                    this@MainActivity,
+                    3,
+                    GridLayoutManager.HORIZONTAL,
+                    false
+                )
+                adapter = LiveChartAdapter(liveChartCreationData)
+            }
         }
-        binding.cpIntroMain.setOnClickListener {
-                v -> ensureOneSelected(binding.cpIntroMain)
-                binding.rvLiveMain.apply {
-                    setHasFixedSize(true)
-                    layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.HORIZONTAL, false)
-                    adapter = LiveChartAdapter(liveChartIntroData)
-                }
+        binding.cpIntroMain.setOnClickListener { v ->
+            ensureOneSelected(binding.cpIntroMain)
+            binding.rvLiveMain.apply {
+                setHasFixedSize(true)
+                layoutManager = GridLayoutManager(
+                    this@MainActivity,
+                    3,
+                    GridLayoutManager.HORIZONTAL,
+                    false
+                )
+                adapter = LiveChartAdapter(liveChartIntroData)
+            }
         }
-        binding.cpPopularMain.setOnClickListener {
-                v -> ensureOneSelected(binding.cpPopularMain)
-                binding.rvLiveMain.apply {
-                    setHasFixedSize(true)
-                    layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.HORIZONTAL, false)
-                    adapter = LiveChartAdapter(liveChartPopularData)
-                }
+        binding.cpPopularMain.setOnClickListener { v ->
+            ensureOneSelected(binding.cpPopularMain)
+            binding.rvLiveMain.apply {
+                setHasFixedSize(true)
+                layoutManager = GridLayoutManager(
+                    this@MainActivity,
+                    3,
+                    GridLayoutManager.HORIZONTAL,
+                    false
+                )
+                adapter = LiveChartAdapter(liveChartPopularData)
+            }
         }
     }
 
-    private fun shareIntroRecyclerMain(){
+    private fun shareIntroRecyclerMain() {
         val shareIntroRecentData = arrayListOf<Game>(
             Game("어목조동 최신", "자연과 함께하는 술게임", "구해조", 30),
             Game("딸기당근수박참외 찍고 최신", "지목이 더해진 과일게임", "구해조", 30),
@@ -292,41 +507,86 @@ class MainActivity : AppCompatActivity() {
 
 
         // 각 Chip에 클릭 리스너 추가 (선택 상태 유지 보장)
-        binding.cpRecentMain.setOnClickListener {
-            v -> ensureOneSelected(binding.cpRecentMain)
+        binding.cpRecentMain.setOnClickListener { v ->
+            ensureOneSelected(binding.cpRecentMain)
             binding.rvShareIntroMain.adapter = GameAdapter(shareIntroRecentData)
             binding.rvShareIntroMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
-        binding.cpHeartMain.setOnClickListener {
-            v -> ensureOneSelected(binding.cpHeartMain)
+        binding.cpHeartMain.setOnClickListener { v ->
+            ensureOneSelected(binding.cpHeartMain)
             binding.rvShareIntroMain.adapter = GameAdapter(shareIntroHeartData)
             binding.rvShareIntroMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
-        binding.cpViewMain.setOnClickListener {
-            v -> ensureOneSelected(binding.cpViewMain)
+        binding.cpViewMain.setOnClickListener { v ->
+            ensureOneSelected(binding.cpViewMain)
             binding.rvShareIntroMain.adapter = GameAdapter(shareIntroViewData)
             binding.rvShareIntroMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
     }
 
-    private fun hotGameRecyclerMain(){
+    private fun hotGameRecyclerMain() {
         val hotGameData = arrayListOf<DrinkingGame>(
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30),
-            DrinkingGame(R.drawable.ic_launcher_background, "바니바니", "하늘에서 내려와버린 토끼", 30)
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGame(
+                R.drawable.ic_launcher_background,
+                "바니바니",
+                "하늘에서 내려와버린 토끼",
+                30
+            )
         )
 
         binding.rvHotMain.apply {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(this@MainActivity, 3, GridLayoutManager.HORIZONTAL, false)
+            layoutManager = GridLayoutManager(
+                this@MainActivity,
+                3,
+                GridLayoutManager.HORIZONTAL,
+                false
+            )
             adapter = DrinkingGameAdapter(hotGameData)
         }
     }
