@@ -27,7 +27,7 @@ class SignInActivity : AppCompatActivity() {
         setupWebView()
 
         binding.btnCloseLogin.setOnClickListener {
-            startActivity(Intent(this, SplashActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 

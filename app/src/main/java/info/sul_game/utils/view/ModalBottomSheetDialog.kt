@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import info.sul_game.R
 import info.sul_game.databinding.DialogUniversityBinding
-import info.sul_game.recyclerview.University
+import info.sul_game.recyclerview.UniversityItem
 import info.sul_game.recyclerview.UniversityAdapter
 import org.json.JSONArray
 import org.json.JSONObject
@@ -19,7 +19,7 @@ import java.util.Locale
 class ModalBottomSheetDialog : BottomSheetDialogFragment() {
     private lateinit var binding: DialogUniversityBinding
     private lateinit var universityNames: List<String>
-    private lateinit var sortedUniversityNames: ArrayList<University>
+    private lateinit var sortedUniversityItemNames: ArrayList<UniversityItem>
     var onUniversitySelected: ((String) -> Unit)? = null
 
     override fun onCreateView(
@@ -37,25 +37,25 @@ class ModalBottomSheetDialog : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadUniversityNames()
-        sortedUniversityNames = ArrayList()
+        sortedUniversityItemNames = ArrayList()
         val groupedUniversities = sortAndGroupUniversities(universityNames)
 
         groupedUniversities.forEach { name ->
             if (name.length == 1 && name[0] in 'ㄱ'..'ㅎ') {
                 // 초성인 경우
-                sortedUniversityNames.add(
-                    University(
+                sortedUniversityItemNames.add(
+                    UniversityItem(
                         0,
                         name
                     )
                 ) // "header" 타입을 추가하여 구분
             } else {
                 // 대학 이름인 경우
-                sortedUniversityNames.add(University(1, name)) // "item" 타입으로 구분
+                sortedUniversityItemNames.add(UniversityItem(1, name)) // "item" 타입으로 구분
             }
         }
 
-        val adapter = UniversityAdapter(sortedUniversityNames)
+        val adapter = UniversityAdapter(sortedUniversityItemNames)
         adapter.onItemClick = { selectedUniversity ->
             onUniversitySelected?.invoke(selectedUniversity)
             dismiss() // 다이얼로그 닫기

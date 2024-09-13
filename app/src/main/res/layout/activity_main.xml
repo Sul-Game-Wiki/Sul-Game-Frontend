@@ -76,7 +76,7 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/tv_prompt1_main"/>
 
-        <info.sul_game.ui.search.CustomSearchView
+        <info.sul_game.utils.view.CustomSearchView
           android:id="@+id/searchview_main"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

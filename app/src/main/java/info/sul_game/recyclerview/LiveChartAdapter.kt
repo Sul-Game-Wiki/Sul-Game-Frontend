@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import info.sul_game.databinding.ItemChartRecyclerviewBinding
 
 
-class LiveChartAdapter(val liveCharList: ArrayList<LiveChart>) :
+class LiveChartAdapter(val liveCharList: ArrayList<LiveChartItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
