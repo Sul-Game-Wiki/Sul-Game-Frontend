@@ -36,12 +36,12 @@ class SearchActivity : AppCompatActivity() {
         binding.searchviewSearch.setOnQueryTextListener(object : CustomSearchView.OnQueryTextListener{
             // 검색 버튼 입력 시 호출
             override fun onQueryTextChange(newText: String): Boolean {
-                TODO("Not yet implemented")
+                return false
             }
 
             // 텍스트 입력 및 수정 시 호출
             override fun onQueryTextSubmit(query: String): Boolean {
-                TODO("Not yet implemented")
+                return false
             }
 
         } )
