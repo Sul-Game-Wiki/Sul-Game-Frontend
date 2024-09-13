@@ -4,18 +4,29 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".LoginActivity">
+  tools:context=".activity.SignInActivity">
+
+  <WebView
+    android:id="@+id/wv_social_login_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="invisible"/>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_container1_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
   <ImageButton
-    android:id="@+id/btn_google_login"
+    android:id="@+id/btn_close_login"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="40dp"
-    android:layout_marginStart="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp"
     android:background="@null"
-    android:src="@drawable/ic_google"
-    app:layout_constraintStart_toEndOf="@+id/v_grid_login"
-    app:layout_constraintTop_toBottomOf="@+id/tv_prompt2_login" />
+    android:src="@drawable/ic_close"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
   <TextView
     android:id="@+id/tv_prompt1_login"
@@ -53,17 +64,6 @@
     app:layout_constraintStart_toStartOf="parent" />
 
   <ImageButton
-    android:id="@+id/btn_close_login"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginEnd="20dp"
-    android:background="@null"
-    android:src="@drawable/ic_close"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-
-  <ImageButton
     android:id="@+id/btn_kakao_login"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -73,5 +73,18 @@
     android:src="@drawable/ic_kakao"
     app:layout_constraintEnd_toStartOf="@+id/v_grid_login"
     app:layout_constraintTop_toBottomOf="@+id/tv_prompt2_login" />
+
+  <ImageButton
+    android:id="@+id/btn_google_login"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:layout_marginStart="10dp"
+    android:background="@null"
+    android:src="@drawable/ic_google"
+    app:layout_constraintStart_toEndOf="@+id/v_grid_login"
+    app:layout_constraintTop_toBottomOf="@+id/tv_prompt2_login" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

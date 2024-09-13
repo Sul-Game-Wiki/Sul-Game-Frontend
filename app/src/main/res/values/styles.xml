@@ -3,4 +3,12 @@
   <style name="CustomChipChoice" parent="Widget.MaterialComponents.Chip.Filter">
     <!-- Customize your theme here. -->
   </style>
+
+  <style name="TransParentBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+    <item name="bottomSheetStyle">@style/TransParentModalStyle</item>
+  </style>
+
+  <style name="TransParentModalStyle" parent="Widget.Design.BottomSheet.Modal">
+    <item name="android:background">@android:color/transparent</item>
+  </style>
 </resources>
