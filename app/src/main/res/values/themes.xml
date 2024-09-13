@@ -17,4 +17,10 @@
         <item name="android:layout_height">10dp</item>
         <item name="android:max">100</item>
     </style>
+    
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen" >
+        <item name="android:windowSplashScreenBackground">@color/white</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_big_logo</item>
+        <item name="android:windowSplashScreenAnimationDuration">500</item>
+    </style>
 </resources>

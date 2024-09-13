@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,9 +29,9 @@ import info.sul_game.R
 import info.sul_game.databinding.ActivityMainBinding
 import info.sul_game.recyclerview.DrinkingGameItem
 import info.sul_game.recyclerview.DrinkingGameAdapter
-import info.sul_game.recyclerview.Game
+import info.sul_game.recyclerview.GameItem
 import info.sul_game.recyclerview.GameAdapter
-import info.sul_game.recyclerview.LiveChart
+import info.sul_game.recyclerview.LiveChartItem
 import info.sul_game.recyclerview.LiveChartAdapter
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -98,7 +100,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** 리사이클러뷰 변수 선언 */
-    private val gameIntroData = arrayListOf<Game>()
+    private val gameItemIntroData = arrayListOf<GameItem>()
 
     inner class NetworkThread : Thread() {
         override fun run() {
@@ -131,24 +133,24 @@ class MainActivity : AppCompatActivity() {
                 val contents = JSON_Parse(jObject, "description")
                 val nickname = item.getString("title")
                 val cntHeart = JSON_Parse(jObject, "likes")
-                gameIntroData.add(
-                    Game(
+                gameItemIntroData.add(
+                    GameItem(
                         title,
                         contents,
                         nickname.toString(),
                         cntHeart.toInt()
                     )
                 )
-                gameIntroData.add(
-                    Game(
+                gameItemIntroData.add(
+                    GameItem(
                         title,
                         contents,
                         nickname.toString(),
                         cntHeart.toInt()
                     )
                 )
-                gameIntroData.add(
-                    Game(
+                gameItemIntroData.add(
+                    GameItem(
                         title,
                         contents,
                         nickname.toString(),
@@ -161,17 +163,17 @@ class MainActivity : AppCompatActivity() {
 
     // 최신 게시물의 리사이클러뷰
     private fun recentRecyclerMain() {
-        val gameCreationData = arrayListOf<Game>(
-            Game("어목조동", "자연과 함께하는 술게임", "구해조", 30),
-            Game("딸기당근수박참외 찍고", "지목이 더해진 과일게임", "구해조", 30),
-            Game("딸기당근수박참외 리버스", "거꾸로 말하기 도전!", "구해조", 30)
+        val gameItemCreationData = arrayListOf<GameItem>(
+            GameItem("어목조동", "자연과 함께하는 술게임", "구해조", 30),
+            GameItem("딸기당근수박참외 찍고", "지목이 더해진 과일게임", "구해조", 30),
+            GameItem("딸기당근수박참외 리버스", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
 //        val thread = NetworkThread()
 //        thread.start()
 //        thread.join()
 
-        binding.rvRecentMain.adapter = GameAdapter(gameCreationData)
+        binding.rvRecentMain.adapter = GameAdapter(gameItemCreationData)
         binding.rvRecentMain.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -183,7 +185,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
 
-            binding.rvRecentMain.adapter = GameAdapter(gameCreationData)
+            binding.rvRecentMain.adapter = GameAdapter(gameItemCreationData)
             binding.rvRecentMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
@@ -196,7 +198,7 @@ class MainActivity : AppCompatActivity() {
             )
             binding.tvRecentIntroMain.setTextColor(getColor(R.color.main_color))
 
-            binding.rvRecentMain.adapter = GameAdapter(gameIntroData)
+            binding.rvRecentMain.adapter = GameAdapter(gameItemIntroData)
             binding.rvRecentMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
@@ -267,50 +269,50 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun liveChartRecyclerMain() {
-        val liveChartCreationData = arrayListOf<LiveChart>(
-            LiveChart(
+        val liveChartItemCreationData = arrayListOf<LiveChartItem>(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
@@ -318,50 +320,50 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val liveChartIntroData = arrayListOf<LiveChart>(
-            LiveChart(
+        val liveChartItemIntroData = arrayListOf<LiveChartItem>(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
@@ -369,50 +371,50 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val liveChartPopularData = arrayListOf<LiveChart>(
-            LiveChart(
+        val liveChartItemPopularData = arrayListOf<LiveChartItem>(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChart(
+            LiveChartItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
@@ -428,7 +430,7 @@ class MainActivity : AppCompatActivity() {
                 GridLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = LiveChartAdapter(liveChartCreationData)
+            adapter = LiveChartAdapter(liveChartItemCreationData)
         }
 
         // 각 Chip에 클릭 리스너 추가 (선택 상태 유지 보장)
@@ -442,7 +444,7 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = LiveChartAdapter(liveChartCreationData)
+                adapter = LiveChartAdapter(liveChartItemCreationData)
             }
         }
         binding.cpIntroMain.setOnClickListener { v ->
@@ -455,7 +457,7 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = LiveChartAdapter(liveChartIntroData)
+                adapter = LiveChartAdapter(liveChartItemIntroData)
             }
         }
         binding.cpPopularMain.setOnClickListener { v ->
@@ -468,28 +470,28 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = LiveChartAdapter(liveChartPopularData)
+                adapter = LiveChartAdapter(liveChartItemPopularData)
             }
         }
     }
 
     private fun shareIntroRecyclerMain() {
-        val shareIntroRecentData = arrayListOf<Game>(
-            Game("어목조동 최신", "자연과 함께하는 술게임", "구해조", 30),
-            Game("딸기당근수박참외 찍고 최신", "지목이 더해진 과일게임", "구해조", 30),
-            Game("딸기당근수박참외 리버스 최신", "거꾸로 말하기 도전!", "구해조", 30)
+        val shareIntroRecentData = arrayListOf<GameItem>(
+            GameItem("어목조동 최신", "자연과 함께하는 술게임", "구해조", 30),
+            GameItem("딸기당근수박참외 찍고 최신", "지목이 더해진 과일게임", "구해조", 30),
+            GameItem("딸기당근수박참외 리버스 최신", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
-        val shareIntroHeartData = arrayListOf<Game>(
-            Game("어목조동 좋아요", "자연과 함께하는 술게임", "구해조", 30),
-            Game("딸기당근수박참외 찍고 좋아요", "지목이 더해진 과일게임", "구해조", 30),
-            Game("딸기당근수박참외 리버스 좋아요", "거꾸로 말하기 도전!", "구해조", 30)
+        val shareIntroHeartData = arrayListOf<GameItem>(
+            GameItem("어목조동 좋아요", "자연과 함께하는 술게임", "구해조", 30),
+            GameItem("딸기당근수박참외 찍고 좋아요", "지목이 더해진 과일게임", "구해조", 30),
+            GameItem("딸기당근수박참외 리버스 좋아요", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
-        val shareIntroViewData = arrayListOf<Game>(
-            Game("어목조동 조회수", "자연과 함께하는 술게임", "구해조", 30),
-            Game("딸기당근수박참외 찍고 조회수", "지목이 더해진 과일게임", "구해조", 30),
-            Game("딸기당근수박참외 리버스 조회수", "거꾸로 말하기 도전!", "구해조", 30)
+        val shareIntroViewData = arrayListOf<GameItem>(
+            GameItem("어목조동 조회수", "자연과 함께하는 술게임", "구해조", 30),
+            GameItem("딸기당근수박참외 찍고 조회수", "지목이 더해진 과일게임", "구해조", 30),
+            GameItem("딸기당근수박참외 리버스 조회수", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
         binding.rvShareIntroMain.adapter = GameAdapter(shareIntroRecentData)

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import info.sul_game.databinding.ItemGameRecyclerviewBinding
 
-class GameAdapter (val gameList: ArrayList<Game>) :
+class GameAdapter (val gameItemList: ArrayList<GameItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -32,10 +32,10 @@ class GameAdapter (val gameList: ArrayList<Game>) :
         position: Int
     ) {
         if (holder is GameViewHolder) {
-            holder.title.text = gameList[position].title
-            holder.contents.text = gameList[position].contents
-            holder.userName.text = gameList[position].userName
-            holder.cntHeart.text = gameList[position].cntHeart.toString()
+            holder.title.text = gameItemList[position].title
+            holder.contents.text = gameItemList[position].contents
+            holder.userName.text = gameItemList[position].userName
+            holder.cntHeart.text = gameItemList[position].cntHeart.toString()
         }
     }
 }

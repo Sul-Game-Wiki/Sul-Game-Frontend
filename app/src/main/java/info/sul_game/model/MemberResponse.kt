@@ -32,12 +32,12 @@ data class MemberResponse (
     //Bookmark
     val bookmarkedOfficialGameIds : List<BasePost>,
     val bookmarkedCreationGameIds : List<BasePost>,
-    val bookmarkedIntroIds : List<BasePost>
+    val bookmarkedIntroIds : List<BasePost>,
 
     //LikedPost
     val likedOfficalGames : List<BasePost>,
     val likedCreationGames : List<BasePost>,
-    val likedIntros : List<BasePost>
+    val likedIntros : List<BasePost>,
 
     val member: Member,
     val memberInteraction: MemberInteraction

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ import info.sul_game.utils.TokenUtil
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -43,7 +45,7 @@ class SignUpActivity : AppCompatActivity() {
         loadUniversityNames()
 
         binding.btnCloseSignup.setOnClickListener {
-            startActivity(Intent(this, SplashActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
@@ -167,20 +169,21 @@ class SignUpActivity : AppCompatActivity() {
      * 사용 가능 닉네임인지 확인
      */
     private fun isAvailableName(name: String): Boolean {
-        val request = NicknameRequest(nickname = name)
-        memberApi.checkNickName(TokenUtil().getRefreshToken(this@SignUpActivity).toString(), request).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    Log.d("API_CALL", "닉네임 업데이트 성공")
-                } else {
-                    Log.e("API_CALL", "닉네임 업데이트 실패: ${response.code()}")
-                }
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("API_CALL", "API 호출 실패: ${t.message}")
-            }
-        })
+//        val request = NicknameRequest(nickname = name)
+//        memberApi.checkNickName(TokenUtil().getRefreshToken(this@SignUpActivity).toString(), request).enqueue(object :
+//            Callback<Void> {
+//            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+//                if (response.isSuccessful) {
+//                    Log.d("API_CALL", "닉네임 업데이트 성공")
+//                } else {
+//                    Log.e("API_CALL", "닉네임 업데이트 실패: ${response.code()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<Void>, t: Throwable) {
+//                Log.e("API_CALL", "API 호출 실패: ${t.message}")
+//            }
+//        })
         return true
     }
 

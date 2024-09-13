@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import info.sul_game.databinding.ItemUniversityNameRecyclerviewBinding
 import info.sul_game.databinding.ItemUniversitySectionRecyclerviewBinding
 
-class UniversityAdapter(val universityList: ArrayList<University>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class UniversityAdapter(val universityItemList: ArrayList<UniversityItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var onItemClick: ((String) -> Unit)? = null
 
@@ -27,25 +27,25 @@ class UniversityAdapter(val universityList: ArrayList<University>) : RecyclerVie
     }
 
     override fun getItemCount(): Int {
-        return universityList.size
+        return universityItemList.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return universityList[position].state
+        return universityItemList[position].state
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is UniversityNameViewHolder) {
-            holder.university_name.text = universityList[position].text
+            holder.university_name.text = universityItemList[position].text
 
             holder.itemView.setOnClickListener {
                 Log.d("술겜위키", "Item Click Event")
 
-                onItemClick?.invoke(universityList[position].text)
+                onItemClick?.invoke(universityItemList[position].text)
             }
         }
         else if (holder is UniversitySectionViewHolder) {
-            holder.university_section.text = universityList[position].text
+            holder.university_section.text = universityItemList[position].text
         }
     }
 }

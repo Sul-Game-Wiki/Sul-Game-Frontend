@@ -1,6 +1,6 @@
 package info.sul_game.recyclerview
 
-data class Game (
+data class GameItem (
     var title: String,
     var contents: String,
     var userName: String,
