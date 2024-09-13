@@ -10,6 +10,10 @@
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.RECORD_AUDIO" />
+  <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+  <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+  <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
   <application
     android:allowBackup="true"
@@ -48,16 +52,14 @@
       android:name=".activity.SignInActivity" />
     <activity
       android:exported="true"
-      android:name="info.sul_game.activity.CreatePostActivity">
-<!--      <intent-filter>-->
-<!--        <action android:name="android.intent.action.MAIN" />-->
-<!--        <category android:name="android.intent.category.LAUNCHER" />-->
-<!--      </intent-filter>-->
+      android:name="info.sul_game.ui.create.Create"
+      android:windowSoftInputMode="adjustPan">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
     </activity>
 
-    <activity
-      android:exported="false"
-      android:name="info.sul_game.ui.official.OfficialCreate" />
     <activity
       android:exported="false"
       android:name="info.sul_game.activity.OfficialGameDetailActivity" />

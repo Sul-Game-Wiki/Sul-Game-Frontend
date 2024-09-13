@@ -1,4 +1,6 @@
+
 package info.sul_game.recyclerview
+
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import com.bumptech.glide.Glide
 import info.sul_game.R
 import info.sul_game.databinding.ItemCreateRecyclerviewBinding
 import info.sul_game.fragment.CreateCreationGameFragment
+
 
 class CreateFileAdapter(private val items: MutableList<MediaItem>, private val fragment: CreateCreationGameFragment): RecyclerView.Adapter<CreateFileAdapter.CreateCreateAdapterViewHoler>() {
     data class MediaItem(val uri: Uri, val isVideo: Boolean,val isAudio: Boolean)

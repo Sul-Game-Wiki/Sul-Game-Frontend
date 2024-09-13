@@ -13,20 +13,5 @@ class CreationGameDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val createDetailList = ArrayList<CreationGameDetailComment>()
-        createDetailList.add(
-            CreationGameDetailComment("다예"
-                ,"아아아아 힘들어"
-                , R.drawable.btn_star_on
-            )
-        )
-        createDetailList.add(
-
-            CreationGameDetailComment("뽀로로"
-                ,"노는게 너무 좋아"
-                ,R.drawable.btn_star_on
-
-            )
-        )
     }
 }
