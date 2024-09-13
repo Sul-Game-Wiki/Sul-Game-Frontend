@@ -3,7 +3,6 @@ package info.sul_game.fragment
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Bundle
@@ -19,8 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContentProviderCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,6 +41,8 @@ class CreateCreationGameFragment : Fragment() {
     }
 
 
+
+
     private lateinit var binding: FragmentCreateCreateBinding
     private val selectedChipsCreate = mutableListOf<Chip>()
     private lateinit var gameCreateAdapter: CreateFileAdapter
@@ -58,6 +58,7 @@ class CreateCreationGameFragment : Fragment() {
     private var audioFilePath: String? = null
     private var isIntroMode = false
     private lateinit var recordButton: ImageButton
+    private lateinit var requestPermissionLauncher : ActivityResultLauncher<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,13 +72,14 @@ class CreateCreationGameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         gameCreateAdapter = CreateFileAdapter(mutableListOf(),this)
+
         binding.rvMediaCreate.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.rvMediaCreate.adapter =gameCreateAdapter
         introCreateAdapter = CreateFileAdapter(mutableListOf(),this)
         binding.rvIntroCreate.layoutManager =LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.rvIntroCreate.adapter = introCreateAdapter
+
 
         /*여기서부터 create내 카메라기능*/
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -104,6 +106,14 @@ class CreateCreationGameFragment : Fragment() {
             }
 
         }
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()){ result ->
+            if(result){
+                Toast.makeText(requireActivity(),"권한이 요청되었습니다",Toast.LENGTH_SHORT).show()
+            }else if(!result){
+                Toast.makeText(requireActivity(),"권한 요청이 거부되었습니다",Toast.LENGTH_SHORT).show()
+            }
+            }
 
 
         galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -145,6 +155,7 @@ class CreateCreationGameFragment : Fragment() {
             }
 
         }
+
         binding.rgIntroCreate.setOnCheckedChangeListener { _,checkedId ->
             when(checkedId){
                 R.id.btn_introexist_create -> binding.llIntroCreate.visibility = VISIBLE
@@ -155,12 +166,14 @@ class CreateCreationGameFragment : Fragment() {
 
 
         binding.btnCameraCreate.setOnClickListener {
-            PermissionUtil.requestCameraPermission(this)
+            PermissionUtil.requestCameraPermission(this, requestPermissionLauncher = requestPermissionLauncher)
             {showTutorialMediaSelectionDialog()}
 
         }
         binding.btnGalleryCreate.setOnClickListener {
-            PermissionUtil.requestStoragePermission(this)
+
+            PermissionUtil.requestStoragePermission(this,requestPermissionLauncher = requestPermissionLauncher)
+
             {openGallery()}
         }
         binding.btnIntroVideoCreate.setOnClickListener{
@@ -168,7 +181,7 @@ class CreateCreationGameFragment : Fragment() {
                 Toast.makeText(requireContext(), "인트로는 하나만 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 isIntroMode = true
-                PermissionUtil.requestCameraPermission(this)
+                PermissionUtil.requestCameraPermission(this,requestPermissionLauncher = requestPermissionLauncher)
                 {recordVideo()}  // 비디오 촬영
             }
         }
@@ -180,12 +193,12 @@ class CreateCreationGameFragment : Fragment() {
             if(introCreateAdapter.isTotalExists()){
                 Toast.makeText(requireContext(),"인트로는 하나만 추가할 수 있습니다",Toast.LENGTH_SHORT).show()
             }else{
-                PermissionUtil.requestAudioPermission(this){recordAudio()}
+                PermissionUtil.requestAudioPermission(this,requestPermissionLauncher = requestPermissionLauncher){recordAudio()}
 
             }
         }
         binding.btnIntroFileCreate.setOnClickListener{
-            PermissionUtil.requestStoragePermission(this)
+            PermissionUtil.requestStoragePermission(this,requestPermissionLauncher = requestPermissionLauncher)
             {showIntroMediaSelectionDialog()}
 
         }
@@ -297,12 +310,6 @@ private fun showTutorialMediaSelectionDialog() {
         galleryLauncher.launch(intent)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        PermissionUtil.handlePermissionsResult(this, requestCode, permissions, grantResults) {
-            // 권한이 승인된 후에 필요한 작업을 수행
-        }
-    }
 
     private fun createImageFile(extension: String = ".jpg"): File {
         return FileUtil.createImageFile(requireContext(), extension)

@@ -62,9 +62,6 @@
 
     <activity
       android:exported="false"
-      android:name="info.sul_game.ui.official.OfficialCreate" />
-    <activity
-      android:exported="false"
       android:name="info.sul_game.activity.OfficialGameDetailActivity" />
     <activity
       android:exported="false"
