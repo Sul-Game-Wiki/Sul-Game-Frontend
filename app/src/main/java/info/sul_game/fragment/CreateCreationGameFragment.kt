@@ -160,7 +160,7 @@ class CreateCreationGameFragment : Fragment() {
 
         }
         binding.btnGalleryCreate.setOnClickListener {
-            PermissionUtil.requestStoragePermission(this@CreateCreateFragment)
+            PermissionUtil.requestStoragePermission(this)
             {openGallery()}
         }
         binding.btnIntroVideoCreate.setOnClickListener{
