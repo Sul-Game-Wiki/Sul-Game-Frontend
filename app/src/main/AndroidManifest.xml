@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:targetSandboxVersion="1"
-  package="">
+  package="info.sul_game">
 
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.CAMERA"/>
@@ -18,7 +18,6 @@
   <application
     android:allowBackup="true"
     android:dataExtractionRules="@xml/data_extraction_rules"
-    android:name=".data.source.remote.MyApplication"
     android:fullBackupContent="@xml/backup_rules"
     android:icon="@mipmap/ic_launcher"
     android:roundIcon="@mipmap/ic_launcher_round"
@@ -31,7 +30,7 @@
     tools:targetApi="31">
     <activity
       android:exported="false"
-      android:name=".activity.SignUpActivity" />
+      android:name="info.sul_game.activity.SignUpActivity" />
     <provider
       android:name="androidx.core.content.FileProvider"
       android:authorities="${applicationId}.fileprovider"
@@ -43,23 +42,18 @@
     </provider>
     <activity
       android:exported="false"
+      android:theme="@style/AppTheme"
       android:name="info.sul_game.activity.SearchActivity" />
     <activity
       android:exported="false"
       android:name="info.sul_game.activity.SignUpConfirmationActivity" />
     <activity
       android:exported="false"
-      android:name=".activity.SignInActivity" />
+      android:name="info.sul_game.activity.SignInActivity" />
     <activity
-      android:exported="true"
-      android:name="info.sul_game.ui.create.Create"
-      android:windowSoftInputMode="adjustPan">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-
+      android:exported="false"
+      android:name="info.sul_game.activity.CreatePostActivity"
+      android:windowSoftInputMode="adjustPan"/>
     <activity
       android:exported="false"
       android:name="info.sul_game.activity.OfficialGameDetailActivity" />
