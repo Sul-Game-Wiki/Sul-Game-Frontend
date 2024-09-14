@@ -1,49 +1,33 @@
 package info.sul_game.activity
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import info.sul_game.R
 import info.sul_game.databinding.ActivityMainBinding
 import info.sul_game.fragment.MyPostFragment
-import info.sul_game.recyclerview.DrinkingGameItem
 import info.sul_game.recyclerview.DrinkingGameAdapter
-import info.sul_game.recyclerview.GameItem
+import info.sul_game.recyclerview.DrinkingGameItem
 import info.sul_game.recyclerview.GameAdapter
-import info.sul_game.recyclerview.LiveChartItem
+import info.sul_game.recyclerview.GameItem
 import info.sul_game.recyclerview.LiveChartAdapter
+import info.sul_game.recyclerview.LiveChartItem
 import info.sul_game.ui.mypage.BookmarkedPostFragment
 import info.sul_game.ui.mypage.EditAccountFragment
 import info.sul_game.ui.mypage.LikedPostFragment
+import info.sul_game.utils.TokenUtil
 import org.json.JSONObject
 import java.io.BufferedReader
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import java.io.InputStreamReader
 import java.net.URL
 
@@ -616,8 +600,14 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     // 드래깅 되고있을 때
-                    BottomSheetBehavior.STATE_DRAGGING ->
+                    BottomSheetBehavior.STATE_DRAGGING -> {
                         binding.backgroundDimMain.visibility = View.VISIBLE
+                        Log.d("술겜위키", "refreshToken : ${TokenUtil().getRefreshToken(this@MainActivity)}")
+                        if(TokenUtil().getRefreshToken(this@MainActivity).isNullOrBlank()){
+                            startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+                            finish()
+                        }
+                    }
 
                     // 접혀있을 때
                     BottomSheetBehavior.STATE_COLLAPSED -> {

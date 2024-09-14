@@ -49,7 +49,8 @@
       android:name="info.sul_game.activity.SignUpConfirmationActivity" />
     <activity
       android:exported="false"
-      android:name="info.sul_game.activity.SignInActivity" />
+      android:name="info.sul_game.activity.SignInActivity"
+      android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"/>
     <activity
       android:exported="false"
       android:name="info.sul_game.activity.CreatePostActivity"
