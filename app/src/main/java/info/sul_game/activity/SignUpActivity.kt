@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -31,6 +32,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
 
@@ -104,7 +107,10 @@ class SignUpActivity : AppCompatActivity() {
             val dlg = DateDialog(this)
             dlg.listener = object : DateDialog.DateDialogListener {
                 override fun onDateSelected(year: Int, month: Int, day: Int) {
-                    binding.etDateSignup.setText("$year / $month / $day")
+                    val formattedMonth = String.format("%02d", month)
+                    val formattedDay = String.format("%02d", day)
+
+                    binding.etDateSignup.setText("$year / $formattedMonth / $formattedDay")
                 }
             }
             dlg.show()
@@ -181,7 +187,12 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.btnNextSignup.setOnClickListener {
-            WarningDialog(this).show()
+            Log.d("술겜위키", "다음버튼 클릭")
+            val dates = binding.etDateSignup.text.toString().replace(" / ", "")
+            Log.d("술겜위키", "값 리플레이스")
+            val birthDate = LocalDate.parse(dates, DateTimeFormatter.BASIC_ISO_DATE)
+            Log.d("술겜위키", "변환해결")
+            WarningDialog(this).show(binding.etNameSignup.text.toString(), birthDate, binding.tvUniversitySignup.text.toString(), binding.cbUniversityVisibleSignup.isChecked)
         }
     }
 
@@ -192,7 +203,6 @@ class SignUpActivity : AppCompatActivity() {
     val error: LiveData<String> get() = _error
 
     /**
-     * TODO : 서버랑 합체해야됨
      * 사용 가능 닉네임인지 확인
      */
     private fun isAvailableName(name: String, callback: (Boolean) -> Unit): Boolean {
@@ -239,7 +249,7 @@ class SignUpActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val isExistingNickname = response.body()?.isExistingNickname ?: false
                         _member.value = response.body()  // 성공적으로 데이터를 받으면 LiveData에 저장
-                        Log.d("술겜위키", "값 저장!")
+                        Log.d("술겜위키", "중복확인 성공!")
                         Log.d("술겜위키", "값은 : ${_member.value}")
 
                         callback(isExistingNickname)
