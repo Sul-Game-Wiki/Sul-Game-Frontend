@@ -4,7 +4,6 @@ import info.sul_game.data.source.remote.BasePost
 import java.util.Date
 
 data class MemberResponse (
-
     // BasePost
     val createdDate: Date,
     val updatedDate: Date,
@@ -18,14 +17,11 @@ data class MemberResponse (
     val likedMemberIds : List<Int>,
     val views : Int,
     val reportedCount : Int,
-    val member: Member,
     val dailyScore : Int,
     val weeklyScore : Int,
     val sourceType : String,
     val thumbnailIcon : String,
     val creatorInfoIsPrivate : Boolean,
-
-    val Member : Member,
 
     //Bookmark
     val bookmarkedOfficialGameIds : List<BasePost>,
@@ -37,6 +33,8 @@ data class MemberResponse (
     val likedCreationGames : List<BasePost>,
     val likedIntros : List<BasePost>,
 
-//    val member: Member,
+    //Member
+    val member: Member,
+
     val memberInteraction: MemberInteraction
 )
