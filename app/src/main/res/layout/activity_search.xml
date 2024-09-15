@@ -7,7 +7,7 @@
   android:layout_height="match_parent"
   tools:context=".activity.SearchActivity">
 
-  <info.sul_game.ui.search.CustomSearchView
+  <info.sul_game.utils.view.CustomSearchView
     android:id="@+id/searchview_search"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
