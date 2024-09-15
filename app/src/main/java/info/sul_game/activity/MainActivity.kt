@@ -30,6 +30,7 @@ import info.sul_game.ui.mypage.EditAccountFragment
 import info.sul_game.ui.mypage.LikedPostFragment
 import info.sul_game.utils.TokenUtil
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var behavior: BottomSheetBehavior<ConstraintLayout>
@@ -42,6 +43,14 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
+        val firstTime = prefs.getBoolean("firstTime", true)
+
+        if (firstTime) {
+            startActivity(Intent(this, WelcomeGuideActivity::class.java))
+            finish()
+        }
 
         persistentBottomSheetEvent()
         recyclerMain()
