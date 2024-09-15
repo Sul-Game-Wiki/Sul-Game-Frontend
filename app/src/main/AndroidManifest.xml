@@ -30,7 +30,8 @@
     tools:targetApi="31">
     <activity
       android:exported="false"
-      android:name="info.sul_game.activity.SignUpActivity" />
+      android:name="info.sul_game.activity.SignUpActivity"
+      android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"/>
     <provider
       android:name="androidx.core.content.FileProvider"
       android:authorities="${applicationId}.fileprovider"
