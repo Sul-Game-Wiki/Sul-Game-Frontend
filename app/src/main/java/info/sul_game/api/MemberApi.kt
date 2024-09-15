@@ -35,6 +35,27 @@ interface MemberApi {
         @Part("rankChange") rankChange: RequestBody
     ): Call<MemberResponse>
 
+    // 닉네임 중복체크
+    @Multipart
+    @POST("members/complete-registration")
+    fun completeRegistration(
+        @Header("Authorization") token: String,
+        @Part("memberId") memberId: RequestBody,
+        @Part("nickname") nickname: RequestBody,
+        @Part("birthDate") birthDate: RequestBody,
+        @Part("university") university: RequestBody,
+        @Part("isUniversityVisible") isUniversityVisible: RequestBody,
+        @Part("isNotificationEnabled") isNotificationEnabled: RequestBody,
+        @Part("pageNumber") pageNumber: RequestBody,
+        @Part("pageSize") pageSize: RequestBody,
+        @Part("expRank") expRank: RequestBody,
+        @Part("expRankPercentile") expRankPercentile: RequestBody,
+        @Part("nextLevelExp") nextLevelExp: RequestBody,
+        @Part("remainingExpForNextLevel") remainingExpForNextLevel: RequestBody,
+        @Part("progressPercentToNextLevel") progressPercentToNextLevel: RequestBody,
+        @Part("rankChange") rankChange: RequestBody
+    ): Call<MemberResponse>
+
     // 마이페이지
     @GET("members/profile")
     fun getMemberProfile(

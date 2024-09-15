@@ -89,7 +89,7 @@ class WarningDialog (private val context : AppCompatActivity) {
         val rankChange = createRequestBody("")
 
         RetrofitClient.memberApiService
-            .checkNickName(
+            .completeRegistration(
                 token,
                 memberId,
                 nickname,
