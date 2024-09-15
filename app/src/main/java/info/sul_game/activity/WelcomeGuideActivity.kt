@@ -23,6 +23,15 @@ class WelcomeGuideActivity : AppCompatActivity() {
         // 초기 인디케이터 상태 설정
         binding.cidPositionWelcomeGuide.createIndicators(totalIndicators, currentIndicatorIndex)
 
+        binding.tvSkipWelcomeGuide.setOnClickListener{
+            val prefs: SharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE)
+            prefs.edit().putBoolean("firstTime", false).apply()
+
+            Log.d("술겜위키", "가이드 스킵!")
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
         binding.btnNextWelcomeGuide.setOnClickListener{
             currentIndicatorIndex = (currentIndicatorIndex + 1) % totalIndicators
             when(currentIndicatorIndex){
