@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".activity.EditAccountActivity">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/main_color"
+    android:elevation="16dp">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginVertical="27dp"
+      android:fontFamily="@font/galmuri11bold"
+      android:text="계정 설정"
+      android:textColor="@color/white"
+      android:textSize="32dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+      android:id="@+id/civ_profile_editaccount"
+      android:layout_width="140dp"
+      android:layout_height="140dp"
+      android:layout_marginTop="35dp"
+      android:src="#D9D9D9"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+      android:id="@+id/tv_editprofile_editprofile"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/edit_profile_img"
+      android:textColor="@color/deep_gray"
+      android:textSize="15sp"
+      android:layout_marginVertical="15dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/btn_edit_editaccount" />
+
+
+    <Button
+      android:id="@+id/btn_edit_editaccount"
+      android:layout_width="wrap_content"
+      android:layout_height="40dp"
+      android:background="@drawable/white_round_border_20"
+      android:backgroundTint="@color/main_color"
+      android:text="프로필 편집"
+      android:textColor="@color/white"
+      android:textSize="16sp"
+      android:layout_marginVertical="15dp"
+      android:paddingHorizontal="28dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/civ_profile_editaccount" />
+
+    <TextView
+      android:id="@+id/tv_nickname_editaccount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/galmuri11bold"
+      android:text="닉네임"
+      android:textColor="@color/black"
+      android:textSize="16sp"
+      android:layout_marginHorizontal="24dp"
+      android:layout_marginTop="23dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_editprofile_editprofile" />
+
+    <EditText
+      android:id="@+id/et_nickname_editaccount"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="24dp"
+      android:background="@drawable/white_round_border_edittext"
+      android:paddingHorizontal="15dp"
+      android:paddingVertical="12dp"
+      android:text="구해조"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      android:textColor="@color/deep_gray"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_nickname_editaccount" />
+
+    <TextView
+      android:id="@+id/tv_email_editaccount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/galmuri11bold"
+      android:text="이메일"
+      android:textColor="@color/black"
+      android:textSize="16sp"
+      android:layout_marginHorizontal="24dp"
+      android:layout_marginTop="12dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/et_nickname_editaccount" />
+
+    <EditText
+      android:id="@+id/et_email_editaccount"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="24dp"
+      android:background="@drawable/gray_round_border_edittext"
+      android:paddingHorizontal="15dp"
+      android:paddingVertical="12dp"
+      android:text="xxxx@gmail.com"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      android:textColor="@color/deep_gray"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_email_editaccount"
+      android:focusable="false"
+      android:clickable="false"/>
+
+    <TextView
+      android:id="@+id/tv_univercity_editaccount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/galmuri11bold"
+      android:text="대학교"
+      android:textColor="@color/black"
+      android:textSize="16sp"
+      android:layout_marginHorizontal="24dp"
+      android:layout_marginTop="12dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/et_email_editaccount" />
+
+    <EditText
+      android:id="@+id/et_univercity_editaccount"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="24dp"
+      android:background="@drawable/gray_round_border_edittext"
+      android:paddingHorizontal="15dp"
+      android:paddingVertical="12dp"
+      android:text="세종대학교"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      android:textColor="@color/deep_gray"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_univercity_editaccount"
+      android:focusable="false"
+      android:clickable="false"/>
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</LinearLayout>

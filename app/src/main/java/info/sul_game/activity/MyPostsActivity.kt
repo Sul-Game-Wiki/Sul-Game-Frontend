@@ -1,32 +1,31 @@
-package info.sul_game.fragment
+package info.sul_game.activity
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import info.sul_game.databinding.FragmentMyPostBinding
+import info.sul_game.R
+import info.sul_game.databinding.ActivityMyPostsBinding
 import info.sul_game.ui.mypage.MyPagePostAdapter
 import info.sul_game.ui.mypage.MyPagePostItem
 
-class MyPostFragment : Fragment() {
+class MyPostsActivity : AppCompatActivity() {
 
-    private lateinit var binding: FragmentMyPostBinding
+    private lateinit var binding: ActivityMyPostsBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMyPostBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMyPostsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        recyclerMyPost()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    private fun recyclerMyPost(){
         val mockPostList = mutableListOf<MyPagePostItem>()
 
 
@@ -37,7 +36,7 @@ class MyPostFragment : Fragment() {
         mockPostList.add(MyPagePostItem("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
 
         binding.recyclerviewMypost.adapter = MyPagePostAdapter(mockPostList)
-        binding.recyclerviewMypost.layoutManager = LinearLayoutManager(context)
-        binding.recyclerviewMypost.addItemDecoration(DividerItemDecoration(context, VERTICAL))
+        binding.recyclerviewMypost.layoutManager = LinearLayoutManager(this)
+        binding.recyclerviewMypost.addItemDecoration(DividerItemDecoration(this, VERTICAL))
     }
 }

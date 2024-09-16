@@ -1,58 +1,33 @@
 package info.sul_game.activity
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import info.sul_game.R
 import info.sul_game.databinding.ActivityMainBinding
-import info.sul_game.fragment.MyPostFragment
 import info.sul_game.recyclerview.DrinkingGameItem
 import info.sul_game.recyclerview.DrinkingGameAdapter
 import info.sul_game.recyclerview.GameItem
 import info.sul_game.recyclerview.GameAdapter
 import info.sul_game.recyclerview.LiveChartItem
 import info.sul_game.recyclerview.LiveChartAdapter
-import info.sul_game.ui.mypage.BookmarkedPostFragment
-import info.sul_game.ui.mypage.EditAccountFragment
-import info.sul_game.ui.mypage.LikedPostFragment
+import info.sul_game.utils.TokenUtil
 import org.json.JSONObject
 import java.io.BufferedReader
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import java.io.InputStreamReader
 import java.net.URL
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var behavior: BottomSheetBehavior<ConstraintLayout>
-
-    // BottomSheet가 완전히 펼쳐진 상태인지 확인할 수 있는 변수
-    private var isBottomSheetExpanded: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -578,31 +553,10 @@ class MainActivity : AppCompatActivity() {
     // 화면 초기화 시 호출되는 bottomSheet에서의 이벤트 처리를 위한 함수
     private fun persistentBottomSheetEvent() {
 
-        isBottomSheetExpanded = false
-
         binding.searchviewMain.setOnClickListener {
-            if (!isBottomSheetExpanded) {
-                val intent = Intent(this@MainActivity, SearchActivity::class.java)
-                startActivity(intent)
-            }
+            val intent = Intent(this@MainActivity, SearchActivity::class.java)
+            startActivity(intent)
         }
-
-        // 뒤로가기 버튼 처리를 위한 콜백 추가
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (supportFragmentManager.backStackEntryCount > 0) {
-                    // Fragment가 있으면 뒤로가기 시 Fragment 제거
-                    supportFragmentManager.popBackStack()
-                    // 버튼 목록 다시 표시하고 타이틀 변경
-                    binding.containerMainBottomsheet.visibility = View.VISIBLE
-                    binding.fragmentContainerMypage.visibility = View.GONE
-                    binding.tvTitleMypage.text = "마이페이지"
-                } else {
-                    // Fragment가 없으면 기본 뒤로가기 처리
-                    finish()
-                }
-            }
-        })
 
         behavior = BottomSheetBehavior.from(binding.bottomSheetMain)
         behavior.addBottomSheetCallback(object :
@@ -611,19 +565,24 @@ class MainActivity : AppCompatActivity() {
                 when (newState) {
                     // 완전히 펼쳐졌을 때
                     BottomSheetBehavior.STATE_EXPANDED -> {
-                        binding.searchviewMain.isClickable = false
-                        isBottomSheetExpanded = true
+                        val intent = Intent(this@MainActivity, MyPageActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        startActivity(intent)
                     }
 
                     // 드래깅 되고있을 때
-                    BottomSheetBehavior.STATE_DRAGGING ->
+                    BottomSheetBehavior.STATE_DRAGGING -> {
                         binding.backgroundDimMain.visibility = View.VISIBLE
+                        Log.d("술겜위키", "refreshToken : ${TokenUtil().getRefreshToken(this@MainActivity)}")
+                        if(TokenUtil().getRefreshToken(this@MainActivity).isNullOrBlank()){
+                            startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+                            finish()
+                        }
+                    }
 
                     // 접혀있을 때
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         binding.backgroundDimMain.visibility = View.GONE
-                        binding.searchviewMain.isClickable = true
-                        isBottomSheetExpanded = false
                     }
                 }
             }
@@ -632,28 +591,11 @@ class MainActivity : AppCompatActivity() {
                 binding.backgroundDimMain.alpha = slideOffset
             }
         })
-
-        binding.btnMypostMypage.setOnClickListener { showBottomSheetFragment(
-            MyPostFragment(), "내 글 보기") }
-        binding.btnBookmarkMypage.setOnClickListener { showBottomSheetFragment(
-            BookmarkedPostFragment(), "즐겨찾기") }
-        binding.btnLikedpostMypage.setOnClickListener { showBottomSheetFragment(
-            LikedPostFragment(), "좋아요 게시글") }
-        binding.btnProfileSettingMypage.setOnClickListener { showBottomSheetFragment(
-            EditAccountFragment(), "계정 설정") }
     }
 
-    // Fragment 전환 함수
-    private fun showBottomSheetFragment(fragment: Fragment, title: String){
-        binding.containerMainBottomsheet.visibility = View.GONE // 마이페이지 화면 숨김
-        binding.fragmentContainerMypage.visibility = View.VISIBLE // Fragment 컨테이너 표시
-        binding.tvTitleMypage.text = title // 타이틀 변경
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_mypage, fragment)
-            .addToBackStack(null)
-            .commit()
+    override fun onResume() {
+        super.onResume()
+        behavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
-
 
 }
