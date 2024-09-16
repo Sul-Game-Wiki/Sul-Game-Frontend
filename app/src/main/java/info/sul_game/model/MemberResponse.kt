@@ -35,5 +35,14 @@ data class MemberResponse (
 
     //Member
     val member: Member,
-    val memberInteraction: MemberInteraction
+    val memberInteraction: MemberInteraction,
+
+    //Exp
+    val exp : Int,
+    val expRank : Int,
+    val expRankPercentile : Int,
+    val nextLevelExp : Int,
+    val remainingExpForNextLevel : Int,
+    val progressPercentToNextLevel : Int,
+    val rankChange : Int
 )

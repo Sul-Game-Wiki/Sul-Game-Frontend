@@ -12,7 +12,7 @@ data class Member(
     val birthDate: String,
     val profileUrl: String,
     val role: String,
-    val college: String,
+    val university: String,
     val exp: Int,
     val expLevel: String,
     val isUniversityPublic: Boolean,
