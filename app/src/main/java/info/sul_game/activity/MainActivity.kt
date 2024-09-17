@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -37,6 +38,14 @@ class MainActivity : AppCompatActivity() {
 
         persistentBottomSheetEvent()
         recyclerMain()
+
+        if(TokenUtil().getRefreshToken(this@MainActivity).isNullOrBlank()) {
+            binding.tvMypageLoginMain.text = "마이페이지 서비스는\n로그인이 필요해요!"
+            binding.tvMypageLoginMain.textSize = 18f
+        } else {
+            binding.tvMypageLoginMain.text = "마이 페이지"
+            binding.tvMypageLoginMain.textSize = 32f
+        }
     }
 
     private fun recyclerMain() {
@@ -565,9 +574,14 @@ class MainActivity : AppCompatActivity() {
                 when (newState) {
                     // 완전히 펼쳐졌을 때
                     BottomSheetBehavior.STATE_EXPANDED -> {
-                        val intent = Intent(this@MainActivity, MyPageActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                        startActivity(intent)
+                        if(!TokenUtil().getRefreshToken(this@MainActivity).isNullOrBlank()){
+                            val intent = Intent(this@MainActivity, MyPageActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                            startActivity(intent)
+                        } else {
+                            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                            Toast.makeText(this@MainActivity, "로그인이 필요한 서비스입니다.", Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                     // 드래깅 되고있을 때
