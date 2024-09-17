@@ -200,9 +200,8 @@ class CreateCreationGameFragment : Fragment() {
         binding.btnGalleryCreate.setOnClickListener {
 
             PermissionUtil.requestStoragePermission(this,requestPermissionLauncher = requestPermissionLauncher)
-
-            {openGallery()}
-        }
+            {
+                openGallery()} }
         binding.btnIntroVideoCreate.setOnClickListener{
             if (introCreateAdapter.isTotalExists()) {
                 Toast.makeText(requireContext(), "인트로는 하나만 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
