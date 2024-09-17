@@ -146,7 +146,7 @@
       android:text="태그"/>
     <com.google.android.material.chip.ChipGroup
       android:id="@+id/chipGroup_etc_create"
-
+      android:theme="@style/Theme.MaterialComponents.DayNight"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="16dp"
@@ -207,6 +207,7 @@
       android:text="난이도"/>
     <com.google.android.material.chip.ChipGroup
       android:id="@+id/chipGroup_level_create"
+      android:theme="@style/Theme.MaterialComponents.DayNight"
 
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -236,6 +237,7 @@
       android:text="인원수"/>
     <com.google.android.material.chip.ChipGroup
       android:id="@+id/chipGroup_count_create"
+      android:theme="@style/Theme.MaterialComponents.DayNight"
 
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -261,14 +263,14 @@
     </com.google.android.material.chip.ChipGroup>
     <TextView
       android:id="@+id/tv8_create"
+
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="소음"/>
 
     <com.google.android.material.chip.ChipGroup
       android:id="@+id/chipGroup_noise_create"
-
-
+      android:theme="@style/Theme.MaterialComponents.DayNight"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="16dp"
@@ -330,16 +332,26 @@
       android:id="@+id/et_search_create"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
+
     <ImageButton
       android:id="@+id/btn_search_create"
-      android:src="@drawable/ic_search"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_search" />
+    <androidx.recyclerview.widget.RecyclerView
+      android:id ="@+id/rv_create_game_list_create"
+      android:visibility="gone"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
     <Button
       android:text="등록하기"
       android:id="@+id/btn_enroll_create"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_width="match_parent"
+      android:layout_height="50dp"/>
+    <Button
+      android:layout_width="match_parent"
+      android:layout_height="50dp"/>
+
 
 
 

@@ -16,4 +16,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Intro 선택" />
+  <Button
+    android:id="@+id/btn_select_official"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Official 선택" />
 </LinearLayout>

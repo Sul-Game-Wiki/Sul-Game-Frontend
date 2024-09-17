@@ -1,6 +1,5 @@
 package info.sul_game.fragment
 
-import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.media.MediaRecorder
@@ -18,19 +17,32 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import info.sul_game.utils.FileUtil
-import info.sul_game.databinding.FragmentCreateCreateBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import info.sul_game.R
+import info.sul_game.config.RetrofitClient
+import info.sul_game.databinding.FragmentCreateCreateBinding
+import info.sul_game.model.GameListViewModel
+import info.sul_game.model.OfficialDetailsResponse
+import info.sul_game.model.OfficialGamesResponse
+import info.sul_game.recyclerview.CreateFileAdapter
+import info.sul_game.recyclerview.GameListAdapter
+import info.sul_game.recyclerview.GameListItem
 import info.sul_game.utils.CustomError
+import info.sul_game.utils.FileUtil
 import info.sul_game.utils.MediaExtensions
 import info.sul_game.utils.PermissionUtil
-import info.sul_game.recyclerview.CreateFileAdapter
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Response
 import java.io.File
 import java.io.IOException
 
@@ -47,6 +59,7 @@ class CreateCreationGameFragment : Fragment() {
     private val selectedChipsCreate = mutableListOf<Chip>()
     private lateinit var gameCreateAdapter: CreateFileAdapter
     private lateinit var introCreateAdapter: CreateFileAdapter
+    private lateinit var gameListAdapter: GameListAdapter
     private lateinit var photoUri: Uri
     private lateinit var videoUri: Uri
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
@@ -57,8 +70,10 @@ class CreateCreationGameFragment : Fragment() {
     private var mediaRecorder: MediaRecorder? = null
     private var audioFilePath: String? = null
     private var isIntroMode = false
+    private var allData: List<GameListItem> = listOf()
     private lateinit var recordButton: ImageButton
     private lateinit var requestPermissionLauncher : ActivityResultLauncher<String>
+    private lateinit var viewModel: GameListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,15 +85,27 @@ class CreateCreationGameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(GameListViewModel::class.java)
 
 
         gameCreateAdapter = CreateFileAdapter(mutableListOf(),this)
-
         binding.rvMediaCreate.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.rvMediaCreate.adapter =gameCreateAdapter
+
         introCreateAdapter = CreateFileAdapter(mutableListOf(),this)
         binding.rvIntroCreate.layoutManager =LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.rvIntroCreate.adapter = introCreateAdapter
+
+        gameListAdapter = GameListAdapter(arrayListOf()){
+                selectedTitle ->
+            // RecyclerView 아이템 클릭 시 et_search_create를 해당 title로 업데이트
+            binding.etSearchCreate.setText(selectedTitle)
+            binding.rvCreateGameListCreate.visibility = View.GONE
+
+        }
+        binding.rvCreateGameListCreate.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        binding.rvCreateGameListCreate.adapter = gameListAdapter
+        viewModel.loadGameList(null)
 
 
         /*여기서부터 create내 카메라기능*/
@@ -219,11 +246,27 @@ class CreateCreationGameFragment : Fragment() {
         for (group in chipGroups) {
             group.setOnCheckedChangeListener { _, _ -> checkSelectionOnChipChange(chipGroups) }
         }
+        binding.btnSearchCreate.setOnClickListener {
+            binding.rvCreateGameListCreate.visibility = View.VISIBLE
+            val query = binding.etSearchCreate.text.toString().trim()
+
+            viewModel.filterGameList(query)
+        }
+
+        viewModel.filteredGameList.observe(viewLifecycleOwner, { filteredData ->
+            gameListAdapter.updateGameList(filteredData)
+        })
+
+// Fragment가 처음 로드될 때 게임 리스트를 로드
+        viewModel.loadGameList(null)
+
 
         // Button 클릭 이벤트 설정
         binding.btnEnrollCreate.setOnClickListener {
             checkSelectionOnButtonClick(chipGroups)
         }
+
+
     }
     private fun showIntroMediaSelectionDialog() {
         val options = arrayOf("녹음파일", "비디오 파일")
@@ -404,6 +447,24 @@ private fun stopRecording() {
         }
     }
 
+
+
+
+
+
+//    private fun relatedOfficialGameSearch(query: String, callback: (List<GameListItem>) -> Unit) {
+//        val filteredData = allData.filter {
+//            it.title.contains(query, ignoreCase = true) || it.introduction.contains(query, ignoreCase = true)
+//        }
+//        callback(filteredData)
+//    }
+
+
+
+
+
+
+
     private fun checkSelectionOnButtonClick(chipGroups: List<ChipGroup>) {
         selectedChipsCreate.clear()
 
@@ -429,8 +490,6 @@ private fun stopRecording() {
         if (!validSelection) {
             Toast.makeText(requireContext(), "정보를 전부 입력해야합니다", Toast.LENGTH_SHORT).show()
         }
-//        val jsonObject= JSONObject()
-//        jsonObject.put("email", email.toString())
-//        jsonObject.put("password", binding.etNewPasswordOkInput.text.toString())
+
     }
 }
