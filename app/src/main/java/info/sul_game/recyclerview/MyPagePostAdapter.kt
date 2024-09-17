@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import info.sul_game.R
+import info.sul_game.data.source.remote.BasePost
 import info.sul_game.databinding.ItemMypagePostRecyclerviewBinding
 
-class MyPagePostAdapter(private var item : List<MyPagePostItem>) : RecyclerView.Adapter<MyPagePostAdapter.MyPagePostHolder>() {
+class MyPagePostAdapter(private var item : List<BasePost>) : RecyclerView.Adapter<MyPagePostAdapter.MyPagePostHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPagePostHolder {
         val binding = ItemMypagePostRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,13 +26,13 @@ class MyPagePostAdapter(private var item : List<MyPagePostItem>) : RecyclerView.
         holder.tvTitle.text = item[position].title
         holder.tvIntroduction.text = item[position].introduction
         holder.tvLikes.text = item[position].likes.toString()
-        holder.tvComments.text = item[position].comments.toString()
-        holder.tvTime.text = item[position].time
+        holder.tvComments.text = item[position].views.toString()
+        holder.tvTime.text = item[position].updatedDate.toString()
 
         if(item[position].creatorInfoIsPrivate)
             holder.tvNickname.text = "익명"
         else
-            holder.tvNickname.text = item[position].nickname
+            holder.tvNickname.text = item[position].member.nickname
 
         holder.ivThumbnail.clipToOutline = true
 

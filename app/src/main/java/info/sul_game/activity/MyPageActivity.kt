@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import info.sul_game.R
 import info.sul_game.databinding.ActivityMypageBinding
 import info.sul_game.utils.TokenUtil
 import info.sul_game.viewmodel.MemberViewModel
@@ -20,15 +21,17 @@ class MyPageActivity : AppCompatActivity() {
 
     // 각 등급별 기준 경험치
     private val baseExp = listOf(0, 500, 2000, 5000)
+    private val baseExpLevelImage = listOf(R.drawable.ic_explevel_k, R.drawable.ic_explevel_w, R.drawable.ic_explevel_g, R.drawable.ic_explevel_s)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         binding = ActivityMypageBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         initUiEvent()
         updateMyPageUiWithData()
+
+        setContentView(binding.root)
     }
 
     private fun initUiEvent() {
@@ -66,40 +69,45 @@ class MyPageActivity : AppCompatActivity() {
 
         // ViewModel을 사용하여 프로필 정보 요청
         accessToken?.let {
-            memberViewModel.fetchMemberProfile("Bearer $accessToken")
+            memberViewModel.getMemberProfile("Bearer $accessToken")
             Log.d(TAG, "updateMyPageUiWithData: fetchMemberProfile ($accessToken)")
 
-            memberViewModel.memberRequest.observe(this) { memberRequest ->
-                if (memberRequest != null) {
-                    Log.d(TAG, "$memberRequest")
+            memberViewModel.memberResponse.observe(this) { memberResponse ->
+                if (memberResponse != null) {
+                    Log.d(TAG, "$memberResponse")
 
-                    binding.tvUsernameMypage.text = memberRequest.member.nickname
-                    binding.tvUniversityMypage.text = memberRequest.member.university
+                    binding.tvUsernameMypage.text = memberResponse.member.nickname
+                    binding.tvUniversityMypage.text = memberResponse.member.university
 
-                    binding.tvExpRankMypage.text = memberRequest.exp.toString() // 현재 순위
+                    binding.tvExpRankMypage.text = memberResponse.exp.toString() + "위" // 현재 순위
 
                     // 순위 변동
-                    if (memberRequest.exp >= 0)
-                        binding.tvRankChangeMypage.text = abs(memberRequest.expRank).toString() + "위 상승"
+                    if (memberResponse.exp >= 0)
+                        binding.tvRankChangeMypage.text = abs(memberResponse.expRank).toString() + "위 상승"
                     else
-                        binding.tvRankChangeMypage.text = abs(memberRequest.expRank).toString() + "위 하락"
+                        binding.tvRankChangeMypage.text = abs(memberResponse.expRank).toString() + "위 하락"
 
-                    binding.tvExpRankPercentileMypage.text = memberRequest.expRankPercentile.toString() + "%" // 현재 백분위
+                    binding.tvExpRankPercentileMypage.text = memberResponse.expRankPercentile.toString() + "%" // 현재 백분위
 
-                    binding.tvTotalExpMypage.text = memberRequest.exp.toString() // 총 경험치
+                    binding.tvTotalExpMypage.text = memberResponse.exp.toString() // 총 경험치
 
                     // 경험치 등급
-                    binding.tvExpLevelMypage.text = getExpLevel(getCurrentGrade(memberRequest.exp))
-                    binding.tvMinExpMypage.text = getExpLevel(getCurrentGrade(memberRequest.exp))
-                    binding.tvMaxExpMypage.text = getNextExpLevel(getCurrentGrade(memberRequest.exp))
+                    binding.tvExpLevelMypage.text = getExpLevel(getCurrentGrade(memberResponse.exp))
+                    binding.tvMinExpMypage.text = getExpLevel(getCurrentGrade(memberResponse.exp))
+                    binding.tvMaxExpMypage.text = getNextExpLevel(getCurrentGrade(memberResponse.exp))
 
                     // 다음 등급까지 남은 포인트
-                    binding.tvNextLevelExpMypage.text = "${memberRequest.nextLevelExp} 포인트"
+                    binding.tvNextLevelExpMypage.text = "${memberResponse.nextLevelExp} 포인트"
 
                     // 프로그레스바 계산
                     binding.progressbarExpMypage.min = 0
-                    binding.progressbarExpMypage.max = 100
-                    binding.progressbarExpMypage.progress = (((memberRequest.exp - baseExp[getCurrentGrade(memberRequest.exp)]).toDouble() / ((baseExp[getNextGrade(memberRequest.exp)]) - baseExp[getCurrentGrade(memberRequest.exp)]).toDouble()) * 100).toInt()
+                    binding.progressbarExpMypage.max = 1000
+                    binding.progressbarExpMypage.progress = (((memberResponse.exp - baseExp[getCurrentGrade(memberResponse.exp)]).toDouble() / ((baseExp[getNextGrade(memberResponse.exp)]) - baseExp[getCurrentGrade(memberResponse.exp)]).toDouble()) * 1000).toInt()
+
+                    // 엠블렘 이미지 업데이트
+                    binding.ivEmblemMypage.setImageResource(baseExpLevelImage[getCurrentGrade(memberResponse.exp)])
+                    binding.ivEmblem2Mypage.setImageResource(baseExpLevelImage[getCurrentGrade(memberResponse.exp)])
+                    binding.ivNextEmblemMypage.setImageResource(baseExpLevelImage[getNextGrade(memberResponse.exp)])
 
                 } else {
                     Log.e(TAG,"updateMyPageUiWithData: memberRequest 데이터가 존재하지 않음")

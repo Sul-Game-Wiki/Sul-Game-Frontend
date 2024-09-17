@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import info.sul_game.R
+import info.sul_game.data.source.remote.BasePost
 import info.sul_game.databinding.ActivityMyPostsBinding
 import info.sul_game.ui.mypage.MyPagePostAdapter
 import info.sul_game.ui.mypage.MyPagePostItem
@@ -26,14 +27,7 @@ class MyPostsActivity : AppCompatActivity() {
     }
 
     private fun recyclerMyPost(){
-        val mockPostList = mutableListOf<MyPagePostItem>()
-
-
-        mockPostList.add(MyPagePostItem("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
-        mockPostList.add(MyPagePostItem("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", true))
-        mockPostList.add(MyPagePostItem("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
-        mockPostList.add(MyPagePostItem("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", true))
-        mockPostList.add(MyPagePostItem("00:00", 0, "바니바니", "하늘에서 토끼가 내려온다고?", 100, 100, "구해조", "", false))
+        val mockPostList = mutableListOf<BasePost>()
 
         binding.recyclerviewMypost.adapter = MyPagePostAdapter(mockPostList)
         binding.recyclerviewMypost.layoutManager = LinearLayoutManager(this)

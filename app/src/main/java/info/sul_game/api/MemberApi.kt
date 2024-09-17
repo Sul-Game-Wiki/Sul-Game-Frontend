@@ -25,7 +25,7 @@ interface MemberApi {
     @POST("members/profile")
     fun getMemberProfile(
         @Header("Authorization") token: String,
-        @Part("nickname") nickname: RequestBody
+        @Part("part") part : RequestBody
     ): Call<MemberResponse>
 
     // 좋아요한 글
@@ -33,7 +33,7 @@ interface MemberApi {
     @POST("members/liked-post")
     fun getLikedPosts(
         @Header("Authorization") token: String,
-        @Part("nickname") nickname: RequestBody
+        @Part("part") part : RequestBody
     ): Call<MemberResponse>
 
     // 즐겨찾기한 글
@@ -41,7 +41,7 @@ interface MemberApi {
     @POST("members/bookmarked-post")
     fun getBookmarkedPosts(
         @Header("Authorization") token: String,
-        @Part("nickname") nickname: RequestBody
+        @Part("part") part : RequestBody
     ): Call<MemberResponse>
 
     // 회원 닉네임 업데이트

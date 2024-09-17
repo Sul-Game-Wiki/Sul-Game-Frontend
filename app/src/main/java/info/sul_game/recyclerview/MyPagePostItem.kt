@@ -10,4 +10,6 @@ data class MyPagePostItem(
     val nickname: String,
     val thumbnailIcon : String,
     val creatorInfoIsPrivate : Boolean
+
+
 )
