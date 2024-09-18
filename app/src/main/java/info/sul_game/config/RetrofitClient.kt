@@ -61,19 +61,6 @@ object RetrofitClient {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(OkHttpClient.Builder().apply {
-                addInterceptor(HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY
-                })
-                // Content-Type Interceptor 추가
-                .addInterceptor { chain ->
-                    val originalResponse = chain.proceed(chain.request())
-                    val modifiedResponse = originalResponse.newBuilder()
-                        .header("Content-Type", "application/json")
-                        .build()
-                    modifiedResponse
-                }
-            }.build())
             .build()
     }
 
