@@ -42,6 +42,8 @@ package info.sul_game.config
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import info.sul_game.api.MemberApi
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
