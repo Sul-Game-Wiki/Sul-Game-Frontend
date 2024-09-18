@@ -1,51 +1,35 @@
 package info.sul_game.activity
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import info.sul_game.R
 import info.sul_game.databinding.ActivityMainBinding
 import info.sul_game.fragment.MyPostFragment
-import info.sul_game.recyclerview.DrinkingGameItem
 import info.sul_game.recyclerview.DrinkingGameAdapter
-import info.sul_game.recyclerview.GameItem
-import info.sul_game.recyclerview.GameAdapter
-import info.sul_game.recyclerview.LiveChartItem
+import info.sul_game.recyclerview.DrinkingGameItem
+import info.sul_game.recyclerview.IntroAdapter
+import info.sul_game.recyclerview.IntroItem
+import info.sul_game.recyclerview.LatestFeedAdapter
+import info.sul_game.recyclerview.LatestFeedDecoration
+import info.sul_game.recyclerview.LatestFeedItem
 import info.sul_game.recyclerview.LiveChartAdapter
+import info.sul_game.recyclerview.LiveChartItem
 import info.sul_game.ui.mypage.BookmarkedPostFragment
 import info.sul_game.ui.mypage.EditAccountFragment
 import info.sul_game.ui.mypage.LikedPostFragment
-import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStreamReader
-import java.net.URL
+import info.sul_game.utils.TokenUtil
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -60,6 +44,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
+        val firstTime = prefs.getBoolean("firstTime", true)
+
+        if (firstTime) {
+            startActivity(Intent(this, WelcomeGuideActivity::class.java))
+            finish()
+        }
+
         persistentBottomSheetEvent()
         recyclerMain()
     }
@@ -72,93 +64,32 @@ class MainActivity : AppCompatActivity() {
         hotGameRecyclerMain()
     }
 
-    // 함수를 통해 데이터를 불러온다.
-    fun JSON_Parse(obj: JSONObject, data: String): String {
-        // 원하는 정보를 불러와 리턴받고 없는 정보는 캐치하여 "없습니다."로 리턴받는다.
-        return try {
-            obj.getString(data)
-        } catch (e: Exception) {
-            "없습니다."
-        }
-    }
-
-    /** 리사이클러뷰 변수 선언 */
-    private val gameItemIntroData = arrayListOf<GameItem>()
-
-    inner class NetworkThread : Thread() {
-        override fun run() {
-            val url = URL("https://api.sul-game.info/api/home")
-            val conn = url.openConnection()
-            val input = conn.getInputStream()
-            val isr = InputStreamReader(input)
-            // br: 라인 단위로 데이터를 읽어오기 위해서 만듦
-            val br = BufferedReader(isr)
-
-            // Json 문서는 일단 문자열로 데이터를 모두 읽어온 후, Json에 관련된 객체를 만들어서 데이터를 가져옴
-            var str: String? = null
-            val buf = StringBuffer()
-
-            do {
-                str = br.readLine()
-
-                if (str != null) {
-                    buf.append(str)
-                }
-            } while (str != null)
-
-            // 전체가 객체로 묶여있기 때문에 객체형태로 가져옴
-            val root = JSONObject(buf.toString())
-            val response = root.getJSONArray("latestIntros")
-            for (i in 0 until response.length()) {
-                val item = response.getJSONObject(i)
-                val jObject = response.getJSONObject(i)
-                val title = JSON_Parse(jObject, "title")
-                val contents = JSON_Parse(jObject, "description")
-                val nickname = item.getString("title")
-                val cntHeart = JSON_Parse(jObject, "likes")
-                gameItemIntroData.add(
-                    GameItem(
-                        title,
-                        contents,
-                        nickname.toString(),
-                        cntHeart.toInt()
-                    )
-                )
-                gameItemIntroData.add(
-                    GameItem(
-                        title,
-                        contents,
-                        nickname.toString(),
-                        cntHeart.toInt()
-                    )
-                )
-                gameItemIntroData.add(
-                    GameItem(
-                        title,
-                        contents,
-                        nickname.toString(),
-                        cntHeart.toInt()
-                    )
-                )
-            }
-        }
-    }
-
     // 최신 게시물의 리사이클러뷰
     private fun recentRecyclerMain() {
-        val gameItemCreationData = arrayListOf<GameItem>(
-            GameItem("어목조동", "자연과 함께하는 술게임", "구해조", 30),
-            GameItem("딸기당근수박참외 찍고", "지목이 더해진 과일게임", "구해조", 30),
-            GameItem("딸기당근수박참외 리버스", "거꾸로 말하기 도전!", "구해조", 30)
+        val latestFeedItemCreationData = arrayListOf<LatestFeedItem>(
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
         )
 
-//        val thread = NetworkThread()
-//        thread.start()
-//        thread.join()
+        val latestFeedItemIntroData = arrayListOf<LatestFeedItem>(
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+        )
 
-        binding.rvRecentMain.adapter = GameAdapter(gameItemCreationData)
+        binding.rvRecentMain.adapter = LatestFeedAdapter(latestFeedItemCreationData)
+        binding.rvRecentMain.addItemDecoration(LatestFeedDecoration())
         binding.rvRecentMain.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         binding.tvRecentCreationMain.setOnClickListener {
             binding.tvRecentCreationMain.setTextColor(getColor(R.color.main_color))
@@ -168,9 +99,9 @@ class MainActivity : AppCompatActivity() {
                 )
             )
 
-            binding.rvRecentMain.adapter = GameAdapter(gameItemCreationData)
+            binding.rvRecentMain.adapter = LatestFeedAdapter(latestFeedItemCreationData)
             binding.rvRecentMain.layoutManager =
-                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         }
 
         binding.tvRecentIntroMain.setOnClickListener {
@@ -181,9 +112,9 @@ class MainActivity : AppCompatActivity() {
             )
             binding.tvRecentIntroMain.setTextColor(getColor(R.color.main_color))
 
-            binding.rvRecentMain.adapter = GameAdapter(gameItemIntroData)
+            binding.rvRecentMain.adapter = LatestFeedAdapter(latestFeedItemIntroData)
             binding.rvRecentMain.layoutManager =
-                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
@@ -459,25 +390,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun shareIntroRecyclerMain() {
-        val shareIntroRecentData = arrayListOf<GameItem>(
-            GameItem("어목조동 최신", "자연과 함께하는 술게임", "구해조", 30),
-            GameItem("딸기당근수박참외 찍고 최신", "지목이 더해진 과일게임", "구해조", 30),
-            GameItem("딸기당근수박참외 리버스 최신", "거꾸로 말하기 도전!", "구해조", 30)
+        val shareIntroRecentData = arrayListOf<IntroItem>(
+            IntroItem("어목조동 최신", "자연과 함께하는 술게임", "구해조", 30),
+            IntroItem("딸기당근수박참외 찍고 최신", "지목이 더해진 과일게임", "구해조", 30),
+            IntroItem("딸기당근수박참외 리버스 최신", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
-        val shareIntroHeartData = arrayListOf<GameItem>(
-            GameItem("어목조동 좋아요", "자연과 함께하는 술게임", "구해조", 30),
-            GameItem("딸기당근수박참외 찍고 좋아요", "지목이 더해진 과일게임", "구해조", 30),
-            GameItem("딸기당근수박참외 리버스 좋아요", "거꾸로 말하기 도전!", "구해조", 30)
+        val shareIntroHeartData = arrayListOf<IntroItem>(
+            IntroItem("어목조동 좋아요", "자연과 함께하는 술게임", "구해조", 30),
+            IntroItem("딸기당근수박참외 찍고 좋아요", "지목이 더해진 과일게임", "구해조", 30),
+            IntroItem("딸기당근수박참외 리버스 좋아요", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
-        val shareIntroViewData = arrayListOf<GameItem>(
-            GameItem("어목조동 조회수", "자연과 함께하는 술게임", "구해조", 30),
-            GameItem("딸기당근수박참외 찍고 조회수", "지목이 더해진 과일게임", "구해조", 30),
-            GameItem("딸기당근수박참외 리버스 조회수", "거꾸로 말하기 도전!", "구해조", 30)
+        val shareIntroViewData = arrayListOf<IntroItem>(
+            IntroItem("어목조동 조회수", "자연과 함께하는 술게임", "구해조", 30),
+            IntroItem("딸기당근수박참외 찍고 조회수", "지목이 더해진 과일게임", "구해조", 30),
+            IntroItem("딸기당근수박참외 리버스 조회수", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
-        binding.rvShareIntroMain.adapter = GameAdapter(shareIntroRecentData)
+        binding.rvShareIntroMain.adapter = IntroAdapter(shareIntroRecentData)
         binding.rvShareIntroMain.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -485,71 +416,122 @@ class MainActivity : AppCompatActivity() {
         // 각 Chip에 클릭 리스너 추가 (선택 상태 유지 보장)
         binding.cpRecentMain.setOnClickListener { v ->
             ensureOneSelected(binding.cpRecentMain)
-            binding.rvShareIntroMain.adapter = GameAdapter(shareIntroRecentData)
+            binding.rvShareIntroMain.adapter = IntroAdapter(shareIntroRecentData)
             binding.rvShareIntroMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
         binding.cpHeartMain.setOnClickListener { v ->
             ensureOneSelected(binding.cpHeartMain)
-            binding.rvShareIntroMain.adapter = GameAdapter(shareIntroHeartData)
+            binding.rvShareIntroMain.adapter = IntroAdapter(shareIntroHeartData)
             binding.rvShareIntroMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
         binding.cpViewMain.setOnClickListener { v ->
             ensureOneSelected(binding.cpViewMain)
-            binding.rvShareIntroMain.adapter = GameAdapter(shareIntroViewData)
+            binding.rvShareIntroMain.adapter = IntroAdapter(shareIntroViewData)
             binding.rvShareIntroMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
     }
 
     private fun hotGameRecyclerMain() {
-        val hotGameData = arrayListOf<DrinkingGameItem>(
+        val hotWeeklyGameData = arrayListOf<DrinkingGameItem>(
             DrinkingGameItem(
                 R.drawable.ic_launcher_background,
-                "바니바니",
+                "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
             DrinkingGameItem(
                 R.drawable.ic_launcher_background,
-                "바니바니",
+                "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
             DrinkingGameItem(
                 R.drawable.ic_launcher_background,
-                "바니바니",
+                "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
             DrinkingGameItem(
                 R.drawable.ic_launcher_background,
-                "바니바니",
+                "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
             DrinkingGameItem(
                 R.drawable.ic_launcher_background,
-                "바니바니",
+                "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
             DrinkingGameItem(
                 R.drawable.ic_launcher_background,
-                "바니바니",
+                "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
             DrinkingGameItem(
                 R.drawable.ic_launcher_background,
-                "바니바니",
+                "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
             DrinkingGameItem(
                 R.drawable.ic_launcher_background,
-                "바니바니",
+                "바니바니 주간",
+                "하늘에서 내려와버린 토끼",
+                30
+            )
+        )
+
+        val hotDailyGameData = arrayListOf<DrinkingGameItem>(
+            DrinkingGameItem(
+                R.drawable.ic_launcher_background,
+                "바니바니 일간",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGameItem(
+                R.drawable.ic_launcher_background,
+                "바니바니 일간",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGameItem(
+                R.drawable.ic_launcher_background,
+                "바니바니 일간",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGameItem(
+                R.drawable.ic_launcher_background,
+                "바니바니 일간",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGameItem(
+                R.drawable.ic_launcher_background,
+                "바니바니 일간",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGameItem(
+                R.drawable.ic_launcher_background,
+                "바니바니 일간",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGameItem(
+                R.drawable.ic_launcher_background,
+                "바니바니 일간",
+                "하늘에서 내려와버린 토끼",
+                30
+            ),
+            DrinkingGameItem(
+                R.drawable.ic_launcher_background,
+                "바니바니 일간",
                 "하늘에서 내려와버린 토끼",
                 30
             )
@@ -563,7 +545,35 @@ class MainActivity : AppCompatActivity() {
                 GridLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = DrinkingGameAdapter(hotGameData)
+            adapter = DrinkingGameAdapter(hotWeeklyGameData)
+        }
+
+        // 각 Chip에 클릭 리스너 추가 (선택 상태 유지 보장)
+        binding.cpWeeklyMain.setOnClickListener { v ->
+            ensureOneSelected(binding.cpWeeklyMain)
+            binding.rvHotMain.apply {
+                setHasFixedSize(true)
+                layoutManager = GridLayoutManager(
+                    this@MainActivity,
+                    3,
+                    GridLayoutManager.HORIZONTAL,
+                    false
+                )
+                adapter = DrinkingGameAdapter(hotWeeklyGameData)
+            }
+        }
+        binding.cpDailyMain.setOnClickListener { v ->
+            ensureOneSelected(binding.cpDailyMain)
+            binding.rvHotMain.apply {
+                setHasFixedSize(true)
+                layoutManager = GridLayoutManager(
+                    this@MainActivity,
+                    3,
+                    GridLayoutManager.HORIZONTAL,
+                    false
+                )
+                adapter = DrinkingGameAdapter(hotDailyGameData)
+            }
         }
     }
 
@@ -616,8 +626,14 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     // 드래깅 되고있을 때
-                    BottomSheetBehavior.STATE_DRAGGING ->
+                    BottomSheetBehavior.STATE_DRAGGING -> {
                         binding.backgroundDimMain.visibility = View.VISIBLE
+                        Log.d("술겜위키", "refreshToken : ${TokenUtil().getRefreshToken(this@MainActivity)}")
+                        if(TokenUtil().getRefreshToken(this@MainActivity).isNullOrBlank()){
+                            startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+                            finish()
+                        }
+                    }
 
                     // 접혀있을 때
                     BottomSheetBehavior.STATE_COLLAPSED -> {

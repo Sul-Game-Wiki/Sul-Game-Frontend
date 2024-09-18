@@ -14,10 +14,22 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 
 interface MemberApi {
+    // 닉네임 중복체크
+    @Multipart
     @POST("members/check-nickname")
     fun checkNickName(
         @Header("Authorization") token: String,
-        @Body MemberRequest: MemberRequest
+        @Part("nickname") nickname: RequestBody,
+    ): Call<MemberResponse>
+
+    // 닉네임 중복체크
+    @Multipart
+    @POST("members/complete-registration")
+    fun completeRegistration(
+        @Header("Authorization") token: String,
+        @Part("nickname") nickname: RequestBody,
+        @Part("birthDate") birthDate: RequestBody,
+        @Part("university") university: RequestBody,
     ): Call<MemberResponse>
 
     // 마이페이지
