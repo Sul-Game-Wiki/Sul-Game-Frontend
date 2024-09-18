@@ -208,38 +208,12 @@ class SignUpActivity : AppCompatActivity() {
     private fun isAvailableName(name: String, callback: (Boolean) -> Unit): Boolean {
         val token = "Bearer ${TokenUtil().getRefreshToken(this)}"
 
-        val memberId = createRequestBody("")
         val nickname = createRequestBody(name)
-        val birthDate = createRequestBody("")
-        val university = createRequestBody("")
-        val isUniversityVisible = createRequestBody("")
-        val isNotificationEnabled = createRequestBody("")
-        val pageNumber = createRequestBody("")
-        val pageSize = createRequestBody("")
-        val expRank = createRequestBody("")
-        val expRankPercentile = createRequestBody("")
-        val nextLevelExp = createRequestBody("")
-        val remainingExpForNextLevel = createRequestBody("")
-        val progressPercentToNextLevel = createRequestBody("")
-        val rankChange = createRequestBody("")
 
         RetrofitClient.memberApiService
             .checkNickName(
                 token,
-                memberId,
                 nickname,
-                birthDate,
-                university,
-                isUniversityVisible,
-                isNotificationEnabled,
-                pageNumber,
-                pageSize,
-                expRank,
-                expRankPercentile,
-                nextLevelExp,
-                remainingExpForNextLevel,
-                progressPercentToNextLevel,
-                rankChange
             ).enqueue(object :
                 Callback<MemberResponse> {
                 override fun onResponse(
