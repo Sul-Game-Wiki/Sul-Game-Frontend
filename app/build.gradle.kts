@@ -65,14 +65,14 @@ android {
 }
 
 dependencies {
-    implementation ("com.google.code.gson:gson:2.11.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.5")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.core:core-ktx:1.13.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
-    // Retrofit       u
+    // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
-// Retrofit with Scalar Converter
+    // Retrofit with Scalar Converter
     implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
     implementation ("com.squareup.okhttp3:okhttp:4.12.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.12.0")
@@ -94,5 +94,7 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+
 
 }
