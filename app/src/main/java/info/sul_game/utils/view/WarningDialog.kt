@@ -51,7 +51,7 @@ class WarningDialog (private val context : AppCompatActivity) {
         // 확인 버튼 동작
         binding.btnSubmitWarningDialog.setOnClickListener {
             dlg.dismiss()
-            Log.d("술겜위키", "버튼 클릭")
+            Log.d("술겜위키", "경고창 확인 버튼 클릭")
             completeSignUp()
             context.startActivity(Intent(context, SignUpConfirmationActivity::class.java))
             context.finish()
