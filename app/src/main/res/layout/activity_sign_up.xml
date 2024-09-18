@@ -185,6 +185,7 @@
     app:layout_constraintTop_toBottomOf="@+id/tv_prompt4_signup" />
 
   <CheckBox
+    android:id="@+id/cb_university_visible_signup"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"

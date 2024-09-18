@@ -100,7 +100,7 @@
             android:id="@+id/tv_recent_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="최신 게시물 🆕"
+            android:text="최신 게시물 살펴보기"
             android:fontFamily="@font/galmuri11_bold"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -149,8 +149,9 @@
             android:id="@+id/rv_recent_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tv_recent_intro_main"
-            tools:listitem="@layout/item_game_recyclerview"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_recent_intro_main" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,7 +167,7 @@
             android:id="@+id/tv_popular_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="국룰 술게임 🍻"
+            android:text="국룰 술게임"
             android:fontFamily="@font/galmuri11_bold"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -190,8 +191,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_popular_main"
-            tools:listitem="@layout/item_drinking_game_recyclerview"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_popular_main"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -207,7 +207,7 @@
             android:id="@+id/tv_live_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="실시간 ㅅㄱㅇㅋ 🥇"
+            android:text="실시간 ㅅㄱㅇㅋ 차트"
             android:fontFamily="@font/galmuri11_bold"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -281,8 +281,7 @@
             android:layout_marginTop="10dp"
             android:numColumns="3"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/cg_live_chips_main"
-            tools:listitem="@layout/item_chart_recyclerview" />
+            app:layout_constraintTop_toBottomOf="@+id/cg_live_chips_main" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -369,8 +368,7 @@
             android:id="@+id/rv_share_intro_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/cg_share_intro_chips_main"
-            tools:listitem="@layout/item_game_recyclerview"/>
+            app:layout_constraintTop_toBottomOf="@+id/cg_share_intro_chips_main" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -386,7 +384,7 @@
             android:id="@+id/tv_hot_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="오늘 가장 핫했던 술게임 🔥"
+            android:text="요즘 핫한 술게임 차트"
             android:fontFamily="@font/galmuri11_bold"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -405,13 +403,49 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_hot_main"
             app:layout_constraintStart_toEndOf="@+id/tv_hot_main"/>
 
+          <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_hot_chips_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:theme="@style/Theme.MaterialComponents.DayNight"
+            app:chipSpacingHorizontal="14sp"
+            app:singleSelection="true"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hot_main"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.chip.Chip
+              style="@style/Widget.MaterialComponents.Chip.Choice"
+              android:id="@+id/cp_weekly_main"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="주간"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/chip_text_checked"
+              android:checked="true"
+              app:chipBackgroundColor="@color/chip_checked" />
+
+            <com.google.android.material.chip.Chip
+              style="@style/Widget.MaterialComponents.Chip.Choice"
+              android:id="@+id/cp_daily_main"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="일간"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/chip_text_checked"
+              app:chipBackgroundColor="@color/chip_checked" />
+
+          </com.google.android.material.chip.ChipGroup>
+
           <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_hot_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_hot_main"
-            tools:listitem="@layout/item_drinking_game_recyclerview"/>
+            app:layout_constraintTop_toBottomOf="@+id/cg_hot_chips_main"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

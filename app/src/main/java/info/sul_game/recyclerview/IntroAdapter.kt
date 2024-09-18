@@ -1,12 +1,11 @@
 package info.sul_game.recyclerview
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import info.sul_game.databinding.ItemGameRecyclerviewBinding
+import info.sul_game.databinding.ItemIntroRecyclerviewBinding
 
-class GameAdapter (val gameItemList: ArrayList<GameItem>) :
+class IntroAdapter (val introItemList: ArrayList<IntroItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -14,28 +13,27 @@ class GameAdapter (val gameItemList: ArrayList<GameItem>) :
         viewType: Int
     ): RecyclerView.ViewHolder {
         val binding =
-            ItemGameRecyclerviewBinding.inflate(
+            ItemIntroRecyclerviewBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
-        return GameViewHolder(binding)
+        return IntroViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
         return 3
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        if (holder is GameViewHolder) {
-            holder.title.text = gameItemList[position].title
-            holder.contents.text = gameItemList[position].contents
-            holder.userName.text = gameItemList[position].userName
-            holder.cntHeart.text = gameItemList[position].cntHeart.toString()
+        if (holder is IntroViewHolder) {
+            holder.title.text = introItemList[position].title
+            holder.contents.text = introItemList[position].contents
+            holder.userName.text = introItemList[position].userName
+            holder.cntHeart.text = introItemList[position].cntHeart.toString()
         }
     }
 }

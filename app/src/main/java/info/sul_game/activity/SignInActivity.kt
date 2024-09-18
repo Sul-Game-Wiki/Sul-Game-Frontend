@@ -154,7 +154,7 @@ class SignInActivity : AppCompatActivity() {
             saveUserInfo(loginAccountStatus, nickname, email)
 
             runOnUiThread {
-                Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                Log.d("술겜위키", "로그인 성공!")
                 if(loginAccountStatus == "PENDING"){
                     startActivity(Intent(this, SignUpActivity::class.java))
                     finish()

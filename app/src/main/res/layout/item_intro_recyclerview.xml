@@ -7,7 +7,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-      android:id="@+id/tv_title_game_item"
+      android:id="@+id/tv_title_intro_item"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="20dp"
@@ -22,7 +22,7 @@
       tools:text="어목조동"/>
 
     <TextView
-      android:id="@+id/tv_contents_game_item"
+      android:id="@+id/tv_contents_intro_item"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:textSize="15sp"
@@ -33,12 +33,12 @@
       android:maxLines="1"
       android:ellipsize="end"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/tv_username_game_item"
+      app:layout_constraintEnd_toStartOf="@+id/tv_username_intro_item"
       app:layout_constraintBottom_toBottomOf="parent"
       tools:text="자연과 함께하는 술게임"/>
 
     <TextView
-      android:id="@+id/tv_username_game_item"
+      android:id="@+id/tv_username_intro_item"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="20dp"
@@ -46,12 +46,12 @@
       android:textSize="15sp"
       android:textColor="@color/deep_gray"
       android:textStyle="bold"
-      app:layout_constraintEnd_toStartOf="@+id/tv_heart_game_item"
+      app:layout_constraintEnd_toStartOf="@+id/tv_heart_intro_item"
       app:layout_constraintBottom_toBottomOf="parent"
       tools:text="구해조" />
 
     <TextView
-      android:id="@+id/tv_heart_game_item"
+      android:id="@+id/tv_heart_intro_item"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="20dp"
