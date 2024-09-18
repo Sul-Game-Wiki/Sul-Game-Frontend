@@ -72,39 +72,17 @@ class WarningDialog (private val context : AppCompatActivity) {
         Log.d("술겜위키", "토큰값 : ${TokenUtil().getRefreshToken(context)}")
         val token = "Bearer ${TokenUtil().getRefreshToken(context)}"
 
-        val memberId = createRequestBody("")
         val nickname = createRequestBody(this.nickname)
         val birthDate = createRequestBody(this.birthDate.format(
             DateTimeFormatter.ISO_DATE))
         val university = createRequestBody(this.university)
-        val isUniversityVisible = createRequestBody(this.isUniversityVisible.toString())
-        val isNotificationEnabled = createRequestBody("")
-        val pageNumber = createRequestBody("")
-        val pageSize = createRequestBody("")
-        val expRank = createRequestBody("")
-        val expRankPercentile = createRequestBody("")
-        val nextLevelExp = createRequestBody("")
-        val remainingExpForNextLevel = createRequestBody("")
-        val progressPercentToNextLevel = createRequestBody("")
-        val rankChange = createRequestBody("")
 
         RetrofitClient.memberApiService
             .completeRegistration(
                 token,
-                memberId,
                 nickname,
                 birthDate,
                 university,
-                isUniversityVisible,
-                isNotificationEnabled,
-                pageNumber,
-                pageSize,
-                expRank,
-                expRankPercentile,
-                nextLevelExp,
-                remainingExpForNextLevel,
-                progressPercentToNextLevel,
-                rankChange
             ).enqueue(object :
                 Callback<MemberResponse> {
                 override fun onResponse(
