@@ -31,10 +31,18 @@ class CreatePostActivity : AppCompatActivity(), CreateBottomSheetFragment.OnOpti
 
     override fun onOptionSelected(option: Int) {
         binding.vpCreate.currentItem = option
+        // 버튼의 텍스트 변경
+        val buttonText = when (option) {
+            0 -> "창작" // CreateCreationGameFragment에 대한 텍스트
+            1 -> "인트로" // IntroCreateFragment에 대한 텍스트
+            2 -> "공식" // OfficialCreateFragment에 대한 텍스트
+            else -> "기타"
+        }
+        binding.btnChangeCreate.text = buttonText
     }
 
     class CreateFragmentPagerAdapter(activity: FragmentActivity): FragmentStateAdapter(activity) {
-        override fun getItemCount(): Int = 3 // 0번과 1번, 두 개의 프래그먼트
+        override fun getItemCount(): Int = 3 // 3 개의 프래그먼트
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {

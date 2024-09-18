@@ -42,7 +42,7 @@
       android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
     <activity
       android:exported="false"
-      android:name=".activity.CreatePostActivity"
+      android:name="info.sul_game.activity.CreatePostActivity"
       android:windowSoftInputMode="adjustPan" />
     <activity
       android:exported="false"

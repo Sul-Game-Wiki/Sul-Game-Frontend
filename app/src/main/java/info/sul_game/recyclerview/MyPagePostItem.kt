@@ -11,3 +11,4 @@ data class MyPagePostItem(
     val thumbnailIcon : String,
     val creatorInfoIsPrivate : Boolean
 )
+

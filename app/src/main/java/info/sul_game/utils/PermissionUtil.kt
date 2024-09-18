@@ -52,15 +52,16 @@ object PermissionUtil {
         val context = fragment.requireContext()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // Android 11 (API 30) 이상
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.MANAGE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            if (Environment.isExternalStorageManager()) {
+                Log.d("test123","되고 있는가")
                 // 권한이 이미 승인된 경우
                 onPermissionGranted()
-            } else if(ContextCompat.checkSelfPermission(context, Manifest.permission.MANAGE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            } else if(!Environment.isExternalStorageManager()) {
                 // 권한이 승인되지 않은 경우 요청
-                    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
-                        data = Uri.parse("package:${context.packageName}")
-                    }
-                    fragment.startActivityForResult(intent, REQUEST_CODE_STORAGE)
+                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+                    data = Uri.parse("package:${fragment.requireContext().packageName}")
+                }
+                fragment.startActivityForResult(intent, REQUEST_CODE_STORAGE)
 
             }
         } else if(Build.VERSION.SDK_INT<Build.VERSION_CODES.R){

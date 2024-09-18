@@ -38,4 +38,5 @@ data class MemberResponse (
     val memberInteraction: MemberInteraction,
 
     val isExistingNickname: Boolean
+
 )
