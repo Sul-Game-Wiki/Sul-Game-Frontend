@@ -6,6 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:paddingHorizontal="20dp"
+  android:scrollbars="none"
   tools:context=".SignUpActivity">
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -183,16 +184,6 @@
     android:hint="대학교 검색"
     android:focusable="false"
     app:layout_constraintTop_toBottomOf="@+id/tv_prompt4_signup" />
-
-  <CheckBox
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:text="대학교 비공개"
-    android:textSize="13sp"
-    android:textColor="@color/black"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tv_university_signup"/>
 
   <TextView
     android:id="@+id/tv_prompt1_birth"

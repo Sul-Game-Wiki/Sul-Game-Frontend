@@ -1,16 +1,18 @@
 package info.sul_game.utils.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import info.sul_game.R
 import info.sul_game.databinding.DialogUniversityBinding
-import info.sul_game.recyclerview.UniversityItem
-import info.sul_game.recyclerview.UniversityAdapter
+import info.sul_game.recyclerview.UniversitySignUpItem
+import info.sul_game.recyclerview.UniversitySignUpAdapter
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.Collator
@@ -19,7 +21,7 @@ import java.util.Locale
 class ModalBottomSheetDialog : BottomSheetDialogFragment() {
     private lateinit var binding: DialogUniversityBinding
     private lateinit var universityNames: List<String>
-    private lateinit var sortedUniversityItemNames: ArrayList<UniversityItem>
+    private lateinit var sortedUniversitySignUpItemNames: ArrayList<UniversitySignUpItem>
     var onUniversitySelected: ((String) -> Unit)? = null
 
     override fun onCreateView(
@@ -37,53 +39,57 @@ class ModalBottomSheetDialog : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadUniversityNames()
-        sortedUniversityItemNames = ArrayList()
+        sortedUniversitySignUpItemNames = ArrayList()
         val groupedUniversities = sortAndGroupUniversities(universityNames)
 
         groupedUniversities.forEach { name ->
             if (name.length == 1 && name[0] in 'ㄱ'..'ㅎ') {
-                // 초성인 경우
-                sortedUniversityItemNames.add(
-                    UniversityItem(
-                        0,
-                        name
-                    )
-                ) // "header" 타입을 추가하여 구분
+                sortedUniversitySignUpItemNames.add(UniversitySignUpItem(0, name)) // Header type
             } else {
-                // 대학 이름인 경우
-                sortedUniversityItemNames.add(UniversityItem(1, name)) // "item" 타입으로 구분
+                sortedUniversitySignUpItemNames.add(UniversitySignUpItem(1, name)) // Item type
             }
         }
 
-        val adapter = UniversityAdapter(sortedUniversityItemNames)
+        val adapter = UniversitySignUpAdapter(ArrayList(sortedUniversitySignUpItemNames)) //수정됨
         adapter.onItemClick = { selectedUniversity ->
             onUniversitySelected?.invoke(selectedUniversity)
-            dismiss() // 다이얼로그 닫기
+            dismiss() // Close the dialog
         }
 
         binding.rvUniversityUniversityDialog.adapter = adapter
         binding.rvUniversityUniversityDialog.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        // 검색 버튼 클릭 이벤트 처리
-//        searchButton.setOnClickListener {
-//            val query = searchEditText.text.toString()
-//            // 검색 로직 구현 (예: 검색 결과 필터링, 서버 요청 등)
-//            // 예시로 검색어를 출력
-//            if (query.isNotEmpty()) {
-//                // 예시: 검색어를 사용한 검색 동작 수행
-//                performSearch(query)
-//            } else {
-//                // 검색어가 비어 있을 때의 처리
-//                showEmptySearchAlert()
-//            }
-//        }
-//
-//        // 취소 버튼 클릭 시 다이얼로그 닫기
-//        val cancelButton: Button = view.findViewById(R.id.btn_cancel)
-//        cancelButton.setOnClickListener {
-//            dismiss() // 다이얼로그 닫기
-//        }
+        // Add a TextWatcher to the search input field to filter results as the user types
+        binding.etSearchUniversityDialog.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s.toString().trim()
+                Log.d("술겜위키", "텍스트 변환")
+                if (query.isEmpty()) {
+                    // 검색어가 없으면 전체 리스트 다시 보여주기
+                    Log.d("술겜위키", "검색값 없음")
+                    adapter.updateList(ArrayList(sortedUniversitySignUpItemNames)) // 전체 리스트 다시 표시 //수정됨
+                } else {
+                    Log.d("술겜위키", "query : $query")
+                    val filteredList = filterUniversityList(query)
+                    Log.d("술겜위키", "검색된 리스트: $filteredList")
+                    adapter.updateList(filteredList) // Update the adapter with the filtered list
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    // 필터링 함수에서 헤더(초성) 없이 대학 이름만 필터링
+    private fun filterUniversityList(query: String): ArrayList<UniversitySignUpItem> {
+        return ArrayList(sortedUniversitySignUpItemNames.filter { item -> // 수정됨
+            item.state == 1 && item.text.contains(query, ignoreCase = true)
+        }).also {
+            Log.d("술겜위키", "필터링된 결과: $it") // 필터된 항목을 로그로 출력
+        }
     }
 
     private fun loadUniversityNames() {
@@ -150,19 +156,6 @@ class ModalBottomSheetDialog : BottomSheetDialogFragment() {
             in '하'..'힣' -> "ㅎ"
             else -> initial.toString() // 한글이 아닐 경우 문자 그대로 반환
         }
-    }
-
-
-    private fun performSearch(query: String) {
-        // 검색 기능을 수행하는 로직 작성
-        // 예시: 입력된 검색어를 이용해 필터링하거나 서버에 요청 보내기
-        println("Searching for: $query")
-    }
-
-    private fun showEmptySearchAlert() {
-        // 빈 검색어에 대한 알림 또는 토스트 메시지 표시
-        // 예: Toast.makeText(context, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
-        println("검색어를 입력해주세요.")
     }
 
     companion object {

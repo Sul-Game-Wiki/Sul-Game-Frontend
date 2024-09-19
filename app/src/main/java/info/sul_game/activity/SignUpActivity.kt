@@ -8,23 +8,32 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import info.sul_game.R
+import info.sul_game.api.MemberApi
+import info.sul_game.config.RetrofitClient
+import info.sul_game.databinding.ActivitySignUpBinding
+import info.sul_game.model.MemberResponse
+import info.sul_game.utils.TokenUtil
 import info.sul_game.utils.view.DateDialog
 import info.sul_game.utils.view.ModalBottomSheetDialog
 import info.sul_game.utils.view.WarningDialog
-import info.sul_game.api.MemberApi
-import info.sul_game.databinding.ActivitySignUpBinding
-import info.sul_game.utils.TokenUtil
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
 
@@ -54,11 +63,11 @@ class SignUpActivity : AppCompatActivity() {
             binding.tvCountLengthSignup.text =
                 binding.etNameSignup.text.length.toString() + maxLength
 
-            if(binding.etNameSignup.text.toString() == previousName && previousName != ""){
+            if (binding.etNameSignup.text.toString() == previousName && previousName != "") {
                 binding.tvHint1Signup.visibility = View.INVISIBLE
                 binding.tvHint2Signup.visibility = View.VISIBLE
                 binding.tvHint3Signup.visibility = View.INVISIBLE
-            } else{
+            } else {
                 binding.tvHint1Signup.visibility = View.VISIBLE
                 binding.tvHint2Signup.visibility = View.INVISIBLE
                 binding.tvHint3Signup.visibility = View.INVISIBLE
@@ -68,16 +77,24 @@ class SignUpActivity : AppCompatActivity() {
 
         binding.btnCheckNameSignup.setOnClickListener {
             // 사용 가능 닉네임인지 확인
-            if (isAvailableName(binding.etNameSignup.text.toString())) {
-                binding.tvHint1Signup.visibility = View.INVISIBLE
-                binding.tvHint2Signup.visibility = View.VISIBLE
-                binding.tvHint3Signup.visibility = View.INVISIBLE
-                previousName = binding.etNameSignup.text.toString()
-                binding.btnCheckNameSignup.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.main_color))
-            } else{
-                binding.tvHint1Signup.visibility = View.INVISIBLE
-                binding.tvHint2Signup.visibility = View.INVISIBLE
-                binding.tvHint3Signup.visibility = View.VISIBLE
+            isAvailableName(binding.etNameSignup.text.toString()) { isAvailable ->
+                if (!isAvailable) {
+                    binding.tvHint1Signup.visibility = View.INVISIBLE
+                    binding.tvHint2Signup.visibility = View.VISIBLE
+                    binding.tvHint3Signup.visibility = View.INVISIBLE
+                    previousName = binding.etNameSignup.text.toString()
+                    binding.btnCheckNameSignup.backgroundTintList =
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                this,
+                                R.color.main_color
+                            )
+                        )
+                } else {
+                    binding.tvHint1Signup.visibility = View.INVISIBLE
+                    binding.tvHint2Signup.visibility = View.INVISIBLE
+                    binding.tvHint3Signup.visibility = View.VISIBLE
+                }
             }
             buttonClickable()
         }
@@ -86,19 +103,29 @@ class SignUpActivity : AppCompatActivity() {
         binding.etDateSignup.isFocusableInTouchMode = false
         binding.etDateSignup.isClickable = true
 
-        binding.etDateSignup.setOnClickListener{
+        binding.etDateSignup.setOnClickListener {
             val dlg = DateDialog(this)
             dlg.listener = object : DateDialog.DateDialogListener {
                 override fun onDateSelected(year: Int, month: Int, day: Int) {
-                    binding.etDateSignup.setText("$year / $month / $day")
+                    val formattedMonth = String.format("%02d", month)
+                    val formattedDay = String.format("%02d", day)
+
+                    binding.etDateSignup.setText("$year / $formattedMonth / $formattedDay")
                 }
             }
             dlg.show()
         }
 
-        binding.tvUniversitySignup.setOnClickListener{
+        binding.etDateSignup.addTextChangedListener{
+            buttonClickable()
+        }
+
+        binding.tvUniversitySignup.setOnClickListener {
             val modal = ModalBottomSheetDialog()
-            modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.TransParentBottomSheetDialogTheme)
+            modal.setStyle(
+                DialogFragment.STYLE_NORMAL,
+                R.style.TransParentBottomSheetDialogTheme
+            )
             modal.onUniversitySelected = { universityName ->
                 binding.tvUniversitySignup.setText(universityName) // 선택된 대학명을 텍스트뷰에 설정
             }
@@ -159,32 +186,68 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnNextSignup.setOnClickListener{
-            WarningDialog(this).show()
+        binding.btnNextSignup.setOnClickListener {
+            Log.d("술겜위키", "다음버튼 클릭")
+            val dates = binding.etDateSignup.text.toString().replace(" / ", "")
+            Log.d("술겜위키", "값 리플레이스")
+            val birthDate = LocalDate.parse(dates, DateTimeFormatter.BASIC_ISO_DATE)
+            Log.d("술겜위키", "변환해결")
+            WarningDialog(this).show(binding.etNameSignup.text.toString(), birthDate, binding.tvUniversitySignup.text.toString())
         }
     }
 
+    private val _member = MutableLiveData<MemberResponse>()
+    val member: LiveData<MemberResponse> get() = _member
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
+
     /**
-     * TODO : 서버랑 합체해야됨
      * 사용 가능 닉네임인지 확인
      */
-    private fun isAvailableName(name: String): Boolean {
-//        val request = NicknameRequest(nickname = name)
-//        memberApi.checkNickName(TokenUtil().getRefreshToken(this@SignUpActivity).toString(), request).enqueue(object :
-//            Callback<Void> {
-//            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-//                if (response.isSuccessful) {
-//                    Log.d("API_CALL", "닉네임 업데이트 성공")
-//                } else {
-//                    Log.e("API_CALL", "닉네임 업데이트 실패: ${response.code()}")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Void>, t: Throwable) {
-//                Log.e("API_CALL", "API 호출 실패: ${t.message}")
-//            }
-//        })
-        return true
+    private fun isAvailableName(name: String, callback: (Boolean) -> Unit): Boolean {
+        val token = "Bearer ${TokenUtil().getRefreshToken(this)}"
+
+        val nickname = createRequestBody(name)
+
+        RetrofitClient.memberApiService
+            .checkNickName(
+                token,
+                nickname,
+            ).enqueue(object :
+                Callback<MemberResponse> {
+                override fun onResponse(
+                    call: Call<MemberResponse>,
+                    response: Response<MemberResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val isExistingNickname = response.body()?.isExistingNickname ?: false
+                        _member.value = response.body()  // 성공적으로 데이터를 받으면 LiveData에 저장
+                        Log.d("술겜위키", "중복확인 성공!")
+                        Log.d("술겜위키", "값은 : ${_member.value}")
+
+                        callback(isExistingNickname)
+                    } else {
+                        _error.value = "Error: ${response.code()}"  // 에러 발생 시 처리
+                        Log.e("술겜위키", "응답 실패: ${response.code()} - ${response.errorBody()?.string()}")
+                        callback(false)
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<MemberResponse>,
+                    t: Throwable
+                ) {
+                    _error.value = "Failure: ${t.message}"  // 네트워크 오류 처리
+                    Log.d("술겜위키", "오류")
+                    callback(false)
+                }
+            })
+        return false
+    }
+
+    private fun createRequestBody(value: String): RequestBody {
+        return RequestBody.create(MultipartBody.FORM, value)
     }
 
     private fun isAvailableBirth(birth: String): Boolean {
@@ -192,8 +255,10 @@ class SignUpActivity : AppCompatActivity() {
             val sdf = SimpleDateFormat("yyyy / MM / dd", Locale.US)
             val birthDate = sdf.parse(birth) ?: return false
             val today = Calendar.getInstance()
-            val birthCalendar = Calendar.getInstance().apply { time = birthDate }
-            var age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR)
+            val birthCalendar =
+                Calendar.getInstance().apply { time = birthDate }
+            var age =
+                today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR)
 
             if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
                 age--
@@ -221,7 +286,8 @@ class SignUpActivity : AppCompatActivity() {
 
         alert.show()
 
-        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.main_color))
+        alert.getButton(AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(ContextCompat.getColor(this, R.color.main_color))
     }
 
     private fun loadUniversityNames() {
@@ -243,13 +309,13 @@ class SignUpActivity : AppCompatActivity() {
      * Button Clickable 설정
      * 입력한 닉네임이 제대로 쓰여졌으면 클릭 허용
      */
-    private fun buttonClickable() {
+    fun buttonClickable() {
         val dateText = binding.etDateSignup.text.toString()
         val isNameAvailable = binding.tvHint2Signup.visibility == View.VISIBLE
         val isBirthValid = isAvailableBirth(dateText)
-        val isUniversityValid = binding.tvUniversitySignup.text.toString() in universityNames
+//        val isUniversityValid = binding.tvUniversitySignup.text.toString() in universityNames
 
-        if (isNameAvailable && isBirthValid && isUniversityValid && isPermissionState) {
+        if (isNameAvailable && isBirthValid && isPermissionState) {
             binding.btnNextSignup.isEnabled = true
             binding.btnNextSignup.backgroundTintList =
                 ContextCompat.getColorStateList(this, R.color.main_color)

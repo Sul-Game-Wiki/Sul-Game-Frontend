@@ -14,38 +14,61 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 
 interface MemberApi {
+    // 닉네임 중복체크
+    @Multipart
     @POST("members/check-nickname")
     fun checkNickName(
         @Header("Authorization") token: String,
-        @Body MemberRequest: MemberRequest
+        @Part("nickname") nickname: RequestBody,
+    ): Call<MemberResponse>
+
+    // 닉네임 중복체크
+    @Multipart
+    @POST("members/complete-registration")
+    fun completeRegistration(
+        @Header("Authorization") token: String,
+        @Part("nickname") nickname: RequestBody,
+        @Part("birthDate") birthDate: RequestBody,
+        @Part("university") university: RequestBody,
     ): Call<MemberResponse>
 
     // 마이페이지
-    @GET("members/profile")
+    @Multipart
+    @POST("members/profile")
     fun getMemberProfile(
         @Header("Authorization") token: String,
-        @Body MemberRequest: MemberRequest
+        @Part("part") part : RequestBody
+    ): Call<MemberResponse>
+
+    // 내가 쓴 글
+    @Multipart
+    @POST("members/my-posts")
+    fun getMyPosts(
+        @Header("Authorization") token: String,
+        @Part("part") part : RequestBody
     ): Call<MemberResponse>
 
     // 좋아요한 글
-    @GET("members/liked-post")
+    @Multipart
+    @POST("members/liked-posts")
     fun getLikedPosts(
         @Header("Authorization") token: String,
-        @Body MemberRequest: MemberRequest
+        @Part("part") part : RequestBody
     ): Call<MemberResponse>
 
     // 즐겨찾기한 글
-    @GET("members/bookmarked-post")
+    @Multipart
+    @POST("members/bookmarked-posts")
     fun getBookmarkedPosts(
         @Header("Authorization") token: String,
-        @Body MemberRequest: MemberRequest
+        @Part("part") part : RequestBody
     ): Call<MemberResponse>
 
     // 회원 닉네임 업데이트
     @Multipart
     @POST("members/nickname")
     fun updateNickname(
-        @Part("memberId") memberId: RequestBody,
+        @Header("Authorization") token: String,
         @Part("nickname") nickname: RequestBody
     ): Call<Member>
 
@@ -53,7 +76,7 @@ interface MemberApi {
     @Multipart
     @POST("members/profile-image")
     fun updateProfileImage(
-        @Part("memberId") memberId: RequestBody,
+        @Header("Authorization") token: String,
         @Part("multipartFile") multipartFile: MultipartBody.Part
     ): Call<Member>
 }

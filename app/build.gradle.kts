@@ -6,8 +6,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 //    id("kotlin-android-extensions")
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
 }
-
 
 android {
     namespace = "info.sul_game"
@@ -65,14 +65,14 @@ android {
 }
 
 dependencies {
-    implementation ("com.google.code.gson:gson:2.11.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.5")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.core:core-ktx:1.13.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
-    // Retrofit       u
+    // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
-// Retrofit with Scalar Converter
+    // Retrofit with Scalar Converter
     implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
     implementation ("com.squareup.okhttp3:okhttp:4.12.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.12.0")
@@ -89,9 +89,16 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("me.relex:circleindicator:2.1.6")
     // CircleImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-messaging:24.0.1")
+//    classpath("com.google.gms:google-services:4.4.2")
+//    apply plugin:("com.google.gms.google-services")
 
 }
