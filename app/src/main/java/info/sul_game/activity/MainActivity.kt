@@ -62,6 +62,13 @@ class MainActivity : AppCompatActivity() {
 
         persistentBottomSheetEvent()
         recyclerMain()
+        officialMove()
+    }
+    private fun officialMove(){
+        binding.btnOfficialMain.setOnClickListener {
+            val intent = Intent(this, OfficialGameListActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun recyclerMain() {
