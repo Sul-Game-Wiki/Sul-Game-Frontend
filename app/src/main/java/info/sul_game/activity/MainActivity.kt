@@ -26,6 +26,8 @@ import info.sul_game.recyclerview.LatestFeedMainDecoration
 import info.sul_game.recyclerview.LatestFeedMainItem
 import info.sul_game.recyclerview.LiveChartMainAdapter
 import info.sul_game.recyclerview.LiveChartMainItem
+import info.sul_game.recyclerview.UserRankingMainAdapter
+import info.sul_game.recyclerview.UserRankingMainItem
 import info.sul_game.utils.TokenUtil
 
 class MainActivity : AppCompatActivity() {
@@ -79,6 +81,7 @@ class MainActivity : AppCompatActivity() {
         liveChartRecyclerMain()
         shareIntroRecyclerMain()
         hotGameRecyclerMain()
+        userRankingRecyclerMain()
     }
 
     // 최신 게시물의 리사이클러뷰
@@ -592,6 +595,19 @@ class MainActivity : AppCompatActivity() {
                 adapter = DrinkingGameMainAdapter(hotDailyGameData)
             }
         }
+    }
+
+    private fun userRankingRecyclerMain() {
+        val userRankingData = arrayListOf<UserRankingMainItem>(
+            UserRankingMainItem(R.drawable.ic_launcher_background, "UP", 5, "닉네임1", 10000),
+            UserRankingMainItem(R.drawable.ic_launcher_background,"DOWN", 4, "닉네임2", 5000),
+            UserRankingMainItem(R.drawable.ic_launcher_background,"SAME", 0, "닉네임3", 3000),
+            UserRankingMainItem(R.drawable.ic_launcher_background,"NEW", 0, "닉네임4", 1000)
+        )
+
+        binding.rvUserRankingMain.adapter = UserRankingMainAdapter(userRankingData)
+        binding.rvUserRankingMain.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun ensureOneSelected(selectedChip: Chip) {
