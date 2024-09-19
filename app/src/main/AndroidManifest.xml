@@ -37,9 +37,15 @@
           android:theme="@style/Theme.AppCompat" >
         </activity>
         <activity
-          android:exported="false"
+          android:exported="true"
           android:name=".activity.SignUpActivity"
-          android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+          android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.EditAccountActivity"
             android:exported="false" />
@@ -64,7 +70,8 @@
             android:exported="false" />
         <activity
             android:name=".activity.SignInActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".activity.CreatePostActivity"
             android:exported="false"
@@ -78,11 +85,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <provider
