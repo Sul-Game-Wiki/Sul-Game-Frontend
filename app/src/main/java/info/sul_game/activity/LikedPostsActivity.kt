@@ -32,7 +32,7 @@ class LikedPostsActivity : AppCompatActivity() {
         val allLikedPosts = mutableListOf<BasePost>()
 
         accessToken?.let {
-            memberViewModel.getMemberProfile("Bearer $accessToken")
+            memberViewModel.getLikedPosts("Bearer $accessToken")
             Log.d(TAG, "updateMyPageUiWithData: getLikedPosts ($accessToken)")
 
             memberViewModel.likedPosts.observe(this) { memberResponse ->

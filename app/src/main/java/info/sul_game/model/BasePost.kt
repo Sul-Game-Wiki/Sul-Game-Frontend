@@ -9,9 +9,7 @@ data class BasePost(
     val isDeleted: Boolean,
     val isUpdated: Boolean,
     val basePostId: Long,
-    @SerializedName("title")
     val title: String,
-    @SerializedName("introduction")
     val introduction: String,
     val description: String,
     val likes: Int,
@@ -21,6 +19,7 @@ data class BasePost(
     val member: Member,
     val dailyScore: Int,
     val weeklyScore: Int,
+    val totalScore: Int,
     val commentCount: Int,
     val sourceType: String,
     val thumbnailIcon: String,

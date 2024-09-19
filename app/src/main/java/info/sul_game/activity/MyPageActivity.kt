@@ -69,9 +69,6 @@ class MyPageActivity : AppCompatActivity() {
 
         // ViewModel을 사용하여 프로필 정보 요청
         accessToken?.let {
-            memberViewModel.getMemberProfile("Bearer $accessToken")
-            Log.d(TAG, "updateMyPageUiWithData: fetchMemberProfile ($accessToken)")
-
             memberViewModel.memberResponse.observe(this) { memberResponse ->
                 if (memberResponse != null) {
                     Log.d(TAG, "$memberResponse")
@@ -113,6 +110,9 @@ class MyPageActivity : AppCompatActivity() {
                     Log.e(TAG,"updateMyPageUiWithData: memberRequest 데이터가 존재하지 않음")
                 }
             }
+
+            memberViewModel.getMemberProfile("Bearer $accessToken")
+            Log.d(TAG, "updateMyPageUiWithData: fetchMemberProfile ($accessToken)")
         }
 
     }
