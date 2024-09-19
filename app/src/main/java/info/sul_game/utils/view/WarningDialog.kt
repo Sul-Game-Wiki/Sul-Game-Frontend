@@ -33,15 +33,13 @@ class WarningDialog (private val context : AppCompatActivity) {
     private lateinit var nickname: String
     private lateinit var birthDate: LocalDate
     private lateinit var university: String
-    private var isUniversityVisible: Boolean = false
 
-    fun show(nickname: String, birthDate: LocalDate, university: String, isUniversityVisible: Boolean) {
+    fun show(nickname: String, birthDate: LocalDate, university: String) {
         binding = DialogWarningBinding.inflate(LayoutInflater.from(context))
 
         this.nickname = nickname
         this.birthDate = birthDate
         this.university = university
-        this.isUniversityVisible = isUniversityVisible
 
         dlg.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)   //타이틀바 제거

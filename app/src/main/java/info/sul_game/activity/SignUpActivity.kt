@@ -192,7 +192,7 @@ class SignUpActivity : AppCompatActivity() {
             Log.d("술겜위키", "값 리플레이스")
             val birthDate = LocalDate.parse(dates, DateTimeFormatter.BASIC_ISO_DATE)
             Log.d("술겜위키", "변환해결")
-            WarningDialog(this).show(binding.etNameSignup.text.toString(), birthDate, binding.tvUniversitySignup.text.toString(), binding.cbUniversityVisibleSignup.isChecked)
+            WarningDialog(this).show(binding.etNameSignup.text.toString(), birthDate, binding.tvUniversitySignup.text.toString())
         }
     }
 
