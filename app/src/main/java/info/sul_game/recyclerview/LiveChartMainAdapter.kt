@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import info.sul_game.databinding.ItemChartRecyclerviewBinding
 
 
-class LiveChartAdapter(val liveCharList: ArrayList<LiveChartItem>) :
+class LiveChartMainAdapter(val liveCharList: ArrayList<LiveChartMainItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -20,7 +20,7 @@ class LiveChartAdapter(val liveCharList: ArrayList<LiveChartItem>) :
                 parent,
                 false
             )
-        return LiveChartViewHolder(binding)
+        return LiveChartMainViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -32,7 +32,7 @@ class LiveChartAdapter(val liveCharList: ArrayList<LiveChartItem>) :
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        if (holder is LiveChartViewHolder) {
+        if (holder is LiveChartMainViewHolder) {
             holder.image.setImageResource(liveCharList[position].image)
             holder.rank.text = (position + 1).toString()
             holder.title.text = liveCharList[position].title
