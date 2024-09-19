@@ -22,7 +22,9 @@ class LatestFeedMainAdapter (val latestFeedMainItemList: ArrayList<LatestFeedMai
     }
 
     override fun getItemCount(): Int {
-        return latestFeedMainItemList.size
+        if(latestFeedMainItemList.size < 9)
+            return latestFeedMainItemList.size
+        return 9
     }
 
     override fun onBindViewHolder(

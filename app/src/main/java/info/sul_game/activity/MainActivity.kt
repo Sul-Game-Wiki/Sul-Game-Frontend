@@ -10,8 +10,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import info.sul_game.R
 import info.sul_game.databinding.ActivityMainBinding
 import info.sul_game.recyclerview.DrinkingGameMainAdapter
@@ -52,6 +55,21 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.tvMypageLoginMain.text = "마이 페이지"
             binding.tvMypageLoginMain.textSize = 32f
+        }
+
+        // Firebase 초기화
+        FirebaseApp.initializeApp(this)
+
+        // 그 후에 FCM 토큰 관련 작업 수행
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("술겜위키", "Fetching FCM registration token failed", task.exception)
+                return@addOnCompleteListener
+            }
+
+            val token = task.result
+            Log.d("술겜위키", "토큰 이름 : $token")
+            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
         }
     }
 

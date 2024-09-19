@@ -6,8 +6,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 //    id("kotlin-android-extensions")
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
 }
-
 
 android {
     namespace = "info.sul_game"
