@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import info.sul_game.config.RetrofitClient
 import info.sul_game.data.source.remote.BasePost
+import info.sul_game.model.Member
 import info.sul_game.model.MemberResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -137,6 +138,8 @@ class MemberViewModel : ViewModel() {
 
             })
     }
+
+
 
     private fun createRequestBody(value: String): RequestBody {
         return RequestBody.create(MultipartBody.FORM, value)

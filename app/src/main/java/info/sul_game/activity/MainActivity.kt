@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import info.sul_game.R
@@ -24,10 +26,14 @@ import info.sul_game.recyclerview.LatestFeedMainItem
 import info.sul_game.recyclerview.LiveChartMainAdapter
 import info.sul_game.recyclerview.LiveChartMainItem
 import info.sul_game.utils.TokenUtil
+import info.sul_game.viewmodel.MemberViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var behavior: BottomSheetBehavior<ConstraintLayout>
+
+    private val memberViewModel: MemberViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +53,53 @@ class MainActivity : AppCompatActivity() {
         recyclerMain()
 
         if(TokenUtil().getRefreshToken(this@MainActivity).isNullOrBlank()) {
-            binding.tvMypageLoginMain.text = "마이페이지 서비스는\n로그인이 필요해요!"
-            binding.tvMypageLoginMain.textSize = 18f
+            binding.view2.visibility = View.VISIBLE
+            binding.tvMypageLoginMain.visibility = View.VISIBLE
+
+            binding.civProfileMain.visibility = View.GONE
+            binding.tvNicknameMain.visibility = View.GONE
+            binding.progressbarExpMain.visibility = View.GONE
+            binding.ivNextEmblemMain.visibility = View.GONE
         } else {
-            binding.tvMypageLoginMain.text = "마이 페이지"
-            binding.tvMypageLoginMain.textSize = 32f
+            updateProfile()
+            binding.view2.visibility = View.GONE
+            binding.tvMypageLoginMain.visibility = View.GONE
+
+            binding.civProfileMain.visibility = View.VISIBLE
+            binding.tvNicknameMain.visibility = View.VISIBLE
+            binding.progressbarExpMain.visibility = View.VISIBLE
+            binding.ivNextEmblemMain.visibility = View.VISIBLE
         }
+    }
+
+    private fun updateProfile(){
+        val baseExpLevelImage = listOf(R.drawable.ic_explevel_k, R.drawable.ic_explevel_w, R.drawable.ic_explevel_g, R.drawable.ic_explevel_s)
+        val baseExp = listOf(0, 500, 2000, 5000)
+        val accessToken = TokenUtil().getAccessToken(this@MainActivity)
+
+        // ViewModel을 사용하여 프로필 정보 요청
+        accessToken?.let {
+            memberViewModel.memberResponse.observe(this@MainActivity) { memberResponse->
+                val defaultImage = R.color.light_gray
+                Glide.with(this)
+                    .load(memberResponse.member.profileUrl) // 불러올 이미지 url
+                    .placeholder(defaultImage) // 이미지 로딩 시작하기 전 표시할 이미지
+                    .error(defaultImage) // 로딩 에러 발생 시 표시할 이미지
+                    .fallback(defaultImage) // 로드할 url 이 비어있을(null 등) 경우 표시할 이미지
+                    .into(binding.civProfileMain) // 이미지를 넣을 뷰
+
+                binding.ivNextEmblemMain.setImageResource(baseExpLevelImage[MyPageActivity().getNextGrade(memberResponse.exp)])
+                binding.tvNicknameMain.text = memberResponse.member.nickname
+
+                binding.progressbarExpMain.min = baseExp[MyPageActivity().getCurrentGrade(memberResponse.exp)]
+                binding.progressbarExpMain.max = baseExp[MyPageActivity().getNextGrade(memberResponse.exp)]
+                binding.progressbarExpMain.progress = memberResponse.exp
+
+            }
+
+        }
+
+        memberViewModel.getMemberProfile("Bearer $accessToken")
     }
 
     private fun recyclerMain() {

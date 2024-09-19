@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:maxHeight="550dp"
+  android:background="@drawable/green_round_border_bottomsheet"
+  android:backgroundTint="@color/white">
+
+  <View
+    android:id="@+id/view_profiledit_dialog"
+    android:layout_width="50dp"
+    android:layout_height="6dp"
+    android:layout_marginTop="16dp"
+    android:layout_gravity="center"
+    android:background="@drawable/roundedbox_20"
+    android:backgroundTint="@color/deep_gray"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/tv_profiledit_dialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:fontFamily="@font/galmuri11bold"
+    android:text="프로필 이미지를 선택해주세요!"
+    android:textColor="@color/black"
+    android:textSize="20sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/view_profiledit_dialog" />
+
+  <FrameLayout
+    android:id="@+id/container_profile_profiledit_dialog"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:layout_marginTop="45dp"
+    android:layout_marginStart="24dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv_profiledit_dialog">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+      android:id="@+id/civ_profile_profiledit_dialog"
+      android:layout_width="108dp"
+      android:layout_height="108dp"
+      android:src="#F2F0F0" />
+
+    <ImageView
+      android:id="@+id/btn_camera_profiledit_dialog"
+      android:layout_width="36dp"
+      android:layout_height="36dp"
+      android:layout_margin="4dp"
+      android:layout_gravity="bottom|end"
+      android:elevation="25dp"
+      android:src="@drawable/ic_camera"/>
+
+  </FrameLayout>
+
+  <androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/viewpager_profiledit_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toTopOf="@+id/tabLayout_profiledit_dialog"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/container_profile_profiledit_dialog" />
+
+  <com.google.android.material.tabs.TabLayout
+    android:id="@+id/tabLayout_profiledit_dialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:tabGravity="center"
+    app:tabBackground="@drawable/tab_indicator"
+    app:tabIndicatorHeight="0dp"
+    app:tabIndicatorGravity="center"
+    app:layout_constraintBottom_toTopOf="@+id/btn_save_profiledit_dialog"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+  <Button
+    android:id="@+id/btn_save_profiledit_dialog"
+    android:layout_width="260dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roundedbox_20"
+    android:backgroundTint="@color/main_color"
+    android:text="저장하기"
+    android:textSize="20sp"
+    android:textColor="@android:color/white"
+    android:textStyle="bold"
+    android:layout_marginBottom="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package info.sul_game.api
 
 import info.sul_game.model.MemberResponse
+import info.sul_game.model.SearchResponse
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Multipart
@@ -13,5 +14,5 @@ interface SearchApi {
     @POST("search/all")
     fun searchPosts(
         @Part("query") query: RequestBody
-    ): Call<MemberResponse>
+    ): Call<SearchResponse>
 }

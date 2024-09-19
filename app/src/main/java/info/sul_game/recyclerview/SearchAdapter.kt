@@ -5,9 +5,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 
-class SearchAdapter(private var item : List<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
-
-    private var filteredList : List<String> = item
+class SearchAdapter(private var item : List<SearchResultItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -17,7 +15,7 @@ class SearchAdapter(private var item : List<String>) : RecyclerView.Adapter<Recy
     }
 
     override fun getItemCount(): Int {
-        return filteredList.size
+        return item.size
     }
 
     override fun onBindViewHolder(
@@ -25,20 +23,5 @@ class SearchAdapter(private var item : List<String>) : RecyclerView.Adapter<Recy
         position: Int
     ) {
         TODO("Not yet implemented")
-    }
-
-    override fun getFilter(): Filter {
-        return object : Filter() {
-            // 입력 받은 문자열에 대한 처리
-            override fun performFiltering(constraint: CharSequence?): FilterResults {
-                TODO("Not yet implemented")
-            }
-
-            // 처리에 대한 결과
-            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                filteredList = results?.values as List<String>
-            }
-
-        }
     }
 }
