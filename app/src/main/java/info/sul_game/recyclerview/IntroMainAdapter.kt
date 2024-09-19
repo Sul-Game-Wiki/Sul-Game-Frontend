@@ -22,6 +22,8 @@ class IntroMainAdapter (val introMainItemList: ArrayList<IntroMainItem>) :
     }
 
     override fun getItemCount(): Int {
+        if(introMainItemList.size < 3)
+            return introMainItemList.size
         return 3
     }
 
