@@ -39,7 +39,7 @@ class BookmarkedPostsActivity : AppCompatActivity() {
         val allBookmarkedPosts = mutableListOf<BasePost>()
 
         accessToken?.let {
-            memberViewModel.getMemberProfile("Bearer $accessToken")
+            memberViewModel.getBookmarkedPosts("Bearer $accessToken")
             Log.d(TAG, "recyclerBookmark ($accessToken)")
 
             memberViewModel.bookmarkedPosts.observe(this) { memberResponse ->

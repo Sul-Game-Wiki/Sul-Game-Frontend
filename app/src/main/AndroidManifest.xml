@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="info.sul_game"
-    android:targetSandboxVersion="1" >
+  xmlns:tools="http://schemas.android.com/tools"
+  package="info.sul_game"
+  android:targetSandboxVersion="1" >
 
     <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
+      android:name="android.hardware.camera"
+      android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -41,43 +41,43 @@
           android:name=".activity.SignUpActivity"
           android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
-            android:name=".activity.EditAccountActivity"
-            android:exported="false" />
+          android:name=".activity.EditAccountActivity"
+          android:exported="false" />
         <activity
-            android:name=".activity.BookmarkedPostsActivity"
-            android:exported="false" />
+          android:name=".activity.BookmarkedPostsActivity"
+          android:exported="false" />
         <activity
-            android:name=".activity.LikedPostsActivity"
-            android:exported="false" />
+          android:name=".activity.LikedPostsActivity"
+          android:exported="false" />
         <activity
-            android:name=".activity.MyPostsActivity"
-            android:exported="false" />
+          android:name=".activity.MyPostsActivity"
+          android:exported="false" />
         <activity
-            android:name=".activity.MyPageActivity"
-            android:exported="false" />
+          android:name=".activity.MyPageActivity"
+          android:exported="false" />
         <activity
-            android:name=".activity.SearchActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme" />
+          android:name=".activity.SearchActivity"
+          android:exported="false"
+          android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.SignUpConfirmationActivity"
-            android:exported="false" />
+          android:name=".activity.SignUpConfirmationActivity"
+          android:exported="false" />
         <activity
-            android:name=".activity.SignInActivity"
-            android:exported="false" />
+          android:name=".activity.SignInActivity"
+          android:exported="false" />
         <activity
-            android:name=".activity.CreatePostActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+          android:name=".activity.CreatePostActivity"
+          android:exported="false"
+          android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.OfficialGameDetailActivity"
-            android:exported="false" />
+          android:name=".activity.OfficialGameDetailActivity"
+          android:exported="false" />
         <activity
-            android:name=".activity.CreationGameDetailActivity"
-            android:exported="false" />
+          android:name=".activity.CreationGameDetailActivity"
+          android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
-            android:exported="true" >
+          android:name=".activity.MainActivity"
+          android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -86,13 +86,13 @@
         </activity>
 
         <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true" >
+          android:name="androidx.core.content.FileProvider"
+          android:authorities="${applicationId}.fileprovider"
+          android:exported="false"
+          android:grantUriPermissions="true" >
             <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+              android:name="android.support.FILE_PROVIDER_PATHS"
+              android:resource="@xml/file_paths" />
         </provider>
     </application>
 

@@ -110,6 +110,34 @@ class MemberViewModel : ViewModel() {
             })
     }
 
+    fun getMyPosts(token: String) {
+        RetrofitClient.memberApiService
+            .getMyPosts(token, emptyPart).enqueue(object :
+                Callback<MemberResponse> {
+                override fun onResponse(
+                    call: Call<MemberResponse>,
+                    response: Response<MemberResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _bookmarkedPosts.value = response.body()  // 성공적으로 데이터를 받으면 LiveData에 저장
+                        Log.d("ViewModel", "${_bookmarkedPosts.value}")
+                    } else {
+                        _error.value = "Error: ${response.code()}"  // 에러 발생 시 처리
+                        Log.e("ViewModel", "${_error.value}")
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<MemberResponse>,
+                    t: Throwable
+                ) {
+                    _error.value = "Failure: ${t.message}"  // 네트워크 오류 처리
+                    Log.e("ViewModel", "${_error.value}")
+                }
+
+            })
+    }
+
     private fun createRequestBody(value: String): RequestBody {
         return RequestBody.create(MultipartBody.FORM, value)
     }
