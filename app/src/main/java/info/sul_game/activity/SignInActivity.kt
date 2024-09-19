@@ -46,6 +46,11 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
     @SuppressLint("JavascriptInterface")
     private fun setupWebView() {
         binding.wvSocialLoginLogin.settings.apply {
@@ -113,7 +118,7 @@ class SignInActivity : AppCompatActivity() {
 
             override fun onLoadResource(view: WebView?, url: String?) {
                 super.onLoadResource(view, url)
-
+                
                 view?.evaluateJavascript(
                     "(function() { return document.body.innerText; })();",
                     { result ->
