@@ -313,10 +313,9 @@ class SignUpActivity : AppCompatActivity() {
         val dateText = binding.etDateSignup.text.toString()
         val isNameAvailable = binding.tvHint2Signup.visibility == View.VISIBLE
         val isBirthValid = isAvailableBirth(dateText)
-        val isUniversityValid =
-            binding.tvUniversitySignup.text.toString() in universityNames
+//        val isUniversityValid = binding.tvUniversitySignup.text.toString() in universityNames
 
-        if (isNameAvailable && isBirthValid && isUniversityValid && isPermissionState) {
+        if (isNameAvailable && isBirthValid && isPermissionState) {
             binding.btnNextSignup.isEnabled = true
             binding.btnNextSignup.backgroundTintList =
                 ContextCompat.getColorStateList(this, R.color.main_color)

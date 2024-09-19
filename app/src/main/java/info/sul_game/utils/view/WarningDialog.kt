@@ -77,6 +77,7 @@ class WarningDialog (private val context : AppCompatActivity) {
             DateTimeFormatter.ISO_DATE))
         val university = createRequestBody(this.university)
 
+
         RetrofitClient.memberApiService
             .completeRegistration(
                 token,

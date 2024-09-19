@@ -20,7 +20,7 @@
     <activity
       android:exported="true"
       android:name=".activity.WelcomeGuideActivity"
-      android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" >
+      android:theme="@style/Theme.AppCompat" >
     </activity>
     <activity
       android:exported="false"
