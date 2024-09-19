@@ -15,7 +15,8 @@
     <ScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="27dp">
+      android:layout_marginBottom="100dp"
+      android:scrollbars="none">
 
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -110,6 +111,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
           <ImageButton
+            android:id="@+id/btn_recent_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_right_black"
@@ -177,6 +179,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
           <ImageButton
+            android:id="@+id/btn_popular_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_right_black"
@@ -217,6 +220,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
           <ImageButton
+            android:id="@+id/btn_live_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_right_black"
@@ -307,6 +311,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
           <ImageButton
+            android:id="@+id/btn_share_intro_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_right_black"
@@ -384,7 +389,7 @@
             android:id="@+id/tv_hot_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="요즘 핫한 술게임 차트"
+            android:text="요즘 핫한 술게임"
             android:fontFamily="@font/galmuri11_bold"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -394,6 +399,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
           <ImageButton
+            android:id="@+id/btn_hot_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_right_black"
@@ -449,6 +455,60 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/cl_container7_main"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:background="@color/white"
+          app:layout_constraintTop_toBottomOf="@+id/cl_container6_main">
+
+          <TextView
+            android:id="@+id/tv_user_ranking_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유저 랭킹 알아보기"
+            android:fontFamily="@font/galmuri11_bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="17dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+          <ImageButton
+            android:id="@+id/btn_user_ranking_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right_black"
+            android:background="@color/white"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@+id/tv_user_ranking_main"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_user_ranking_main"
+            app:layout_constraintStart_toEndOf="@+id/tv_user_ranking_main"/>
+
+          <TextView
+            android:id="@+id/tv_prompt4_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="7dp"
+            android:textColor="#424242"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_ranking_main"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="2024년 9월 15일 00시 기준" />
+
+          <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_user_ranking_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_prompt4_main"
+            tools:listitem="@layout/item_user_ranking_recyclerview"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
       </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
@@ -465,7 +525,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|end"
-      android:layout_marginBottom="40dp"
+      android:layout_marginBottom="120dp"
       android:layout_marginEnd="20dp"
       app:efab_color="@color/main_color"
       app:fabCustomSize="60dp"

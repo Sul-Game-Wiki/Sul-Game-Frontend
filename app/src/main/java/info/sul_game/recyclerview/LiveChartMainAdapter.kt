@@ -24,7 +24,9 @@ class LiveChartMainAdapter(val liveCharList: ArrayList<LiveChartMainItem>) :
     }
 
     override fun getItemCount(): Int {
-        return liveCharList.size
+        if(liveCharList.size < 9)
+            return liveCharList.size
+        return 9
     }
 
     @SuppressLint("SetTextI18n")

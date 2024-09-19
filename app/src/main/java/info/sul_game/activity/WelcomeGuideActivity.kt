@@ -52,28 +52,34 @@ class WelcomeGuideActivity : AppCompatActivity() {
         }
     }
 
-    private fun guide2(){
+    private fun guide1(){
         binding.tvPrompt1WelcomeGuide.text = "인기 술게임"
         binding.tvPrompt2WelcomeGuide.text = "유명하고 인기있는 술게임을 소개해요!"
+        binding.ivPreviewWelcomeGuide.setImageResource(R.drawable.guide_image1)
+    }
+
+    private fun guide2(){
+        binding.tvPrompt1WelcomeGuide.text = "창작 술게임"
+        binding.tvPrompt2WelcomeGuide.text = "새로운 술게임을 직접 창작하고\n서로 공유해요!"
         binding.ivPreviewWelcomeGuide.setImageResource(R.drawable.guide_image2)
     }
 
     private fun guide3(){
-        binding.tvPrompt1WelcomeGuide.text = "창작 술게임"
-        binding.tvPrompt2WelcomeGuide.text = "새로운 술게임을 직접 창작하고\n서로 공유해요!"
+        binding.tvPrompt1WelcomeGuide.text = "인트로 자랑하기"
+        binding.tvPrompt2WelcomeGuide.text = "술게임 시작을 알리는 인트로를\n창작하고 공유해요!"
         binding.ivPreviewWelcomeGuide.setImageResource(R.drawable.guide_image3)
     }
 
     private fun guide4(){
-        binding.tvPrompt1WelcomeGuide.text = "인트로 자랑하기"
-        binding.tvPrompt2WelcomeGuide.text = "술게임 시작을 알리는 인트로를\n창작하고 공유해요!"
+        binding.tvPrompt1WelcomeGuide.text = "다양한 랭킹 차트"
+        binding.tvPrompt2WelcomeGuide.text = "다양한 기준으로 분류된\n술겜위키만의 랭킹 차트!"
         binding.ivPreviewWelcomeGuide.setImageResource(R.drawable.guide_image4)
     }
 
     private fun guide5(){
-        binding.tvPrompt1WelcomeGuide.text = "다양한 랭킹 차트"
-        binding.tvPrompt2WelcomeGuide.text = "다양한 기준으로 분류된\n술겜위키만의 랭킹 차트!"
+        binding.tvPrompt1WelcomeGuide.text = "유저 랭킹 차트"
+        binding.tvPrompt2WelcomeGuide.text = "다양한 유저들과 포인트를 쌓으며\n경쟁하는 재미도 쏠쏠!"
         binding.btnNextWelcomeGuide.text = "시작하기"
-        binding.ivPreviewWelcomeGuide.setImageResource(0)
+        binding.ivPreviewWelcomeGuide.setImageResource(R.drawable.guide_image5)
     }
 }

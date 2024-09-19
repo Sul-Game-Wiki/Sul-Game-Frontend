@@ -12,6 +12,12 @@ class UniversitySignUpAdapter(val universitySignUpItemList: ArrayList<University
 
     var onItemClick: ((String) -> Unit)? = null
 
+    fun updateList(newList: ArrayList<UniversitySignUpItem>) {
+        universitySignUpItemList.clear()
+        universitySignUpItemList.addAll(newList)
+        notifyDataSetChanged() // Refresh the RecyclerView
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         // viewType = 1 : University Name
         // viewType = 0 : University Section

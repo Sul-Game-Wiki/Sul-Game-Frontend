@@ -2,6 +2,8 @@ package info.sul_game.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -12,8 +14,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import info.sul_game.R
 import info.sul_game.databinding.ActivityMainBinding
 import info.sul_game.recyclerview.DrinkingGameMainAdapter
@@ -25,16 +30,21 @@ import info.sul_game.recyclerview.LatestFeedMainDecoration
 import info.sul_game.recyclerview.LatestFeedMainItem
 import info.sul_game.recyclerview.LiveChartMainAdapter
 import info.sul_game.recyclerview.LiveChartMainItem
+import info.sul_game.recyclerview.UserRankingMainAdapter
+import info.sul_game.recyclerview.UserRankingMainItem
 import info.sul_game.utils.TokenUtil
 import info.sul_game.viewmodel.MemberViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var behavior: BottomSheetBehavior<ConstraintLayout>
+    private val handler = Handler(Looper.getMainLooper())
+    private var userInteractionTimeout: Long = 2000 // 5초 후에 FAB 숨김
 
     private val memberViewModel: MemberViewModel by viewModels()
-
-
+    private val hideFabRunnable = Runnable {
+        binding.expandableFab.hide()  // 일정 시간 후 FloatingActionButton 숨기기
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -49,8 +59,14 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+        findViewById<View>(android.R.id.content).setOnTouchListener { _, _ ->
+            resetFabTimer() // 사용자 입력 발생 시 타이머 리셋
+            false
+        }
+
         persistentBottomSheetEvent()
         recyclerMain()
+        startFabTimer()
 
         if(TokenUtil().getRefreshToken(this@MainActivity).isNullOrBlank()) {
             binding.view2.visibility = View.VISIBLE
@@ -100,6 +116,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         memberViewModel.getMemberProfile("Bearer $accessToken")
+        
+        // Firebase 초기화
+        FirebaseApp.initializeApp(this)
+
+        // 그 후에 FCM 토큰 관련 작업 수행
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("술겜위키", "Fetching FCM registration token failed", task.exception)
+                return@addOnCompleteListener
+            }
+
+            val token = task.result
+            Log.d("술겜위키", "토큰 이름 : $token")
+            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun recyclerMain() {
@@ -108,6 +139,7 @@ class MainActivity : AppCompatActivity() {
         liveChartRecyclerMain()
         shareIntroRecyclerMain()
         hotGameRecyclerMain()
+        userRankingRecyclerMain()
     }
 
     // 최신 게시물의 리사이클러뷰
@@ -623,6 +655,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun userRankingRecyclerMain() {
+        val userRankingData = arrayListOf<UserRankingMainItem>(
+            UserRankingMainItem(R.drawable.ic_launcher_background, "UP", 5, "닉네임1", 10000),
+            UserRankingMainItem(R.drawable.ic_launcher_background,"DOWN", 4, "닉네임2", 5000),
+            UserRankingMainItem(R.drawable.ic_launcher_background,"SAME", 0, "닉네임3", 3000),
+            UserRankingMainItem(R.drawable.ic_launcher_background,"NEW", 0, "닉네임4", 1000)
+        )
+
+        binding.rvUserRankingMain.adapter = UserRankingMainAdapter(userRankingData)
+        binding.rvUserRankingMain.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    }
+
     private fun ensureOneSelected(selectedChip: Chip) {
         if (!selectedChip.isChecked) {
             // 선택된 Chip을 선택 해제한 경우
@@ -682,6 +727,29 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    private fun startFabTimer() {
+        // 일정 시간 후 FloatingActionButton 숨김
+        handler.postDelayed(hideFabRunnable, userInteractionTimeout)
+    }
+
+    private fun resetFabTimer() {
+        // 타이머 리셋
+        handler.removeCallbacks(hideFabRunnable)
+        handler.postDelayed(hideFabRunnable, userInteractionTimeout)
+        binding.expandableFab.show() // 다시 사용자가 입력하면 FAB 표시
+    }
+
+    override fun onUserInteraction() {
+        super.onUserInteraction()
+        resetFabTimer() // 어떤 사용자 입력이 발생해도 타이머를 리셋
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // 메모리 누수를 방지하기 위해 Handler를 해제
+        handler.removeCallbacks(hideFabRunnable)
     }
 
 }

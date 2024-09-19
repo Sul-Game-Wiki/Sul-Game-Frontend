@@ -50,7 +50,7 @@
     app:layout_constraintTop_toBottomOf="@id/cid_position_welcome_guide"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    tools:text="인기 술게임"/>
+    android:text="인기 술게임"/>
 
   <TextView
     android:id="@+id/tv_prompt2_welcome_guide"
@@ -60,10 +60,11 @@
     android:textColor="@color/main_color"
     android:textStyle="bold"
     android:textSize="16sp"
+    android:gravity="center"
     app:layout_constraintTop_toBottomOf="@+id/tv_prompt1_welcome_guide"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    tools:text="유명하고 인기있는 술게임을 소개해요!"/>
+    android:text="유명하고 인기있는 술게임을 소개해요!"/>
 
   <ImageView
     android:id="@+id/iv_preview_welcome_guide"
@@ -73,7 +74,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toTopOf="@+id/btn_next_welcome_guide"
     app:layout_constraintStart_toStartOf="parent"
-    tools:src="@drawable/guide_image2"/>
+    android:src="@drawable/guide_image1"/>
 
   <Button
     android:id="@+id/btn_next_welcome_guide"

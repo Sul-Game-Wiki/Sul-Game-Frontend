@@ -24,7 +24,9 @@ class DrinkingGameMainAdapter(val drinkingGameMainItemList: ArrayList<DrinkingGa
     }
 
     override fun getItemCount(): Int {
-        return drinkingGameMainItemList.size
+        if(drinkingGameMainItemList.size < 9)
+            return drinkingGameMainItemList.size
+        return 9
     }
 
     @SuppressLint("SetTextI18n")
