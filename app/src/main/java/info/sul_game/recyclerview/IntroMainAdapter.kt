@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import info.sul_game.databinding.ItemIntroRecyclerviewBinding
 
-class IntroAdapter (val introItemList: ArrayList<IntroItem>) :
+class IntroMainAdapter (val introMainItemList: ArrayList<IntroMainItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -18,7 +18,7 @@ class IntroAdapter (val introItemList: ArrayList<IntroItem>) :
                 parent,
                 false
             )
-        return IntroViewHolder(binding)
+        return IntroMainViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -29,11 +29,11 @@ class IntroAdapter (val introItemList: ArrayList<IntroItem>) :
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        if (holder is IntroViewHolder) {
-            holder.title.text = introItemList[position].title
-            holder.contents.text = introItemList[position].contents
-            holder.userName.text = introItemList[position].userName
-            holder.cntHeart.text = introItemList[position].cntHeart.toString()
+        if (holder is IntroMainViewHolder) {
+            holder.title.text = introMainItemList[position].title
+            holder.contents.text = introMainItemList[position].contents
+            holder.userName.text = introMainItemList[position].userName
+            holder.cntHeart.text = introMainItemList[position].cntHeart.toString()
         }
     }
 }

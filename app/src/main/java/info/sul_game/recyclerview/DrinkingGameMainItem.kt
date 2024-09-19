@@ -1,8 +1,8 @@
 package info.sul_game.recyclerview
 
-data class IntroItem (
+data class DrinkingGameMainItem (
+    var image: Int,
     var title: String,
     var contents: String,
-    var userName: String,
     var cntHeart: Int
 )

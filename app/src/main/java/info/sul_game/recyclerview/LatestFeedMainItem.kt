@@ -1,6 +1,6 @@
 package info.sul_game.recyclerview
 
-data class LatestFeedItem (
+data class LatestFeedMainItem (
     var feedImage: Int,
     var title: String,
     var profileImage: Int,

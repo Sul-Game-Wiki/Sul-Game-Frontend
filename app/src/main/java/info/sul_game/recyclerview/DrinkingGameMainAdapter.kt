@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import info.sul_game.databinding.ItemDrinkingGameRecyclerviewBinding
 
-class DrinkingGameAdapter(val drinkingGameItemList: ArrayList<DrinkingGameItem>) :
+class DrinkingGameMainAdapter(val drinkingGameMainItemList: ArrayList<DrinkingGameMainItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -20,11 +20,11 @@ class DrinkingGameAdapter(val drinkingGameItemList: ArrayList<DrinkingGameItem>)
                 parent,
                 false
             )
-        return DrinkingGameViewHolder(binding)
+        return DrinkingGameMainViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return drinkingGameItemList.size
+        return drinkingGameMainItemList.size
     }
 
     @SuppressLint("SetTextI18n")
@@ -32,11 +32,11 @@ class DrinkingGameAdapter(val drinkingGameItemList: ArrayList<DrinkingGameItem>)
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        if (holder is DrinkingGameViewHolder) {
-            holder.image.setImageResource(drinkingGameItemList[position].image)
-            holder.title.text = drinkingGameItemList[position].title
-            holder.contents.text = drinkingGameItemList[position].contents
-            holder.cntHeart.text = drinkingGameItemList[position].cntHeart.toString()
+        if (holder is DrinkingGameMainViewHolder) {
+            holder.image.setImageResource(drinkingGameMainItemList[position].image)
+            holder.title.text = drinkingGameMainItemList[position].title
+            holder.contents.text = drinkingGameMainItemList[position].contents
+            holder.cntHeart.text = drinkingGameMainItemList[position].cntHeart.toString()
         }
     }
 }

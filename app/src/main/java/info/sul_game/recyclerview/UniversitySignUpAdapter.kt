@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import info.sul_game.databinding.ItemUniversityNameRecyclerviewBinding
 import info.sul_game.databinding.ItemUniversitySectionRecyclerviewBinding
 
-class UniversityAdapter(val universityItemList: ArrayList<UniversityItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class UniversitySignUpAdapter(val universitySignUpItemList: ArrayList<UniversitySignUpItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var onItemClick: ((String) -> Unit)? = null
 
@@ -18,34 +18,34 @@ class UniversityAdapter(val universityItemList: ArrayList<UniversityItem>) : Rec
         return if (viewType == 1) {
             val binding =
                 ItemUniversityNameRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            UniversityNameViewHolder(binding)
+            UniversityNameSignUpViewHolder(binding)
         } else {
             val binding =
                 ItemUniversitySectionRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            UniversitySectionViewHolder(binding)
+            UniversitySectionSignUpViewHolder(binding)
         }
     }
 
     override fun getItemCount(): Int {
-        return universityItemList.size
+        return universitySignUpItemList.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return universityItemList[position].state
+        return universitySignUpItemList[position].state
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is UniversityNameViewHolder) {
-            holder.university_name.text = universityItemList[position].text
+        if (holder is UniversityNameSignUpViewHolder) {
+            holder.university_name.text = universitySignUpItemList[position].text
 
             holder.itemView.setOnClickListener {
                 Log.d("술겜위키", "Item Click Event")
 
-                onItemClick?.invoke(universityItemList[position].text)
+                onItemClick?.invoke(universitySignUpItemList[position].text)
             }
         }
-        else if (holder is UniversitySectionViewHolder) {
-            holder.university_section.text = universityItemList[position].text
+        else if (holder is UniversitySectionSignUpViewHolder) {
+            holder.university_section.text = universitySignUpItemList[position].text
         }
     }
 }
