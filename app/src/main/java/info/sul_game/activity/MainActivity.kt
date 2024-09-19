@@ -2,6 +2,8 @@ package info.sul_game.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -33,7 +35,12 @@ import info.sul_game.utils.TokenUtil
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var behavior: BottomSheetBehavior<ConstraintLayout>
+    private val handler = Handler(Looper.getMainLooper())
+    private var userInteractionTimeout: Long = 2000 // 5초 후에 FAB 숨김
 
+    private val hideFabRunnable = Runnable {
+        binding.expandableFab.hide()  // 일정 시간 후 FloatingActionButton 숨기기
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -48,8 +55,14 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+        findViewById<View>(android.R.id.content).setOnTouchListener { _, _ ->
+            resetFabTimer() // 사용자 입력 발생 시 타이머 리셋
+            false
+        }
+
         persistentBottomSheetEvent()
         recyclerMain()
+        startFabTimer()
 
         if(TokenUtil().getRefreshToken(this@MainActivity).isNullOrBlank()) {
             binding.tvMypageLoginMain.text = "마이페이지 서비스는\n로그인이 필요해요!"
@@ -669,6 +682,29 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    private fun startFabTimer() {
+        // 일정 시간 후 FloatingActionButton 숨김
+        handler.postDelayed(hideFabRunnable, userInteractionTimeout)
+    }
+
+    private fun resetFabTimer() {
+        // 타이머 리셋
+        handler.removeCallbacks(hideFabRunnable)
+        handler.postDelayed(hideFabRunnable, userInteractionTimeout)
+        binding.expandableFab.show() // 다시 사용자가 입력하면 FAB 표시
+    }
+
+    override fun onUserInteraction() {
+        super.onUserInteraction()
+        resetFabTimer() // 어떤 사용자 입력이 발생해도 타이머를 리셋
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // 메모리 누수를 방지하기 위해 Handler를 해제
+        handler.removeCallbacks(hideFabRunnable)
     }
 
 }
