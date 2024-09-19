@@ -42,18 +42,23 @@
           android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
           android:name=".activity.EditAccountActivity"
+          android:theme="@style/AppTheme"
           android:exported="false" />
         <activity
           android:name=".activity.BookmarkedPostsActivity"
+          android:theme="@style/AppTheme"
           android:exported="false" />
         <activity
           android:name=".activity.LikedPostsActivity"
+          android:theme="@style/AppTheme"
           android:exported="false" />
         <activity
           android:name=".activity.MyPostsActivity"
+          android:theme="@style/AppTheme"
           android:exported="false" />
         <activity
           android:name=".activity.MyPageActivity"
+          android:theme="@style/AppTheme"
           android:exported="false" />
         <activity
           android:name=".activity.SearchActivity"
