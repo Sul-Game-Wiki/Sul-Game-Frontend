@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860474910414",
+    "project_id": "sul-game",
+    "storage_bucket": "sul-game.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860474910414:android:095994710d087c9c1ed29f",
+        "android_client_info": {
+          "package_name": "info.sul_game"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB86P54m9fYXELt-i3Sl1AnXsFjEbWiI1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

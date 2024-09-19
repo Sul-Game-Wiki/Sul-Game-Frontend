@@ -34,12 +34,12 @@
         <activity
           android:exported="true"
           android:name=".activity.WelcomeGuideActivity"
-          android:theme="@style/Theme.AppCompat" >
+          android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
           android:exported="true"
           android:name=".activity.SignUpActivity"
-          android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" >
+          android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
 
         </activity>
         <activity
@@ -68,11 +68,12 @@
           android:theme="@style/AppTheme" />
         <activity
           android:name=".activity.SignUpConfirmationActivity"
-          android:exported="false" />
+          android:exported="false"
+          android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".activity.SignInActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
+          android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
           android:name=".activity.CreatePostActivity"
           android:exported="false"
@@ -92,6 +93,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".utils.MyFirebaseMessagingService"
+          android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <provider
           android:name="androidx.core.content.FileProvider"
