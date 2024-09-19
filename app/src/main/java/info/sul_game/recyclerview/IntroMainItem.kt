@@ -1,8 +1,8 @@
 package info.sul_game.recyclerview
 
-data class LiveChartItem(
-    var image: Int,
+data class IntroMainItem (
     var title: String,
     var contents: String,
+    var userName: String,
     var cntHeart: Int
 )

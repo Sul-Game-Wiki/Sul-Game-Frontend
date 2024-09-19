@@ -17,14 +17,19 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import info.sul_game.R
 import info.sul_game.databinding.ActivityMainBinding
-import info.sul_game.recyclerview.DrinkingGameAdapter
-import info.sul_game.recyclerview.DrinkingGameItem
-import info.sul_game.recyclerview.IntroAdapter
-import info.sul_game.recyclerview.IntroItem
-import info.sul_game.recyclerview.LatestFeedAdapter
-import info.sul_game.recyclerview.LatestFeedDecoration
-import info.sul_game.recyclerview.LatestFeedItem
-import info.sul_game.recyclerview.LiveChartAdapter
+import info.sul_game.fragment.MyPostFragment
+import info.sul_game.recyclerview.DrinkingGameMainAdapter
+import info.sul_game.recyclerview.DrinkingGameMainItem
+import info.sul_game.recyclerview.IntroMainAdapter
+import info.sul_game.recyclerview.IntroMainItem
+import info.sul_game.recyclerview.LatestFeedMainAdapter
+import info.sul_game.recyclerview.LatestFeedMainDecoration
+import info.sul_game.recyclerview.LatestFeedMainItem
+import info.sul_game.recyclerview.LiveChartMainAdapter
+import info.sul_game.recyclerview.LiveChartMainItem
+import info.sul_game.ui.mypage.BookmarkedPostFragment
+import info.sul_game.ui.mypage.EditAccountFragment
+import info.sul_game.ui.mypage.LikedPostFragment
 import info.sul_game.utils.TokenUtil
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -72,28 +77,28 @@ class MainActivity : AppCompatActivity() {
 
     // 최신 게시물의 리사이클러뷰
     private fun recentRecyclerMain() {
-        val latestFeedItemCreationData = arrayListOf<LatestFeedItem>(
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+        val latestFeedMainItemCreationData = arrayListOf<LatestFeedMainItem>(
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
         )
 
-        val latestFeedItemIntroData = arrayListOf<LatestFeedItem>(
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+        val latestFeedMainItemIntroData = arrayListOf<LatestFeedMainItem>(
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
+            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
         )
 
-        binding.rvRecentMain.adapter = LatestFeedAdapter(latestFeedItemCreationData)
-        binding.rvRecentMain.addItemDecoration(LatestFeedDecoration())
+        binding.rvRecentMain.adapter = LatestFeedMainAdapter(latestFeedMainItemCreationData)
+        binding.rvRecentMain.addItemDecoration(LatestFeedMainDecoration())
         binding.rvRecentMain.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
@@ -105,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
 
-            binding.rvRecentMain.adapter = LatestFeedAdapter(latestFeedItemCreationData)
+            binding.rvRecentMain.adapter = LatestFeedMainAdapter(latestFeedMainItemCreationData)
             binding.rvRecentMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         }
@@ -118,57 +123,57 @@ class MainActivity : AppCompatActivity() {
             )
             binding.tvRecentIntroMain.setTextColor(getColor(R.color.main_color))
 
-            binding.rvRecentMain.adapter = LatestFeedAdapter(latestFeedItemIntroData)
+            binding.rvRecentMain.adapter = LatestFeedMainAdapter(latestFeedMainItemIntroData)
             binding.rvRecentMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
     private fun popularGameRecyclerMain() {
-        val popularGameData = arrayListOf<DrinkingGameItem>(
-            DrinkingGameItem(
+        val popularGameData = arrayListOf<DrinkingGameMainItem>(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니",
                 "하늘에서 내려와버린 토끼",
@@ -184,55 +189,55 @@ class MainActivity : AppCompatActivity() {
                 GridLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = DrinkingGameAdapter(popularGameData)
+            adapter = DrinkingGameMainAdapter(popularGameData)
         }
     }
 
     private fun liveChartRecyclerMain() {
-        val liveChartItemCreationData = arrayListOf<LiveChartItem>(
-            LiveChartItem(
+        val liveChartMainItemCreationData = arrayListOf<LiveChartMainItem>(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 창작",
                 "하늘에서 내려와버린 토끼",
@@ -240,50 +245,50 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val liveChartItemIntroData = arrayListOf<LiveChartItem>(
-            LiveChartItem(
+        val liveChartMainItemIntroData = arrayListOf<LiveChartMainItem>(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 인트로",
                 "하늘에서 내려와버린 토끼",
@@ -291,50 +296,50 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val liveChartItemPopularData = arrayListOf<LiveChartItem>(
-            LiveChartItem(
+        val liveChartMainItemPopularData = arrayListOf<LiveChartMainItem>(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            LiveChartItem(
+            LiveChartMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 국룰",
                 "하늘에서 내려와버린 토끼",
@@ -350,7 +355,7 @@ class MainActivity : AppCompatActivity() {
                 GridLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = LiveChartAdapter(liveChartItemCreationData)
+            adapter = LiveChartMainAdapter(liveChartMainItemCreationData)
         }
 
         // 각 Chip에 클릭 리스너 추가 (선택 상태 유지 보장)
@@ -364,7 +369,7 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = LiveChartAdapter(liveChartItemCreationData)
+                adapter = LiveChartMainAdapter(liveChartMainItemCreationData)
             }
         }
         binding.cpIntroMain.setOnClickListener { v ->
@@ -377,7 +382,7 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = LiveChartAdapter(liveChartItemIntroData)
+                adapter = LiveChartMainAdapter(liveChartMainItemIntroData)
             }
         }
         binding.cpPopularMain.setOnClickListener { v ->
@@ -390,31 +395,31 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = LiveChartAdapter(liveChartItemPopularData)
+                adapter = LiveChartMainAdapter(liveChartMainItemPopularData)
             }
         }
     }
 
     private fun shareIntroRecyclerMain() {
-        val shareIntroRecentData = arrayListOf<IntroItem>(
-            IntroItem("어목조동 최신", "자연과 함께하는 술게임", "구해조", 30),
-            IntroItem("딸기당근수박참외 찍고 최신", "지목이 더해진 과일게임", "구해조", 30),
-            IntroItem("딸기당근수박참외 리버스 최신", "거꾸로 말하기 도전!", "구해조", 30)
+        val shareIntroRecentData = arrayListOf<IntroMainItem>(
+            IntroMainItem("어목조동 최신", "자연과 함께하는 술게임", "구해조", 30),
+            IntroMainItem("딸기당근수박참외 찍고 최신", "지목이 더해진 과일게임", "구해조", 30),
+            IntroMainItem("딸기당근수박참외 리버스 최신", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
-        val shareIntroHeartData = arrayListOf<IntroItem>(
-            IntroItem("어목조동 좋아요", "자연과 함께하는 술게임", "구해조", 30),
-            IntroItem("딸기당근수박참외 찍고 좋아요", "지목이 더해진 과일게임", "구해조", 30),
-            IntroItem("딸기당근수박참외 리버스 좋아요", "거꾸로 말하기 도전!", "구해조", 30)
+        val shareIntroHeartData = arrayListOf<IntroMainItem>(
+            IntroMainItem("어목조동 좋아요", "자연과 함께하는 술게임", "구해조", 30),
+            IntroMainItem("딸기당근수박참외 찍고 좋아요", "지목이 더해진 과일게임", "구해조", 30),
+            IntroMainItem("딸기당근수박참외 리버스 좋아요", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
-        val shareIntroViewData = arrayListOf<IntroItem>(
-            IntroItem("어목조동 조회수", "자연과 함께하는 술게임", "구해조", 30),
-            IntroItem("딸기당근수박참외 찍고 조회수", "지목이 더해진 과일게임", "구해조", 30),
-            IntroItem("딸기당근수박참외 리버스 조회수", "거꾸로 말하기 도전!", "구해조", 30)
+        val shareIntroViewData = arrayListOf<IntroMainItem>(
+            IntroMainItem("어목조동 조회수", "자연과 함께하는 술게임", "구해조", 30),
+            IntroMainItem("딸기당근수박참외 찍고 조회수", "지목이 더해진 과일게임", "구해조", 30),
+            IntroMainItem("딸기당근수박참외 리버스 조회수", "거꾸로 말하기 도전!", "구해조", 30)
         )
 
-        binding.rvShareIntroMain.adapter = IntroAdapter(shareIntroRecentData)
+        binding.rvShareIntroMain.adapter = IntroMainAdapter(shareIntroRecentData)
         binding.rvShareIntroMain.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -422,69 +427,69 @@ class MainActivity : AppCompatActivity() {
         // 각 Chip에 클릭 리스너 추가 (선택 상태 유지 보장)
         binding.cpRecentMain.setOnClickListener { v ->
             ensureOneSelected(binding.cpRecentMain)
-            binding.rvShareIntroMain.adapter = IntroAdapter(shareIntroRecentData)
+            binding.rvShareIntroMain.adapter = IntroMainAdapter(shareIntroRecentData)
             binding.rvShareIntroMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
         binding.cpHeartMain.setOnClickListener { v ->
             ensureOneSelected(binding.cpHeartMain)
-            binding.rvShareIntroMain.adapter = IntroAdapter(shareIntroHeartData)
+            binding.rvShareIntroMain.adapter = IntroMainAdapter(shareIntroHeartData)
             binding.rvShareIntroMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
         binding.cpViewMain.setOnClickListener { v ->
             ensureOneSelected(binding.cpViewMain)
-            binding.rvShareIntroMain.adapter = IntroAdapter(shareIntroViewData)
+            binding.rvShareIntroMain.adapter = IntroMainAdapter(shareIntroViewData)
             binding.rvShareIntroMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
     }
 
     private fun hotGameRecyclerMain() {
-        val hotWeeklyGameData = arrayListOf<DrinkingGameItem>(
-            DrinkingGameItem(
+        val hotWeeklyGameData = arrayListOf<DrinkingGameMainItem>(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 주간",
                 "하늘에서 내려와버린 토끼",
@@ -492,50 +497,50 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val hotDailyGameData = arrayListOf<DrinkingGameItem>(
-            DrinkingGameItem(
+        val hotDailyGameData = arrayListOf<DrinkingGameMainItem>(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 일간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 일간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 일간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 일간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 일간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 일간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 일간",
                 "하늘에서 내려와버린 토끼",
                 30
             ),
-            DrinkingGameItem(
+            DrinkingGameMainItem(
                 R.drawable.ic_launcher_background,
                 "바니바니 일간",
                 "하늘에서 내려와버린 토끼",
@@ -551,7 +556,7 @@ class MainActivity : AppCompatActivity() {
                 GridLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = DrinkingGameAdapter(hotWeeklyGameData)
+            adapter = DrinkingGameMainAdapter(hotWeeklyGameData)
         }
 
         // 각 Chip에 클릭 리스너 추가 (선택 상태 유지 보장)
@@ -565,7 +570,7 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = DrinkingGameAdapter(hotWeeklyGameData)
+                adapter = DrinkingGameMainAdapter(hotWeeklyGameData)
             }
         }
         binding.cpDailyMain.setOnClickListener { v ->
@@ -578,7 +583,7 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = DrinkingGameAdapter(hotDailyGameData)
+                adapter = DrinkingGameMainAdapter(hotDailyGameData)
             }
         }
     }

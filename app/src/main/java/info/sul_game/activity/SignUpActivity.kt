@@ -192,7 +192,7 @@ class SignUpActivity : AppCompatActivity() {
             Log.d("술겜위키", "값 리플레이스")
             val birthDate = LocalDate.parse(dates, DateTimeFormatter.BASIC_ISO_DATE)
             Log.d("술겜위키", "변환해결")
-            WarningDialog(this).show(binding.etNameSignup.text.toString(), birthDate, binding.tvUniversitySignup.text.toString(), binding.cbUniversityVisibleSignup.isChecked)
+            WarningDialog(this).show(binding.etNameSignup.text.toString(), birthDate, binding.tvUniversitySignup.text.toString())
         }
     }
 
@@ -313,10 +313,9 @@ class SignUpActivity : AppCompatActivity() {
         val dateText = binding.etDateSignup.text.toString()
         val isNameAvailable = binding.tvHint2Signup.visibility == View.VISIBLE
         val isBirthValid = isAvailableBirth(dateText)
-        val isUniversityValid =
-            binding.tvUniversitySignup.text.toString() in universityNames
+//        val isUniversityValid = binding.tvUniversitySignup.text.toString() in universityNames
 
-        if (isNameAvailable && isBirthValid && isUniversityValid && isPermissionState) {
+        if (isNameAvailable && isBirthValid && isPermissionState) {
             binding.btnNextSignup.isEnabled = true
             binding.btnNextSignup.backgroundTintList =
                 ContextCompat.getColorStateList(this, R.color.main_color)
