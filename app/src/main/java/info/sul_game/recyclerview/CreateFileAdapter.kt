@@ -87,6 +87,10 @@ class CreateFileAdapter(private val items: MutableList<MediaItem>, private val f
         notifyItemRemoved(position)
         fragment.checkRecyclerViewVisibility()
     }
+    fun getFiles(): List<Uri> {
+        return items.map { it.uri }
+    }
+
     inner class CreateCreateAdapterViewHoler(private val binding: ItemCreateRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: MediaItem){
             if (item.isVideo) {

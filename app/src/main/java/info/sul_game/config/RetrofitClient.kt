@@ -1,29 +1,17 @@
 package info.sul_game.config
+import CreationCreateApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
-//import android.util.Log
-//import okhttp3.OkHttpClient
-//import okhttp3.logging.HttpLoggingInterceptor
-//import retrofit2.Retrofit
-//import retrofit2.converter.gson.GsonConverterFactory
-//import java.util.concurrent.TimeUnit
-//
-//object RetrofitClient {
-//    private const val BASE_URL = "http://220.85.169.165:8085/"
-//
-
-//
-//
-//    val API: API = retrofit.create(API::class.java)
-//}
 
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import info.sul_game.api.MemberApi
-import info.sul_game.api.GameListApi
+import info.sul_game.api.OfficialGameListApi
+import info.sul_game.api.RelatedSearchGameListApi
+
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -66,8 +54,14 @@ object RetrofitClient {
     val memberApiService: MemberApi by lazy {
         retrofit.create(MemberApi::class.java)
     }
-    val gameListService: GameListApi by lazy {
-        retrofit.create(GameListApi::class.java)
+    val creationCreateSerive: CreationCreateApi by lazy{
+        retrofit.create(CreationCreateApi::class.java)
+    }
+    val relatedSearchGameListService: RelatedSearchGameListApi by lazy {
+        retrofit.create(RelatedSearchGameListApi::class.java)
+    }
+    val officialGameListService: OfficialGameListApi by lazy{
+        retrofit.create(OfficialGameListApi::class.java)
     }
 }
 
