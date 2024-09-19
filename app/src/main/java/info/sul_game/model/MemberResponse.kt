@@ -44,7 +44,7 @@ data class MemberResponse (
     val nextLevelExp : Int,
     val remainingExpForNextLevel : Int,
     val progressPercentToNextLevel : Int,
-    val rankChange : Int
+    val rankChange : Int,
     val isExistingNickname: Boolean
 
 )

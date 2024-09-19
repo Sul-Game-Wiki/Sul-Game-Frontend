@@ -5,19 +5,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import info.sul_game.R
 import info.sul_game.databinding.ActivityMainBinding
-import info.sul_game.fragment.MyPostFragment
 import info.sul_game.recyclerview.DrinkingGameMainAdapter
 import info.sul_game.recyclerview.DrinkingGameMainItem
 import info.sul_game.recyclerview.IntroMainAdapter
@@ -27,15 +23,7 @@ import info.sul_game.recyclerview.LatestFeedMainDecoration
 import info.sul_game.recyclerview.LatestFeedMainItem
 import info.sul_game.recyclerview.LiveChartMainAdapter
 import info.sul_game.recyclerview.LiveChartMainItem
-import info.sul_game.ui.mypage.BookmarkedPostFragment
-import info.sul_game.ui.mypage.EditAccountFragment
-import info.sul_game.ui.mypage.LikedPostFragment
 import info.sul_game.utils.TokenUtil
-import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.URL
-import info.sul_game.recyclerview.LiveChartItem
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
