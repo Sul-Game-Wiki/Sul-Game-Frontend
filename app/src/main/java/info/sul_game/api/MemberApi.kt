@@ -40,9 +40,17 @@ interface MemberApi {
         @Part("part") part : RequestBody
     ): Call<MemberResponse>
 
+    // 내가 쓴 글
+    @Multipart
+    @POST("members/my-posts")
+    fun getMyPosts(
+        @Header("Authorization") token: String,
+        @Part("part") part : RequestBody
+    ): Call<MemberResponse>
+
     // 좋아요한 글
     @Multipart
-    @POST("members/liked-post")
+    @POST("members/liked-posts")
     fun getLikedPosts(
         @Header("Authorization") token: String,
         @Part("part") part : RequestBody
@@ -50,7 +58,7 @@ interface MemberApi {
 
     // 즐겨찾기한 글
     @Multipart
-    @POST("members/bookmarked-post")
+    @POST("members/bookmarked-posts")
     fun getBookmarkedPosts(
         @Header("Authorization") token: String,
         @Part("part") part : RequestBody

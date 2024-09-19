@@ -29,7 +29,7 @@ class MyPagePostAdapter(private var item : List<BasePost>) : RecyclerView.Adapte
         holder.tvComments.text = item[position].views.toString()
         holder.tvTime.text = item[position].updatedDate.toString()
 
-        if(item[position].creatorInfoIsPrivate)
+        if(item[position].creatorInfoPrivate)
             holder.tvNickname.text = "익명"
         else
             holder.tvNickname.text = item[position].member.nickname

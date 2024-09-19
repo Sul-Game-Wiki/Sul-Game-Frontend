@@ -13,11 +13,12 @@ data class Member(
     val profileUrl: String,
     val role: String,
     val university: String,
-    val exp: Int,
-    val expLevel: String,
     val isUniversityPublic: Boolean,
     val accountStatus: String,
     val isNotificationEnabled: Boolean,
+    val isNicknameModified : Boolean,
+    val isProfileImageModified : Boolean,
     val infoPopupVisible: Boolean,
-    val lastLoginTime: String
+    val lastLoginTime: String,
+    val refreshToken : String
 )

@@ -6,7 +6,7 @@
     </style>
 
     <!-- You can remove this AppTheme if it's the same as Base.Theme -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
 
