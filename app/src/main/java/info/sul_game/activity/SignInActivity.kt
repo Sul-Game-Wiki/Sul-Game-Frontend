@@ -46,6 +46,11 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
     @SuppressLint("JavascriptInterface")
     private fun setupWebView() {
         binding.wvSocialLoginLogin.settings.apply {
@@ -117,17 +122,34 @@ class SignInActivity : AppCompatActivity() {
                 view?.evaluateJavascript(
                     "(function() { return document.body.innerText; })();",
                     { result ->
-                        Log.d("술겜위키", "Raw JavaScript result: $result")
-                        if (result.startsWith("\"") && result.endsWith("\"")) {
-                            val jsonString = result.substring(1, result.length - 1).replace("\\\"", "\"")
-                            Log.d("술겜위키", "Parsed JSON string: $jsonString")
-                            try {
-                                if(jsonString.isNotEmpty()){
-                                    val jsonObject = JSONObject(jsonString)
-                                    processLoginResponse(jsonObject)
+                        Log.d("술겜위키", "url $url")
+                        if (url != null) {
+                            if (url.contains("oauth2/code/")) {
+                                binding.wvSocialLoginLogin.visibility =
+                                    View.INVISIBLE
+
+                                if (result.startsWith("\"") && result.endsWith("\"")) {
+                                    val jsonString =
+                                        result.substring(1, result.length - 1)
+                                            .replace("\\\"", "\"")
+                                    Log.d(
+                                        "술겜위키",
+                                        "Parsed JSON string: $jsonString"
+                                    )
+                                    try {
+                                        if (jsonString.isNotEmpty()) {
+                                            val jsonObject =
+                                                JSONObject(jsonString)
+                                            processLoginResponse(jsonObject)
+                                        }
+                                    } catch (e: Exception) {
+                                        Log.e(
+                                            "술겜위키",
+                                            "JSON 파싱 오류: ${e.message}\n원본 데이터: $jsonString",
+                                            e
+                                        )
+                                    }
                                 }
-                            } catch (e: Exception) {
-                                Log.e("술겜위키", "JSON 파싱 오류: ${e.message}\n원본 데이터: $jsonString", e)
                             }
                         }
                     }
