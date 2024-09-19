@@ -28,7 +28,7 @@ class CreationCreateRepository(private val api: CreationCreateApi, private val c
         description: String,
         gameFiles: List<File>,
         imageUrls: List<String>,
-        gameTags: List<Int>,
+        gameTags: List<String>,
         introLyricsInGame: String,
         introFiles: List<File>,
         introMultipartFileInGame: List<File>,

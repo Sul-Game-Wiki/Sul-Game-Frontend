@@ -165,7 +165,8 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="#이성과 하기 좋아요"/>
+        android:text="#이성과 하기 좋아요"
+        android:tag="TAG1"/>
 
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG2"
@@ -173,81 +174,94 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="#빨리 취해요"/>
+        android:text="#빨리 취해요"
+        android:tag="TAG2"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG3"
         style="@style/CustomChipChoice"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="#움직여야 해요"/>
+        android:text="#움직여야 해요"
+        android:tag="TAG3"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG4"
         style="@style/CustomChipChoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="#머리를 써야 해요"/>
+        android:text="#머리를 써야 해요"
+        android:tag="TAG4"/>
 
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomChipChoice"
-        android:text="#스킨쉽 있어요"/>
+        android:text="#스킨쉽 있어요"
+        android:tag="TAG5"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomChipChoice"
-        android:text="#엄청 빨라요"/>
+        android:text="#엄청 빨라요"
+        android:tag="TAG6"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomChipChoice"
-        android:text="#차분해요"/>
+        android:text="#차분해요"
+        android:tag="TAG7"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomChipChoice"
-        android:text="#금방 끝나요"/>
+        android:text="#금방 끝나요"
+        android:tag="TAG8"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomChipChoice"
-        android:text="#오래 걸려요"/>
+        android:text="#오래 걸려요"
+        android:tag="TAG9"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomChipChoice"
-        android:text="#눈치 챙겨요"/>
+        android:text="#눈치 챙겨요"
+        android:tag="TAG10"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomChipChoice"
-        android:text="#센스가 필요해요"/>
+        android:text="#센스가 필요해요"
+        android:tag="TAG11"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomChipChoice"
-        android:text="#도구가 필요해요"/>
+        android:text="#도구가 필요해요"
+        android:tag="TAG12"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomChipChoice"
-        android:text="#저격할 수 있어요"/>
+        android:text="#저격할 수 있어요"
+        android:tag="TAG13"/>
       <com.google.android.material.chip.Chip
         android:id="@+id/TAG14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomChipChoice"
-        android:text="#텐션 올릴 때 좋아요"/>
+        android:text="#텐션 올릴 때 좋아요"
+        android:tag="TAG14"/>
     </com.google.android.material.chip.ChipGroup>
     <TextView
       android:id="@+id/tv6_create"

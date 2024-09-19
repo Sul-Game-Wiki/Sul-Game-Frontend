@@ -250,7 +250,7 @@ class CreateCreationGameFragment : Fragment() {
             }
 
             // 선택된 Chip들의 태그 추출 (예: id나 text 등)
-            val selectedTags = selectedEtcChips.map { it.text.toString() }
+            val selectedTags = selectedEtcChips.map { chip->chip.tag.toString() }
 
             val gameUris: List<Uri> = gameCreateAdapter.getFiles() // List<Uri>
             val introUris: List<Uri> = introCreateAdapter.getFiles() // List<Uri>
@@ -301,7 +301,7 @@ class CreateCreationGameFragment : Fragment() {
                 description = description,
                 gameFiles = gameFiles,
                 imageUrls = imageUrls,
-                gameTags = selectedTags.map { it.toIntOrNull() ?: 0 }, // Chip에서 선택된 텍스트를 int로 변환
+                gameTags = selectedTags, // Chip에서 선택된 텍스트를 int로 변환
                 introLyricsInGame = introLyrics,
                 lyrics = actualLyrics,
                 introType = actualIntroType,

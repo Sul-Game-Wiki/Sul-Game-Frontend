@@ -39,7 +39,7 @@ class CreationCreateViewModel(private val repository: CreationCreateRepository) 
         description: String,
         gameFiles: List<File>,
         imageUrls: List<String>,
-        gameTags: List<Int>,
+        gameTags: List<String>,
         introLyricsInGame: String,
         introFiles: List<File>,
         introMultipartFileInGame: List<File>,

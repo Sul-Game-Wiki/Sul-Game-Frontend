@@ -89,14 +89,21 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
 
         }
+        createMove()
 
-    }}
+    }
        
     
     private fun officialMove(){
         binding.btnOfficialMain.setOnClickListener {
             val intent = Intent(this, OfficialGameListActivity::class.java)
             startActivity(intent)}}
+    private fun createMove(){
+        binding.fabMakeMain.setOnClickListener{
+            val intent = Intent(this, CreatePostActivity::class.java)
+            startActivity(intent)
+        }
+    }
 
 
     private fun recyclerMain() {
@@ -716,5 +723,5 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         // 메모리 누수를 방지하기 위해 Handler를 해제
         handler.removeCallbacks(hideFabRunnable)
-    }
+    }}
 

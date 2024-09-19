@@ -545,7 +545,7 @@
       app:label_textColor="@color/white" />
 
     <com.nambimobile.widgets.efab.FabOption
-      android:id="@+id/fab_make_creation_main"
+      android:id="@+id/fab_make_main"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       app:fab_color="@color/white"
