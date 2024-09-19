@@ -33,31 +33,34 @@ interface MemberApi {
     ): Call<MemberResponse>
 
     // 마이페이지
-    @GET("members/profile")
+    @Multipart
+    @POST("members/profile")
     fun getMemberProfile(
         @Header("Authorization") token: String,
-        @Body MemberRequest: MemberRequest
+        @Part("part") part : RequestBody
     ): Call<MemberResponse>
 
     // 좋아요한 글
-    @GET("members/liked-post")
+    @Multipart
+    @POST("members/liked-post")
     fun getLikedPosts(
         @Header("Authorization") token: String,
-        @Body MemberRequest: MemberRequest
+        @Part("part") part : RequestBody
     ): Call<MemberResponse>
 
     // 즐겨찾기한 글
-    @GET("members/bookmarked-post")
+    @Multipart
+    @POST("members/bookmarked-post")
     fun getBookmarkedPosts(
         @Header("Authorization") token: String,
-        @Body MemberRequest: MemberRequest
+        @Part("part") part : RequestBody
     ): Call<MemberResponse>
 
     // 회원 닉네임 업데이트
     @Multipart
     @POST("members/nickname")
     fun updateNickname(
-        @Part("memberId") memberId: RequestBody,
+        @Header("Authorization") token: String,
         @Part("nickname") nickname: RequestBody
     ): Call<Member>
 
@@ -65,7 +68,7 @@ interface MemberApi {
     @Multipart
     @POST("members/profile-image")
     fun updateProfileImage(
-        @Part("memberId") memberId: RequestBody,
+        @Header("Authorization") token: String,
         @Part("multipartFile") multipartFile: MultipartBody.Part
     ): Call<Member>
 }

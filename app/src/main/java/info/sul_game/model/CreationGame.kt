@@ -1,17 +1,12 @@
-package info.sul_game.data.source.remote
+package info.sul_game.model
 
-import com.google.gson.annotations.SerializedName
-import info.sul_game.model.Member
-
-data class BasePost(
+data class CreationGame(
     val createdDate: String,
     val updatedDate: String,
     val isDeleted: Boolean,
     val isUpdated: Boolean,
-    val basePostId: Long,
-    @SerializedName("title")
+    val basePostId: Int,
     val title: String,
-    @SerializedName("introduction")
     val introduction: String,
     val description: String,
     val likes: Int,
@@ -24,5 +19,9 @@ data class BasePost(
     val commentCount: Int,
     val sourceType: String,
     val thumbnailIcon: String,
+    val officialGame: OfficialGame,
+    val introLyrics: String,
+    val introMediaFileUrl: String,
+    val gameTags: List<String>,
     val creatorInfoPrivate: Boolean
 )

@@ -3,6 +3,6 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
 
-  <string name="edit_profile_img"><u>프로필 이미지 수정</u></string>
+  <string name="edit_profile_img"><u>현재 사진 삭제</u></string>
 </resources>
 
