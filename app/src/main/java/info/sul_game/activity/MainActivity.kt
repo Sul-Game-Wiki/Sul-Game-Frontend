@@ -165,7 +165,6 @@ class MainActivity : AppCompatActivity() {
 
             val token = task.result
             Log.d("술겜위키", "토큰 이름 : $token")
-            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
 
         }
         createMove()

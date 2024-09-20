@@ -54,6 +54,19 @@ class SignUpActivity : AppCompatActivity() {
         loadUniversityNames()
 
         binding.btnCloseSignup.setOnClickListener {
+            val sharedPreferences = TokenUtil().getEncryptedSharedPreferences(this)
+            with(sharedPreferences.edit()) {
+                remove("accessToken")
+                apply() // 변경 사항을 적용
+            }
+            Log.d("술겜위키", "AccessToken 삭제됨")
+
+            with(sharedPreferences.edit()) {
+                remove("refreshToken")
+                apply() // 변경 사항을 적용
+            }
+            Log.d("술겜위키", "RefreshToken 삭제됨")
+
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -83,6 +96,7 @@ class SignUpActivity : AppCompatActivity() {
                     binding.tvHint2Signup.visibility = View.VISIBLE
                     binding.tvHint3Signup.visibility = View.INVISIBLE
                     previousName = binding.etNameSignup.text.toString()
+                    Log.d("술겜위키", "버튼 클릭 가능으로 변경")
                     binding.btnCheckNameSignup.backgroundTintList =
                         ColorStateList.valueOf(
                             ContextCompat.getColor(
@@ -95,8 +109,8 @@ class SignUpActivity : AppCompatActivity() {
                     binding.tvHint2Signup.visibility = View.INVISIBLE
                     binding.tvHint3Signup.visibility = View.VISIBLE
                 }
+                            buttonClickable()
             }
-            buttonClickable()
         }
 
         binding.etDateSignup.isFocusable = false
@@ -194,6 +208,24 @@ class SignUpActivity : AppCompatActivity() {
             Log.d("술겜위키", "변환해결")
             WarningDialog(this).show(binding.etNameSignup.text.toString(), birthDate, binding.tvUniversitySignup.text.toString())
         }
+    }
+
+    override fun onBackPressed() {
+        val sharedPreferences = TokenUtil().getEncryptedSharedPreferences(this)
+        with(sharedPreferences.edit()) {
+            remove("accessToken")
+            apply() // 변경 사항을 적용
+        }
+        Log.d("술겜위키", "AccessToken 삭제됨")
+
+        with(sharedPreferences.edit()) {
+            remove("refreshToken")
+            apply() // 변경 사항을 적용
+        }
+        Log.d("술겜위키", "RefreshToken 삭제됨")
+
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private val _member = MutableLiveData<MemberResponse>()
