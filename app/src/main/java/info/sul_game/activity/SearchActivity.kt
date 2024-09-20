@@ -43,7 +43,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun initHideButton() {
-        TODO("Not yet implemented")
+
     }
 
     private fun initRecyclerView() {
