@@ -8,6 +8,7 @@ import info.sul_game.api.HomeApi
 import info.sul_game.api.MemberApi
 import info.sul_game.api.OfficialGameListApi
 import info.sul_game.api.RelatedSearchGameListApi
+import info.sul_game.api.SearchApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -64,6 +65,9 @@ object RetrofitClient {
     }
     val homeApiService: HomeApi by lazy {
         retrofit.create(HomeApi::class.java)
+    }
+    val searchApiService: SearchApi by lazy {
+        retrofit.create(SearchApi::class.java)
     }
 }
 
