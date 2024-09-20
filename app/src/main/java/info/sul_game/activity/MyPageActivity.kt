@@ -43,7 +43,7 @@ class MyPageActivity : AppCompatActivity() {
 
         initUiEvent()
         updateMyPageUiWithData()
-        updateNotificationButton()
+        updateNotificationButtonUI(isNotificationEnabled)
 
         setContentView(binding.root)
     }
@@ -84,9 +84,7 @@ class MyPageActivity : AppCompatActivity() {
 
     private val rankChangeColors = listOf("#F04849", "#6A78BA", "#747474")
 
-    fun updateMyPageUiWithData() {
-        val accessToken = TokenUtil().getAccessToken(this@MyPageActivity)
-
+    private fun observeViewModel() {
         // ViewModel을 사용하여 프로필 정보 요청
         memberViewModel.memberResponse.observe(this) { memberResponse ->
             memberResponse?.let {
@@ -126,7 +124,7 @@ class MyPageActivity : AppCompatActivity() {
                 }
 
                 binding.tvCurrentRankPercentileMypage.text =
-                    "(상위${it.expRankPercentile}%)" // 현재 백분위
+                    "(상위${String.format("%.2f", it.expRankPercentile)}%)" // 현재 백분위
 
                 binding.tvCurrentExpMypage.text =
                     it.exp.toString() + "포인트" // 총 경험치
@@ -162,42 +160,35 @@ class MyPageActivity : AppCompatActivity() {
                     .error(defaultImage) // 로딩 에러 발생 시 표시할 이미지
                     .fallback(defaultImage) // 로드할 url 이 비어있을(null 등) 경우 표시할 이미지
                     .into(binding.civProfileMypage) // 이미지를 넣을 뷰
-            }
-        }
 
-        memberViewModel.getMemberProfile("Bearer ${accessToken!!}")
-
-
-    }
-
-    fun updateNotificationButton() {
-        val accessToken = TokenUtil().getAccessToken(this@MyPageActivity)
-
-        // ViewModel을 사용하여 프로필 정보 요청
-        memberViewModel.memberResponse.observe(this) { memberResponse ->
-            memberResponse?.let {
-                Log.d("API", "updateNotificationButton: ${it.member.isNotificationEnabled}")
                 isNotificationEnabled = it.member.isNotificationEnabled
 
-                if(isNotificationEnabled){
-                    binding.tvStateNotificationMypage.text = "알림 켜짐"
-                    binding.btnNotificationMypage.setImageResource(R.drawable.ic_notification_on)
-                    binding.btnNotificationMypage.setOnClickListener {
-                        updateNotificationReception(false)
-                    }
-                } else {
-                    binding.tvStateNotificationMypage.text = "알림 꺼짐"
-                    binding.btnNotificationMypage.setImageResource(R.drawable.ic_notification_off)
-                    binding.btnNotificationMypage.setOnClickListener {
-                        updateNotificationReception(true)
-                    }
-                }
-
+                // UI 업데이트를 위한 메서드 호출
+                updateNotificationButtonUI(isNotificationEnabled)
             }
         }
+    }
 
+    fun updateMyPageUiWithData() {
+        val accessToken = TokenUtil().getAccessToken(this@MyPageActivity)
         memberViewModel.getMemberProfile("Bearer ${accessToken!!}")
+        updateNotificationButtonUI(isNotificationEnabled)
+    }
 
+    private fun updateNotificationButtonUI(isEnabled: Boolean) {
+        if (isEnabled) {
+            binding.tvStateNotificationMypage.text = "알림 켜짐"
+            binding.btnNotificationMypage.setImageResource(R.drawable.ic_notification_on)
+            binding.btnNotificationMypage.setOnClickListener {
+                updateNotificationReception(false)
+            }
+        } else {
+            binding.tvStateNotificationMypage.text = "알림 꺼짐"
+            binding.btnNotificationMypage.setImageResource(R.drawable.ic_notification_off)
+            binding.btnNotificationMypage.setOnClickListener {
+                updateNotificationReception(true)
+            }
+        }
     }
 
     fun updateNotificationReception(isEnabled: Boolean) {
@@ -219,7 +210,6 @@ class MyPageActivity : AppCompatActivity() {
                     // 성공적으로 업데이트된 회원 정보로 UI 업데이트 등의 작업을 수행할 수 있습니다.
                     Log.d("API", "updateNotificationButton: ${updatedMember}")
 
-                    updateNotificationButton()
                     Toast.makeText(this@MyPageActivity, "알림 ${isEnabled}", Toast.LENGTH_SHORT).show()
                 } else {
                     // API 호출 실패 처리

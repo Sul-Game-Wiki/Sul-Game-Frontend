@@ -40,7 +40,7 @@ data class MemberResponse (
     //Exp
     val exp : Int,
     val expRank : Int,
-    val expRankPercentile : Int,
+    val expRankPercentile : Double,
     val nextLevelExp : Int,
     val remainingExpForNextLevel : Int,
     val progressPercentToNextLevel : Int,

@@ -36,8 +36,7 @@ class LatestSearchAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateItems(newItems: List<String>) {
-        items.clear()
-        items.addAll(newItems)
+        items = newItems.toMutableList()
         notifyDataSetChanged()
     }
 

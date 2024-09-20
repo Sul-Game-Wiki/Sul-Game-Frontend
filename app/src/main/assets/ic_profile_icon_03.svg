@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60.18 79.49">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 1.09px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        stroke: #84c341;
+        stroke-linecap: round;
+      }
+
+      .cls-1, .cls-2, .cls-4 {
+        stroke-linejoin: round;
+      }
+
+      .cls-2 {
+        stroke-width: 1.35px;
+      }
+
+      .cls-5 {
+        fill: #84c341;
+        stroke-width: 0px;
+      }
+
+      .cls-3 {
+        stroke-miterlimit: 10;
+        stroke-width: 1.63px;
+      }
+
+      .cls-4 {
+        fill: none;
+        stroke-width: 1.71px;
+      }
+    </style>
+  </defs>
+  <g>
+    <g>
+      <rect class="cls-1" x="8.43" y="1.59" width="13.77" height="38.63" transform="translate(-7.71 9.02) rotate(-26.48)"/>
+      <rect class="cls-5" x="17.13" y="-.46" width="4.59" height="38.63" transform="translate(-6.37 10.64) rotate(-26.48)"/>
+      <rect class="cls-5" x="8.92" y="3.63" width="4.59" height="38.63" transform="translate(-9.06 7.4) rotate(-26.48)"/>
+    </g>
+    <g>
+      <rect class="cls-1" x="37.98" y="1.59" width="13.77" height="38.63" transform="translate(75.7 59.61) rotate(-153.52)"/>
+      <rect class="cls-5" x="38.46" y="-.46" width="4.59" height="38.63" transform="translate(68.83 53.91) rotate(-153.52)"/>
+      <rect class="cls-5" x="46.67" y="3.63" width="4.59" height="38.63" transform="translate(82.57 65.32) rotate(-153.52)"/>
+    </g>
+  </g>
+  <g>
+    <circle class="cls-3" cx="30.09" cy="55.51" r="23.17"/>
+    <circle class="cls-2" cx="30.09" cy="55.51" r="19.18"/>
+    <circle class="cls-5" cx="20.01" cy="53.5" r="2.68"/>
+    <circle class="cls-5" cx="40.17" cy="53.5" r="2.68"/>
+    <polyline class="cls-4" points="34.64 61.8 29.92 64.58 25.54 61.8"/>
+  </g>
+</svg>

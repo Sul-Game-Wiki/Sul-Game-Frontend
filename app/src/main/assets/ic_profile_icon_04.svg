@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77.91 78.16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #84c341;
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        stroke-width: 1.63px;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke: #84c341;
+        stroke-linecap: round;
+      }
+
+      .cls-2, .cls-4 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3 {
+        stroke-width: 2.12px;
+      }
+
+      .cls-3, .cls-5 {
+        stroke-linejoin: round;
+      }
+
+      .cls-4 {
+        stroke-width: 2.69px;
+      }
+
+      .cls-5 {
+        fill: none;
+        stroke-width: 1.71px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-4" cx="38.96" cy="38.96" r="31.61"/>
+  <circle class="cls-2" cx="38.96" cy="38.96" r="31.61"/>
+  <circle class="cls-2" cx="38.96" cy="38.96" r="24.8"/>
+  <circle class="cls-2" cx="38.96" cy="38.96" r="4.51"/>
+  <line class="cls-2" x1="38.96" y1=".82" x2="38.96" y2="18.92"/>
+  <line class="cls-2" x1="38.96" y1="27.03" x2="38.96" y2="50.88"/>
+  <line class="cls-2" x1="50.88" y1="38.96" x2="27.03" y2="38.96"/>
+  <line class="cls-3" x1="38.96" y1="58.99" x2="38.96" y2="77.1"/>
+  <line class="cls-2" x1="77.1" y1="38.96" x2="58.99" y2="38.96"/>
+  <line class="cls-2" x1="18.92" y1="38.96" x2=".82" y2="38.96"/>
+  <circle class="cls-1" cx="22.98" cy="38.96" r="1.05"/>
+  <circle class="cls-1" cx="38.96" cy="22.98" r="1.05"/>
+  <circle class="cls-1" cx="54.94" cy="38.96" r="1.05"/>
+  <g>
+    <circle class="cls-1" cx="28.88" cy="46.43" r="2.68"/>
+    <circle class="cls-1" cx="49.04" cy="46.43" r="2.68"/>
+    <polyline class="cls-5" points="43.51 53.33 38.79 56.12 34.41 53.33"/>
+  </g>
+</svg>
