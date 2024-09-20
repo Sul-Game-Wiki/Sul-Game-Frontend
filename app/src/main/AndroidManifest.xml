@@ -42,7 +42,7 @@
           android:name=".activity.OfficialGameListActivity" >
         </activity>
         <activity
-          android:exported="false"
+          android:exported="true"
           android:name=".activity.SignUpActivity"
           android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
 

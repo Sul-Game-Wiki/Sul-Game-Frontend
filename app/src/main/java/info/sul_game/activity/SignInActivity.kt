@@ -68,6 +68,9 @@ class SignInActivity : AppCompatActivity() {
                 Log.d("술겜위키", "페이지 로딩 완료: $url")
 
                 if (url?.contains("/login/oauth2/code/") == true) {
+                    binding.wvSocialLoginLogin.visibility =
+                        View.INVISIBLE
+
                     view?.evaluateJavascript(
                         """
                         (function() {
