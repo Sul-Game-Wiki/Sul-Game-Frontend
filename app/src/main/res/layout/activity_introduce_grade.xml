@@ -44,6 +44,238 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/container1_introduce_grade"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="16dp"
+      android:background="@drawable/roundedbox_40"
+      android:backgroundTint="#80F04849"
+      android:layout_marginTop="35dp"
+      android:layout_marginHorizontal="20dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <ImageView
+        android:id="@+id/iv1_introduce_grade"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_explevel_s"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/tv1_introduce1_grade"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="술 (SUL)"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/iv1_introduce_grade"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/tv1_introduce2_grade"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="술게임 신의 단계에 오른 당신!"
+        android:textColor="#424242"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tv1_introduce1_grade"
+        app:layout_constraintTop_toBottomOf="@+id/tv1_introduce1_grade" />
+
+      <TextView
+        android:id="@+id/tv1_introduce3_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5000~10000 포인트가 위 단계에 해당해요"
+        android:textColor="#424242"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/tv1_introduce1_grade"
+        app:layout_constraintTop_toBottomOf="@+id/tv1_introduce2_grade" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/container2_introduce_grade"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="16dp"
+      android:background="@drawable/roundedbox_40"
+      android:backgroundTint="#80F8981D"
+      android:layout_marginTop="20dp"
+      android:layout_marginHorizontal="20dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/container1_introduce_grade">
+
+      <ImageView
+        android:id="@+id/iv2_introduce_grade"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_explevel_g"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/tv2_introduce1_grade"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="겜 (GAME)"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/iv2_introduce_grade"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/tv2_introduce2_grade"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="술게임 신의 단계에 오른 당신!"
+        android:textColor="#424242"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tv2_introduce1_grade"
+        app:layout_constraintTop_toBottomOf="@+id/tv2_introduce1_grade" />
+
+      <TextView
+        android:id="@+id/tv2_introduce3_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2000~4999 포인트가 위 단계에 해당해요"
+        android:textColor="#424242"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/tv2_introduce1_grade"
+        app:layout_constraintTop_toBottomOf="@+id/tv2_introduce2_grade" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/container3_introduce_grade"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="16dp"
+      android:background="@drawable/roundedbox_40"
+      android:backgroundTint="#806A78BA"
+      android:layout_marginTop="20dp"
+      android:layout_marginHorizontal="20dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/container2_introduce_grade">
+
+      <ImageView
+        android:id="@+id/iv3_introduce_grade"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_explevel_w"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/tv3_introduce1_grade"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위 (WI)"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/iv3_introduce_grade"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/tv3_introduce2_grade"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="술겜위키의 맛을 알아버린 당신!"
+        android:textColor="#424242"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tv3_introduce1_grade"
+        app:layout_constraintTop_toBottomOf="@+id/tv3_introduce1_grade" />
+
+      <TextView
+        android:id="@+id/tv3_introduce3_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="500~1999 포인트가 위 단계에 해당해요"
+        android:textColor="#424242"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/tv3_introduce1_grade"
+        app:layout_constraintTop_toBottomOf="@+id/tv3_introduce2_grade" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/container4_introduce_grade"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="16dp"
+      android:background="@drawable/roundedbox_40"
+      android:backgroundTint="#8084C341"
+      android:layout_marginTop="20dp"
+      android:layout_marginHorizontal="20dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/container3_introduce_grade">
+
+      <ImageView
+        android:id="@+id/iv4_introduce_grade"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_explevel_k"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/tv4_introduce1_grade"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="키 (KI)"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/iv4_introduce_grade"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/tv4_introduce2_grade"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이제 술게임을 시작했군요!"
+        android:textColor="#424242"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tv4_introduce1_grade"
+        app:layout_constraintTop_toBottomOf="@+id/tv4_introduce1_grade" />
+
+      <TextView
+        android:id="@+id/tv4_introduce3_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0~499 포인트가 위 단계에 해당해요"
+        android:textColor="#424242"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/tv4_introduce1_grade"
+        app:layout_constraintTop_toBottomOf="@+id/tv4_introduce2_grade" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

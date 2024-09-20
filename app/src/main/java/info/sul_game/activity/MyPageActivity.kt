@@ -42,6 +42,7 @@ class MyPageActivity : AppCompatActivity() {
         binding = ActivityMypageBinding.inflate(layoutInflater)
 
         initUiEvent()
+        observeViewModel()
         updateMyPageUiWithData()
         updateNotificationButtonUI(isNotificationEnabled)
 
@@ -79,6 +80,12 @@ class MyPageActivity : AppCompatActivity() {
 
         binding.btnCloseMypage.setOnClickListener {
             finish()
+        }
+
+        binding.btnQuestionMypage.setOnClickListener {
+            val intent = Intent(this@MyPageActivity, IntroduceGradeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
         }
     }
 
