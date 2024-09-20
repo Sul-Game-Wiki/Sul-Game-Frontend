@@ -74,7 +74,7 @@
     android:textSize="14sp"
     android:textColor="@color/white"
     android:background="@drawable/roundedbox_20"
-    android:backgroundTint="@color/light_gray"
+    android:backgroundTint="@color/main_color"
     app:layout_constraintTop_toTopOf="@+id/et_name_signup"
     app:layout_constraintBottom_toBottomOf="@+id/et_name_signup"
     app:layout_constraintEnd_toEndOf="@+id/et_name_signup"/>
