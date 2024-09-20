@@ -24,6 +24,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import info.sul_game.api.MemberApi
 import info.sul_game.api.GameListApi
+import info.sul_game.api.HomeApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -68,6 +69,9 @@ object RetrofitClient {
     }
     val gameListService: GameListApi by lazy {
         retrofit.create(GameListApi::class.java)
+    }
+    val homeApiService: HomeApi by lazy {
+        retrofit.create(HomeApi::class.java)
     }
 }
 
