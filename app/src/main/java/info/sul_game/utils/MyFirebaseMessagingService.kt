@@ -18,7 +18,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // 푸시 메시지를 받았을 때 호출
         Log.d("술겜위키", "From: ${remoteMessage.from}")
-        createNotificationChannel()
+//        createNotificationChannel()
 
         val type = remoteMessage.data["type"]?.let {
 //            NotificationType.valueOf(it)
