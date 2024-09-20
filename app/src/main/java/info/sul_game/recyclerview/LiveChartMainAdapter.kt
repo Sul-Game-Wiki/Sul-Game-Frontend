@@ -1,13 +1,16 @@
 package info.sul_game.recyclerview
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import info.sul_game.R
 import info.sul_game.databinding.ItemChartRecyclerviewBinding
 
 
-class LiveChartMainAdapter(val liveCharList: ArrayList<LiveChartMainItem>) :
+class LiveChartMainAdapter(val context: Context, val liveCharList: ArrayList<LiveChartMainItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -35,7 +38,11 @@ class LiveChartMainAdapter(val liveCharList: ArrayList<LiveChartMainItem>) :
         position: Int
     ) {
         if (holder is LiveChartMainViewHolder) {
-            holder.image.setImageResource(liveCharList[position].image)
+            Glide.with(context)
+                .load(liveCharList[position].image) // 불러올 이미지 url
+                .circleCrop() // 동그랗게 자르기
+                .error(R.drawable.ic_launcher_background)
+                .into(holder.image) // 이미지를 넣을 뷰
             holder.rank.text = (position + 1).toString()
             holder.title.text = liveCharList[position].title
             holder.contents.text = liveCharList[position].contents
