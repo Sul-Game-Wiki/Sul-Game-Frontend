@@ -27,11 +27,23 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+      android:id="@+id/btn_close_mypage"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginEnd="20dp"
+      android:background="@null"
+      android:src="@drawable/ic_x"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F6F6F6">
 
     <LinearLayout
       android:id="@+id/container_footer_mypage"
@@ -43,10 +55,19 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent">
       <TextView
+        android:id="@+id/tv_account_delete_mypage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"
-        android:text="회월탈퇴 / 로그아웃"
+        android:text="회월탈퇴"
+        android:textColor="@color/deep_gray"
+        android:textSize="14sp" />
+      <TextView
+        android:id="@+id/tv_signout_mypage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:text="로그아웃"
         android:textColor="@color/deep_gray"
         android:textSize="14sp" />
       <TextView
@@ -65,15 +86,32 @@
         android:textSize="14sp" />
     </LinearLayout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-      android:id="@+id/civ_profile_mypage"
-      android:layout_width="64dp"
-      android:layout_height="64dp"
-      android:src="@color/light_gray"
-      android:layout_marginTop="52dp"
-      android:layout_marginStart="25dp"
+
+    <FrameLayout
+      android:id="@+id/container_profile_mypage"
+      android:layout_width="110dp"
+      android:layout_height="110dp"
+      android:layout_marginTop="45dp"
+      android:layout_marginStart="24dp"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent">
+
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_profile_mypage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@color/light_gray" />
+
+      <ImageView
+        android:id="@+id/btn_edit_profile_mypage"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_margin="4dp"
+        android:layout_gravity="bottom|end"
+        android:elevation="25dp"
+        android:src="@drawable/ic_edit"/>
+
+    </FrameLayout>
 
     <TextView
       android:id="@+id/tv_username_mypage"
@@ -82,10 +120,22 @@
       android:fontFamily="@font/galmuri11bold"
       android:text="구해조님"
       android:textColor="@color/black"
-      android:textSize="24sp"
+      android:textSize="30sp"
       android:layout_marginStart="17dp"
-      app:layout_constraintStart_toEndOf="@+id/civ_profile_mypage"
-      app:layout_constraintTop_toTopOf="@id/civ_profile_mypage" />
+      app:layout_constraintStart_toEndOf="@+id/container_profile_mypage"
+      app:layout_constraintTop_toTopOf="@id/container_profile_mypage" />
+
+    <TextView
+      android:id="@+id/tv_email_mypage"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="xxxx@gmail.com"
+      android:textColor="@color/deep_gray"
+      android:textSize="18sp"
+      android:layout_marginTop="10dp"
+      app:layout_constraintStart_toStartOf="@+id/tv_username_mypage"
+      app:layout_constraintTop_toBottomOf="@id/tv_username_mypage" />
 
     <TextView
       android:id="@+id/tv_university_mypage"
@@ -95,19 +145,8 @@
       android:text="세종대학교"
       android:textColor="@color/deep_gray"
       android:textSize="18sp"
-      app:layout_constraintBottom_toBottomOf="@+id/civ_profile_mypage"
-      app:layout_constraintStart_toStartOf="@+id/tv_username_mypage"
-      app:layout_constraintTop_toBottomOf="@id/tv_username_mypage" />
-
-    <ImageView
-      android:id="@+id/iv_emblem_mypage"
-      android:layout_width="28dp"
-      android:layout_height="28dp"
-      android:src="@drawable/ic_explevel_g"
-      android:layout_marginStart="15dp"
-      app:layout_constraintBottom_toTopOf="@+id/tv_university_mypage"
-      app:layout_constraintStart_toEndOf="@+id/tv_username_mypage"
-      app:layout_constraintTop_toTopOf="@+id/tv_username_mypage" />
+      app:layout_constraintStart_toStartOf="@+id/tv_email_mypage"
+      app:layout_constraintTop_toBottomOf="@+id/tv_email_mypage" />
 
     <TextView
       android:id="@+id/tv_text1_mypage"
@@ -117,278 +156,223 @@
       android:text="현재 등급은"
       android:textColor="#424242"
       android:textSize="18sp"
-      android:layout_marginTop="25dp"
-      app:layout_constraintStart_toStartOf="@+id/civ_profile_mypage"
-      app:layout_constraintTop_toBottomOf="@+id/civ_profile_mypage" />
+      android:layout_marginTop="10dp"
+      app:layout_constraintStart_toStartOf="@+id/container_profile_mypage"
+      app:layout_constraintTop_toBottomOf="@+id/tv_current_rank_mypage" />
 
     <ImageView
       android:id="@+id/iv_emblem2_mypage"
       android:layout_width="28dp"
       android:layout_height="28dp"
       android:src="@drawable/ic_explevel_g"
-      app:layout_constraintBottom_toBottomOf="@+id/tv_expLevel_mypage"
-      app:layout_constraintStart_toStartOf="@+id/tv_text1_mypage"
-      app:layout_constraintTop_toBottomOf="@+id/tv_text1_mypage" />
+      android:layout_marginStart="10dp"
+      app:layout_constraintBottom_toBottomOf="@+id/tv_text1_mypage"
+      app:layout_constraintStart_toEndOf="@+id/tv_text1_mypage"
+      app:layout_constraintTop_toTopOf="@+id/tv_text1_mypage" />
 
     <TextView
       android:id="@+id/tv_expLevel_mypage"
       android:textStyle="bold"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginStart="6dp"
+      android:text="G (Game)"
       android:textColor="@color/main_color"
       android:textSize="24sp"
-      android:layout_marginStart="10dp"
+      app:layout_constraintBottom_toBottomOf="@+id/iv_emblem2_mypage"
       app:layout_constraintStart_toEndOf="@+id/iv_emblem2_mypage"
-      app:layout_constraintTop_toBottomOf="@+id/tv_text1_mypage"
-      android:text="G (Game)" />
+      app:layout_constraintTop_toTopOf="@+id/iv_emblem2_mypage" />
 
     <TextView
       android:id="@+id/tv_text2_mypage"
       android:textStyle="bold"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="입니다."
+      android:text="입니다"
       android:textColor="#424242"
-      android:layout_marginStart="10dp"
+      android:layout_marginStart="8dp"
       android:textSize="18sp"
       app:layout_constraintBottom_toBottomOf="@+id/tv_expLevel_mypage"
       app:layout_constraintStart_toEndOf="@+id/tv_expLevel_mypage"
       app:layout_constraintTop_toTopOf="@+id/tv_expLevel_mypage" />
 
-    <TextView
-      android:id="@+id/tv_text3_mypage"
-      android:textStyle="bold"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="25dp"
-      android:text="다음 등급까지 남은 포인트는"
-      android:textColor="#424242"
-      android:textSize="18sp"
-      app:layout_constraintStart_toStartOf="@+id/tv_text1_mypage"
-      app:layout_constraintTop_toBottomOf="@+id/tv_expLevel_mypage" />
-
-    <TextView
-      android:id="@+id/tv_next_level_exp_mypage"
-      android:textStyle="bold"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textColor="@color/main_color"
-      android:textSize="24sp"
-      app:layout_constraintStart_toStartOf="@+id/tv_text3_mypage"
-      app:layout_constraintTop_toBottomOf="@+id/tv_text3_mypage"
-      android:text="300 포인트" />
-
-    <TextView
-      android:id="@+id/tv_text4_mypage"
-      android:textStyle="bold"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="입니다."
-      android:layout_marginStart="10dp"
-      android:textColor="#424242"
-      android:textSize="18sp"
-      app:layout_constraintBottom_toBottomOf="@+id/tv_next_level_exp_mypage"
-      app:layout_constraintStart_toEndOf="@+id/tv_next_level_exp_mypage"
-      app:layout_constraintTop_toTopOf="@+id/tv_next_level_exp_mypage" />
-
     <Button
-      android:id="@+id/btn_refresh_mypage"
-      android:layout_width="20dp"
-      android:layout_height="20dp"
-      android:layout_marginStart="12dp"
-      android:background="@drawable/ic_refresh"
+      android:id="@+id/btn_question_mypage"
+      android:layout_width="21dp"
+      android:layout_height="24dp"
+      android:background="@drawable/ic_question"
+      android:layout_marginStart="8dp"
       app:layout_constraintBottom_toBottomOf="@+id/tv_text2_mypage"
       app:layout_constraintStart_toEndOf="@+id/tv_text2_mypage"
       app:layout_constraintTop_toTopOf="@+id/tv_text2_mypage" />
 
-    <ProgressBar
-      android:id="@+id/progressbar_exp_mypage"
-      style="@style/HorizontalProgressBarStyle"
-      android:layout_width="0dp"
-      android:layout_height="12dp"
-      android:layout_marginEnd="14dp"
-      android:max="1000"
-      android:min="0"
-      android:progress="600"
-      android:progressDrawable="@drawable/progress_bar_green"
-      app:layout_constraintBottom_toBottomOf="@+id/iv_next_emblem_mypage"
-      app:layout_constraintEnd_toStartOf="@+id/iv_next_emblem_mypage"
-      app:layout_constraintStart_toStartOf="@+id/tv_text1_mypage"
-      app:layout_constraintTop_toBottomOf="@+id/tv_next_level_exp_mypage" />
+    <TextView
+      android:id="@+id/tv_current_rank_mypage"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="1위"
+      android:textColor="#424242"
+      android:textSize="22sp"
+      android:layout_marginStart="8dp"
+      app:layout_constraintStart_toEndOf="@id/tv_text5_mypage"
+      app:layout_constraintBottom_toBottomOf="@id/tv_text5_mypage"/>
+
+    <TextView
+      android:id="@+id/tv_text5_mypage"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="현재 순위"
+      android:textColor="#424242"
+      android:textSize="18sp"
+      android:layout_marginTop="22dp"
+      app:layout_constraintStart_toStartOf="@+id/container_profile_mypage"
+      app:layout_constraintTop_toBottomOf="@+id/container_profile_mypage" />
+
+    <TextView
+      android:id="@+id/tv_current_rank_percentile_mypage"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="(상위 60%)"
+      android:textColor="#424242"
+      android:textSize="16sp"
+      android:layout_marginStart="5dp"
+      app:layout_constraintBottom_toBottomOf="@+id/tv_text5_mypage"
+      app:layout_constraintStart_toEndOf="@+id/tv_current_rank_mypage"
+      app:layout_constraintTop_toTopOf="@+id/tv_text5_mypage" />
 
     <ImageView
-      android:id="@+id/iv_next_emblem_mypage"
-      android:layout_width="35dp"
-      android:layout_height="35dp"
-      android:layout_marginEnd="25dp"
-      android:src="@drawable/ic_explevel_s"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/tv_next_level_exp_mypage" />
+      android:id="@+id/iv_rank_mypage"
+      android:layout_width="20dp"
+      android:layout_height="20dp"
+      android:layout_marginStart="8dp"
+      android:src="@drawable/ic_rank_up"
+      app:layout_constraintBottom_toBottomOf="@+id/tv_current_rank_percentile_mypage"
+      app:layout_constraintStart_toEndOf="@+id/tv_current_rank_percentile_mypage"
+      app:layout_constraintTop_toTopOf="@+id/tv_current_rank_percentile_mypage" />
 
     <TextView
-      android:id="@+id/tv_min_exp_mypage"
+      android:id="@+id/tv_rank_change_mypage"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="G (Game)"
-      android:textSize="15sp"
-      android:textColor="@color/deep_gray"
-      android:layout_marginTop="3dp"
-      app:layout_constraintStart_toStartOf="@+id/progressbar_exp_mypage"
-      app:layout_constraintTop_toBottomOf="@+id/progressbar_exp_mypage" />
+      android:textStyle="bold"
+      android:text="5"
+      android:textColor="#F04849"
+      android:textSize="18sp"
+      android:layout_marginStart="5dp"
+      app:layout_constraintBottom_toBottomOf="@+id/tv_current_rank_percentile_mypage"
+      app:layout_constraintStart_toEndOf="@+id/iv_rank_mypage"
+      app:layout_constraintTop_toTopOf="@+id/tv_current_rank_percentile_mypage" />
 
-    <TextView
-      android:id="@+id/tv_max_exp_mypage"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="S (Sul)"
-      android:textColor="@color/deep_gray"
-      android:textSize="15sp"
-      app:layout_constraintEnd_toEndOf="@+id/progressbar_exp_mypage"
-      app:layout_constraintTop_toBottomOf="@+id/progressbar_exp_mypage" />
-
-    <LinearLayout
-      android:id="@+id/container_rank_mypage"
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/container_exp_mypage"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:layout_marginTop="30dp"
-      android:layout_marginHorizontal="25dp"
+      android:layout_margin="15dp"
+      android:background="@drawable/roundedbox_20"
+      android:padding="15dp"
+      android:elevation="10dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/tv_min_exp_mypage">
+      app:layout_constraintTop_toBottomOf="@+id/tv_expLevel_mypage">
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+      <Button
+        android:id="@+id/btn_refresh_mypage"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:background="@drawable/ic_refresh"
+        app:layout_constraintEnd_toEndOf="@+id/iv_next_emblem_mypage"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="현재 순위"
-          android:textColor="#424242"
-          android:textSize="18sp"
-          android:textStyle="bold"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+      <ImageView
+        android:id="@+id/iv_next_emblem_mypage"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_explevel_s"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_current_exp_mypage" />
 
-        <TextView
-          android:id="@+id/tv_exp_rank_mypage"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="1위"
-          android:textColor="#424242"
-          android:textSize="15sp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+      <ProgressBar
+        android:id="@+id/progressbar_exp_mypage"
+        style="@style/HorizontalProgressBarStyle"
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="14dp"
+        android:max="5000"
+        android:min="2000"
+        android:progress="3000"
+        android:progressDrawable="@drawable/progress_bar_green"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_next_emblem_mypage"
+        app:layout_constraintEnd_toStartOf="@+id/iv_next_emblem_mypage"
+        app:layout_constraintStart_toStartOf="@+id/tv_current_exp_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/tv_current_exp_mypage" />
 
-      </androidx.constraintlayout.widget.ConstraintLayout>
+      <TextView
+        android:id="@+id/tv_text4_mypage"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="입니다"
+        android:textColor="#424242"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_current_exp_mypage"
+        app:layout_constraintStart_toEndOf="@+id/tv_current_exp_mypage"
+        app:layout_constraintTop_toTopOf="@+id/tv_current_exp_mypage" />
 
-      <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#EFEFEF"
-        android:layout_marginVertical="5dp"/>
+      <TextView
+        android:id="@+id/tv_text3_mypage"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현재 총 경험치는"
+        android:textColor="#424242"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+      <TextView
+        android:id="@+id/tv_remain_exp_mypage"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="다음 등급까지 남은 포인트는 2000P입니다"
+        android:textColor="#424242"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_text3_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/progressbar_exp_mypage" />
 
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="순위 변동"
-          android:textColor="#424242"
-          android:textSize="18sp"
-          android:textStyle="bold"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+      <TextView
+        android:id="@+id/tv_current_exp_mypage"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3000 포인트"
+        android:textColor="@color/main_color"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_text3_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text3_mypage" />
 
-        <TextView
-          android:id="@+id/tv_rank_change_mypage"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="10위 하락"
-          android:textColor="#424242"
-          android:textSize="15sp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+      <TextView
+        android:id="@+id/tv_max_exp_mypage"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5000P"
+        android:textColor="#424242"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_next_emblem_mypage"
+        app:layout_constraintStart_toStartOf="@+id/iv_next_emblem_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/iv_next_emblem_mypage" />
 
-      </androidx.constraintlayout.widget.ConstraintLayout>
 
-      <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#EFEFEF"
-        android:layout_marginVertical="5dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="현재 백분위"
-          android:textColor="#424242"
-          android:textSize="18sp"
-          android:textStyle="bold"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-          android:id="@+id/tv_exp_rank_percentile_mypage"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="1%"
-          android:textColor="#424242"
-          android:textSize="15sp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
-
-      </androidx.constraintlayout.widget.ConstraintLayout>
-
-      <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#EFEFEF"
-        android:layout_marginVertical="5dp"/>
-
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="총 경험치"
-          android:textColor="#424242"
-          android:textSize="18sp"
-          android:textStyle="bold"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-          android:id="@+id/tv_total_exp_mypage"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="300"
-          android:textColor="#424242"
-          android:textSize="15sp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
-
-      </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
 
     <LinearLayout
       android:id="@+id/container_buttons_mypage"
@@ -400,7 +384,7 @@
       android:layout_marginHorizontal="15dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/container_rank_mypage">
+      app:layout_constraintTop_toBottomOf="@id/container_exp_mypage">
 
       <LinearLayout
         android:layout_weight="1"
@@ -497,17 +481,19 @@
         android:orientation="vertical">
 
         <TextView
+          android:id="@+id/tv_state_notification_mypage"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="계정 설정"
+          android:text="알림 켜짐"
           android:textColor="@color/deep_gray"
           android:textSize="14sp" />
 
-        <Button
-          android:id="@+id/btn_profile_setting_mypage"
-          android:layout_width="40dp"
-          android:layout_height="40dp"
-          android:background="@drawable/ic_setting" />
+        <ImageButton
+          android:id="@+id/btn_notification_mypage"
+          android:layout_width="50dp"
+          android:layout_height="50dp"
+          android:src="@drawable/ic_notification_on"
+          android:background="@null"/>
 
       </LinearLayout>
 

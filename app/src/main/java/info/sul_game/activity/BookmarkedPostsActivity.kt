@@ -1,5 +1,6 @@
 package info.sul_game.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -32,11 +33,21 @@ class BookmarkedPostsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         recyclerBookmark()
+
+        binding.btnCloseBookmarkedpost.setOnClickListener {
+            finish()
+        }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun recyclerBookmark(){
         val accessToken = TokenUtil().getAccessToken(this@BookmarkedPostsActivity)
         val allBookmarkedPosts = mutableListOf<BasePost>()
+        val adapter = MyPagePostAdapter(allBookmarkedPosts)
+
+        binding.recyclerviewBookmarkedpost.adapter = adapter
+        binding.recyclerviewBookmarkedpost.layoutManager = LinearLayoutManager(this)
+        binding.recyclerviewBookmarkedpost.addItemDecoration(DividerItemDecoration(this, VERTICAL))
 
         accessToken?.let {
             memberViewModel.getBookmarkedPosts("Bearer $accessToken")
@@ -45,9 +56,12 @@ class BookmarkedPostsActivity : AppCompatActivity() {
             memberViewModel.bookmarkedPosts.observe(this) { memberResponse ->
                 if (memberResponse != null) {
                     Log.d(TAG, "$memberResponse")
-                    allBookmarkedPosts.addAll(memberResponse.bookmarkedIntroIds)
-                    allBookmarkedPosts.addAll(memberResponse.bookmarkedCreationGameIds)
-                    allBookmarkedPosts.addAll(memberResponse.bookmarkedOfficialGameIds)
+                    // null 체크 후 addAll 호출
+                    memberResponse.bookmarkedIntroIds?.let { allBookmarkedPosts.addAll(it) }
+                    memberResponse.bookmarkedCreationGameIds?.let { allBookmarkedPosts.addAll(it) }
+                    memberResponse.bookmarkedOfficialGameIds?.let { allBookmarkedPosts.addAll(it) }
+
+                    adapter.notifyDataSetChanged()
 
                 } else {
                     Log.e(TAG,"memberResponse 데이터가 존재하지 않음")
@@ -55,8 +69,6 @@ class BookmarkedPostsActivity : AppCompatActivity() {
             }
         }
 
-        binding.recyclerviewBookmarkedpost.adapter = MyPagePostAdapter(allBookmarkedPosts)
-        binding.recyclerviewBookmarkedpost.layoutManager = LinearLayoutManager(this)
-        binding.recyclerviewBookmarkedpost.addItemDecoration(DividerItemDecoration(this, VERTICAL))
+
     }
 }

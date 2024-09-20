@@ -2,6 +2,7 @@ package info.sul_game.activity
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,8 +39,10 @@ class SearchActivity : AppCompatActivity() {
                 query: String ->  binding.searchviewSearch.setQuery(query, false)
         }
 
-        binding.recyclerviewRecentSearch.layoutManager = LinearLayoutManager(this)
         binding.recyclerviewRecentSearch.adapter = adapter
+        binding.recyclerviewRecentSearch.layoutManager = LinearLayoutManager(this)
+
+
     }
 
     private fun initSearchView(){
@@ -66,6 +69,7 @@ class SearchActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 addSearchQuery(query)
                 saveSearchHistory(searchHistory) // 검색어 저장
+                Log.d("Search", "onQueryTextSubmit: ${query}")
                 return true
             }
 

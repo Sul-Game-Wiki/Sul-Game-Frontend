@@ -1,15 +1,27 @@
 package info.sul_game.activity
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.bumptech.glide.Glide
 import info.sul_game.R
+import info.sul_game.config.RetrofitClient
 import info.sul_game.databinding.ActivityMypageBinding
+import info.sul_game.model.MemberResponse
 import info.sul_game.utils.TokenUtil
+import info.sul_game.utils.view.ProfileImageModalDialog
 import info.sul_game.viewmodel.MemberViewModel
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.math.abs
 
 class MyPageActivity : AppCompatActivity() {
@@ -18,6 +30,7 @@ class MyPageActivity : AppCompatActivity() {
     private val memberViewModel: MemberViewModel by viewModels()
 
     private val TAG = "MYPAGE"
+    private var isNotificationEnabled = true
 
     // 각 등급별 기준 경험치
     private val baseExp = listOf(0, 500, 2000, 5000)
@@ -30,6 +43,7 @@ class MyPageActivity : AppCompatActivity() {
 
         initUiEvent()
         updateMyPageUiWithData()
+        updateNotificationButton()
 
         setContentView(binding.root)
     }
@@ -53,71 +67,174 @@ class MyPageActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnProfileSettingMypage.setOnClickListener {
-            val intent = Intent(this@MyPageActivity, EditAccountActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(intent)
-        }
-
         binding.btnRefreshMypage.setOnClickListener {
             updateMyPageUiWithData()
         }
+
+        binding.btnEditProfileMypage.setOnClickListener {
+            val dialog = ProfileImageModalDialog()
+            dialog.show(supportFragmentManager, dialog.tag)
+
+        }
+
+        binding.btnCloseMypage.setOnClickListener {
+            finish()
+        }
     }
 
-    private fun updateMyPageUiWithData() {
+    private val rankChangeColors = listOf("#F04849", "#6A78BA", "#747474")
+
+    fun updateMyPageUiWithData() {
         val accessToken = TokenUtil().getAccessToken(this@MyPageActivity)
 
         // ViewModel을 사용하여 프로필 정보 요청
-        accessToken?.let {
-            memberViewModel.memberResponse.observe(this) { memberResponse ->
-                if (memberResponse != null) {
-                    Log.d(TAG, "$memberResponse")
+        memberViewModel.memberResponse.observe(this) { memberResponse ->
+            memberResponse?.let {
+                Log.d(TAG, "$it")
 
-                    binding.tvUsernameMypage.text = memberResponse.member.nickname
-                    binding.tvUniversityMypage.text = memberResponse.member.university
+                binding.tvUsernameMypage.text = it.member.nickname
+                binding.tvEmailMypage.text = it.member.email
+                binding.tvUniversityMypage.text = it.member.university
 
-                    binding.tvExpRankMypage.text = memberResponse.exp.toString() + "위" // 현재 순위
+                binding.tvCurrentRankMypage.text = "${it.expRank}위" // 현재 순위
 
-                    // 순위 변동
-                    if (memberResponse.exp >= 0)
-                        binding.tvRankChangeMypage.text = abs(memberResponse.expRank).toString() + "위 상승"
-                    else
-                        binding.tvRankChangeMypage.text = abs(memberResponse.expRank).toString() + "위 하락"
+                // 순위 변동
+                binding.tvRankChangeMypage.text = abs(it.expRank).toString()
 
-                    binding.tvExpRankPercentileMypage.text = memberResponse.expRankPercentile.toString() + "%" // 현재 백분위
+                if (it.rankChange > 0) {
+                    binding.tvRankChangeMypage.setTextColor(
+                        Color.parseColor(
+                            rankChangeColors[0]
+                        )
+                    )
+                    binding.ivRankMypage.setImageResource(R.drawable.ic_rank_up)
 
-                    binding.tvTotalExpMypage.text = memberResponse.exp.toString() // 총 경험치
-
-                    // 경험치 등급
-                    binding.tvExpLevelMypage.text = getExpLevel(getCurrentGrade(memberResponse.exp))
-                    binding.tvMinExpMypage.text = getExpLevel(getCurrentGrade(memberResponse.exp))
-                    binding.tvMaxExpMypage.text = getNextExpLevel(getCurrentGrade(memberResponse.exp))
-
-                    // 다음 등급까지 남은 포인트
-                    binding.tvNextLevelExpMypage.text = "${memberResponse.nextLevelExp} 포인트"
-
-                    // 프로그레스바 계산
-                    binding.progressbarExpMypage.min = 0
-                    binding.progressbarExpMypage.max = 1000
-                    binding.progressbarExpMypage.progress = (((memberResponse.exp - baseExp[getCurrentGrade(memberResponse.exp)]).toDouble() / ((baseExp[getNextGrade(memberResponse.exp)]) - baseExp[getCurrentGrade(memberResponse.exp)]).toDouble()) * 1000).toInt()
-
-                    // 엠블렘 이미지 업데이트
-                    binding.ivEmblemMypage.setImageResource(baseExpLevelImage[getCurrentGrade(memberResponse.exp)])
-                    binding.ivEmblem2Mypage.setImageResource(baseExpLevelImage[getCurrentGrade(memberResponse.exp)])
-                    binding.ivNextEmblemMypage.setImageResource(baseExpLevelImage[getNextGrade(memberResponse.exp)])
-
+                } else if (it.rankChange < 0) {
+                    binding.tvRankChangeMypage.setTextColor(
+                        Color.parseColor(
+                            rankChangeColors[1]
+                        )
+                    )
+                    binding.ivRankMypage.setImageResource(R.drawable.ic_rank_down)
                 } else {
-                    Log.e(TAG,"updateMyPageUiWithData: memberRequest 데이터가 존재하지 않음")
+                    binding.tvRankChangeMypage.setTextColor(
+                        Color.parseColor(
+                            rankChangeColors[2]
+                        )
+                    )
+                    binding.ivRankMypage.setImageResource(R.drawable.ic_rank_equal)
                 }
-            }
 
-            memberViewModel.getMemberProfile("Bearer $accessToken")
-            Log.d(TAG, "updateMyPageUiWithData: fetchMemberProfile ($accessToken)")
+                binding.tvCurrentRankPercentileMypage.text =
+                    "(상위${it.expRankPercentile}%)" // 현재 백분위
+
+                binding.tvCurrentExpMypage.text =
+                    it.exp.toString() + "포인트" // 총 경험치
+
+
+                // 다음 등급까지 남은 포인트
+                binding.tvRemainExpMypage.text =
+                    "다음 등급까지 남은 포인트는 ${it.nextLevelExp - it.exp}P입니다"
+                binding.tvMaxExpMypage.text = it.nextLevelExp.toString() + "P"
+
+                // 프로그레스바 계산
+                binding.progressbarExpMypage.min =
+                    baseExp[getCurrentGrade(it.exp)]
+                binding.progressbarExpMypage.max = baseExp[getNextGrade(it.exp)]
+                binding.progressbarExpMypage.progress = it.exp
+
+                // 엠블렘 이미지 업데이트
+                binding.ivEmblem2Mypage.setImageResource(
+                    baseExpLevelImage[getCurrentGrade(
+                        it.exp
+                    )]
+                )
+                binding.ivNextEmblemMypage.setImageResource(
+                    baseExpLevelImage[getNextGrade(
+                        it.exp
+                    )]
+                )
+
+                val defaultImage = R.color.light_gray
+                Glide.with(this)
+                    .load(it.member.profileUrl) // 불러올 이미지 url
+                    .placeholder(defaultImage) // 이미지 로딩 시작하기 전 표시할 이미지
+                    .error(defaultImage) // 로딩 에러 발생 시 표시할 이미지
+                    .fallback(defaultImage) // 로드할 url 이 비어있을(null 등) 경우 표시할 이미지
+                    .into(binding.civProfileMypage) // 이미지를 넣을 뷰
+            }
         }
+
+        memberViewModel.getMemberProfile("Bearer ${accessToken!!}")
+
 
     }
 
-    private fun getCurrentGrade(exp : Int) : Int {
+    fun updateNotificationButton() {
+        val accessToken = TokenUtil().getAccessToken(this@MyPageActivity)
+
+        // ViewModel을 사용하여 프로필 정보 요청
+        memberViewModel.memberResponse.observe(this) { memberResponse ->
+            memberResponse?.let {
+                Log.d("API", "updateNotificationButton: ${it.member.isNotificationEnabled}")
+                isNotificationEnabled = it.member.isNotificationEnabled
+
+                if(isNotificationEnabled){
+                    binding.tvStateNotificationMypage.text = "알림 켜짐"
+                    binding.btnNotificationMypage.setImageResource(R.drawable.ic_notification_on)
+                    binding.btnNotificationMypage.setOnClickListener {
+                        updateNotificationReception(false)
+                    }
+                } else {
+                    binding.tvStateNotificationMypage.text = "알림 꺼짐"
+                    binding.btnNotificationMypage.setImageResource(R.drawable.ic_notification_off)
+                    binding.btnNotificationMypage.setOnClickListener {
+                        updateNotificationReception(true)
+                    }
+                }
+
+            }
+        }
+
+        memberViewModel.getMemberProfile("Bearer ${accessToken!!}")
+
+    }
+
+    fun updateNotificationReception(isEnabled: Boolean) {
+        val accessToken = TokenUtil().getAccessToken(this)  // AccessToken을 가져옵니다.
+
+        val isNotificationEnabledBody = RequestBody.create(
+            "text/plain".toMediaTypeOrNull(),
+            isEnabled.toString()
+        )
+
+        RetrofitClient.memberApiService.updateNotificationReception(
+            "Bearer $accessToken",
+            isNotificationEnabledBody
+        ).enqueue(object : Callback<MemberResponse> {
+            override fun onResponse(call: Call<MemberResponse>, response: Response<MemberResponse>) {
+                if (response.isSuccessful) {
+                    // 알림 수신 설정이 성공적으로 업데이트됨
+                    val updatedMember = response.body()
+                    // 성공적으로 업데이트된 회원 정보로 UI 업데이트 등의 작업을 수행할 수 있습니다.
+                    Log.d("API", "updateNotificationButton: ${updatedMember}")
+
+                    updateNotificationButton()
+                    Toast.makeText(this@MyPageActivity, "알림 ${isEnabled}", Toast.LENGTH_SHORT).show()
+                } else {
+                    // API 호출 실패 처리
+                    Log.e("API", "onResponse: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<MemberResponse>, t: Throwable) {
+                // 네트워크 오류 처리
+                Log.e("API", "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun getCurrentGrade(exp : Int) : Int {
         val currentGrade = when {
             exp >= 5000 -> 3
             exp in 2000..4999 -> 2
@@ -128,7 +245,7 @@ class MyPageActivity : AppCompatActivity() {
         return currentGrade
     }
 
-    private fun getNextGrade(exp : Int) : Int {
+    fun getNextGrade(exp : Int) : Int {
         val currentGrade = when {
             exp >= 5000 -> 3
             exp in 2000..4999 -> 2

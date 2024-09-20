@@ -2,21 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   package="info.sul_game"
-  android:targetSandboxVersion="1" >
-
-    <uses-feature
-      android:name="android.hardware.camera"
-      android:required="true" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+  android:targetSandboxVersion="1">
 
     <application
       android:allowBackup="true"
@@ -32,6 +18,9 @@
       android:usesCleartextTraffic="true"
       tools:targetApi="31">
         <activity
+          android:exported="false"
+          android:name=".activity.IntroduceGradeActivity" />
+        <activity
           android:exported="true"
           android:name=".activity.WelcomeGuideActivity"
           android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
@@ -45,58 +34,55 @@
           android:exported="true"
           android:name=".activity.SignUpActivity"
           android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-
         </activity>
         <activity
-      android:exported="false"
-      android:name=".activity.IntroDetailActivity" />
-        
+          android:exported="false"
+          android:name=".activity.IntroDetailActivity" />
         <activity
           android:name=".activity.EditAccountActivity"
           android:theme="@style/AppTheme"
           android:exported="false" />
         <activity
           android:name=".activity.BookmarkedPostsActivity"
-          android:theme="@style/AppTheme"
-          android:exported="false" />
-        <activity
-          android:name=".activity.LikedPostsActivity"
-          android:theme="@style/AppTheme"
-          android:exported="false" />
-        <activity
-          android:name=".activity.MyPostsActivity"
-          android:theme="@style/AppTheme"
-          android:exported="false" />
-        <activity
-          android:name=".activity.MyPageActivity"
-          android:theme="@style/AppTheme"
-          android:exported="false" />
-        <activity
-          android:name=".activity.SearchActivity"
-          android:exported="false"
           android:theme="@style/AppTheme" />
         <activity
-          android:name=".activity.SignUpConfirmationActivity"
           android:exported="false"
-          android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+          android:name=".activity.LikedPostsActivity"
+          android:theme="@style/AppTheme" />
+        <activity
+          android:exported="false"
+          android:name=".activity.MyPostsActivity"
+          android:theme="@style/AppTheme" />
+        <activity
+          android:exported="false"
+          android:name=".activity.MyPageActivity"
+          android:theme="@style/AppTheme" />
+        <activity
+          android:exported="false"
+          android:name=".activity.SearchActivity"
+          android:theme="@style/AppTheme" />
+        <activity
+          android:exported="false"
+          android:name=".activity.SignUpConfirmationActivity"
+          android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.SignInActivity"
             android:exported="false"
           android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-          android:name=".activity.CreatePostActivity"
           android:exported="false"
+          android:name=".activity.CreatePostActivity"
           android:theme="@style/Theme.AppCompat.Light.NoActionBar"
           android:windowSoftInputMode="adjustPan" />
         <activity
-          android:name=".activity.OfficialGameDetailActivity"
-          android:exported="false" />
+          android:exported="false"
+          android:name=".activity.OfficialGameDetailActivity" />
         <activity
-          android:name=".activity.CreationGameDetailActivity"
-          android:exported="false" />
+          android:exported="false"
+          android:name=".activity.CreationGameDetailActivity" />
         <activity
-          android:name=".activity.MainActivity"
-          android:exported="true" >
+          android:exported="true"
+          android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -114,11 +100,25 @@
           android:name="androidx.core.content.FileProvider"
           android:authorities="${applicationId}.fileprovider"
           android:exported="false"
-          android:grantUriPermissions="true" >
+          android:grantUriPermissions="true">
             <meta-data
               android:name="android.support.FILE_PROVIDER_PATHS"
               android:resource="@xml/file_paths" />
         </provider>
     </application>
+
+    <uses-feature
+      android:name="android.hardware.camera"
+      android:required="true" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
 </manifest>

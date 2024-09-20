@@ -86,6 +86,14 @@ interface MemberApi {
     @POST("members/profile-image")
     fun updateProfileImage(
         @Header("Authorization") token: String,
-        @Part("multipartFile") multipartFile: MultipartBody.Part
+        @Part multipartFile: MultipartBody.Part
     ): Call<Member>
+
+    // 알림 수신 설정 변경
+    @Multipart
+    @POST("members/liked-posts")
+    fun updateNotificationReception(
+        @Header("Authorization") token: String,
+        @Part("isNotificationEnabled") isNotificationEnabled : RequestBody
+    ): Call<MemberResponse>
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:orientation="vertical"
+  xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/white"
-  tools:context=".activity.BookmarkedPostsActivity">
+  android:orientation="vertical"
+  android:background="@color/white">
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -19,7 +19,7 @@
       android:layout_height="wrap_content"
       android:layout_marginVertical="27dp"
       android:fontFamily="@font/galmuri11bold"
-      android:text="즐겨찾기한 글"
+      android:text="등급 소개"
       android:textColor="@color/white"
       android:textSize="32dp"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
       app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-      android:id="@+id/btn_close_bookmarkedpost"
+      android:id="@+id/btn_close_introduce"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
@@ -40,10 +40,10 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerview_bookmarkedpost"
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:listitem="@layout/item_mypage_post_recyclerview"/>
+    android:layout_height="match_parent">
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

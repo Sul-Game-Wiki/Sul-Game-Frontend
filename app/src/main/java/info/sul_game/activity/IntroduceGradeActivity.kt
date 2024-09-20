@@ -6,15 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import info.sul_game.R
-import info.sul_game.databinding.ActivityEditAccountBinding
 
-class EditAccountActivity : AppCompatActivity() {
-
-    private lateinit var binding : ActivityEditAccountBinding
-
+class IntroduceGradeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEditAccountBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_introduce_grade)
+
     }
 }

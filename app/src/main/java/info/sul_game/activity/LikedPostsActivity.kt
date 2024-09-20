@@ -1,5 +1,6 @@
 package info.sul_game.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -25,11 +26,20 @@ class LikedPostsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         recyclerLike()
+        binding.btnCloseLikedpost.setOnClickListener {
+            finish()
+        }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun recyclerLike(){
         val accessToken = TokenUtil().getAccessToken(this@LikedPostsActivity)
         val allLikedPosts = mutableListOf<BasePost>()
+        val adapter = MyPagePostAdapter(allLikedPosts)
+
+        binding.recyclerviewLikedpost.adapter = adapter
+        binding.recyclerviewLikedpost.layoutManager = LinearLayoutManager(this)
+        binding.recyclerviewLikedpost.addItemDecoration(DividerItemDecoration(this, VERTICAL))
 
         accessToken?.let {
             memberViewModel.getLikedPosts("Bearer $accessToken")
@@ -38,19 +48,17 @@ class LikedPostsActivity : AppCompatActivity() {
             memberViewModel.likedPosts.observe(this) { memberResponse ->
                 if (memberResponse != null) {
                     Log.d(TAG, "$memberResponse")
-                    allLikedPosts.addAll(memberResponse.likedOfficalGames)
-                    allLikedPosts.addAll(memberResponse.likedCreationGames)
-                    allLikedPosts.addAll(memberResponse.likedIntros)
+                    // null 체크 후 addAll 호출
+                    memberResponse.likedOfficalGames?.let { allLikedPosts.addAll(it) }
+                    memberResponse.likedCreationGames?.let { allLikedPosts.addAll(it) }
+                    memberResponse.likedIntros?.let { allLikedPosts.addAll(it) }
 
+                    adapter.notifyDataSetChanged()
                 } else {
                     Log.e(TAG,"memberResponse 데이터가 존재하지 않음")
                 }
             }
         }
-
-        binding.recyclerviewLikedpost.adapter = MyPagePostAdapter(allLikedPosts)
-        binding.recyclerviewLikedpost.layoutManager = LinearLayoutManager(this)
-        binding.recyclerviewLikedpost.addItemDecoration(DividerItemDecoration(this, VERTICAL))
     }
 
 }
