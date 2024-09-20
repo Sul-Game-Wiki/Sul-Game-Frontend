@@ -37,11 +37,20 @@
           android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
-          android:exported="true"
+      android:exported="false"
+          android:theme="@style/Theme.AppCompat.NoActionBar"
+          android:name=".activity.OfficialGameListActivity" >
+        </activity>
+        <activity
+          android:exported="false"
           android:name=".activity.SignUpActivity"
           android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
 
         </activity>
+        <activity
+      android:exported="false"
+      android:name=".activity.IntroDetailActivity" />
+        
         <activity
           android:name=".activity.EditAccountActivity"
           android:theme="@style/AppTheme"
@@ -77,6 +86,7 @@
         <activity
           android:name=".activity.CreatePostActivity"
           android:exported="false"
+          android:theme="@style/Theme.AppCompat.Light.NoActionBar"
           android:windowSoftInputMode="adjustPan" />
         <activity
           android:name=".activity.OfficialGameDetailActivity"

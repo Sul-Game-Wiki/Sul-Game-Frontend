@@ -7,6 +7,6 @@ import info.sul_game.R
 class OfficialGameDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_famous_detail)
+        setContentView(R.layout.activity_official_game_detail)
     }
 }

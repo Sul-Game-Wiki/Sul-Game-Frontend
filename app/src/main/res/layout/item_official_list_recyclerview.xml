@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="108dp"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:paddingHorizontal="20dp"
+>
+
+  <androidx.cardview.widget.CardView
+    android:id="@+id/cv_container_official_list_item"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    app:cardCornerRadius="5dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+      android:id="@+id/iv_thumbnailicon_official_list_item"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:src="@drawable/ic_launcher_background" />
+
+  </androidx.cardview.widget.CardView>
+
+  <TextView
+    android:id="@+id/tv_title_official_list_item"
+    android:textStyle="bold"
+    android:layout_width="0dp"
+    android:layout_marginTop="20dp"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:textColor="@color/black"
+    android:textSize="20sp"
+
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="바니바니" />
+
+  <TextView
+    android:id="@+id/tv_introduction_official_list_item"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:layout_marginTop="2dp"
+    android:textColor="@color/dark_gray"
+    android:textSize="15sp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv_title_official_list_item"
+    tools:text="하늘에서 내려와버린 토끼" />
+
+  <TextView
+    android:id="@+id/tv_likes_official_list_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:drawablePadding="5dp"
+    app:drawableStartCompat="@drawable/ic_heart"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginBottom="10dp"
+
+    app:layout_constraintStart_toStartOf="parent"
+    tools:text="30" />
+  <TextView
+    android:id="@+id/tv_comment_count_official_list_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="10dp"
+
+    android:drawablePadding="5dp"
+    app:drawableStartCompat="@drawable/ic_chat"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/tv_likes_official_list_item"
+    tools:text="30" />
+  <TextView
+    android:id="@+id/tv_created_date_official_list_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/tv_comment_count_official_list_item"
+    tools:text="00:00" />
+  <TextView
+    android:id="@+id/tv_nickname_official_list_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginBottom="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/tv_created_date_official_list_item"
+    tools:text="구해조" />
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="2dp"
+    android:background="#F2F0F0"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

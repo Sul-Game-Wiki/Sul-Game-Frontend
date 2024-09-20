@@ -8,8 +8,10 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+
 import info.sul_game.activity.MainActivity
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -42,7 +44,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     private fun sendNotification(messageBody: String?) {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE)
 
         val notificationBuilder = NotificationCompat.Builder(this, "default")
             .setContentTitle("FCM Message")
@@ -58,19 +60,20 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // 새 FCM 토큰을 서버로 보내는 로직 작성
     }
 
-    private fun createNotificationChannel() {
-        val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
-        channel.description = CHANNEL_DESCRIPTION
+//     private fun createNotificationChannel() {
+//         val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+//         channel.description = CHANNEL_DESCRIPTION
 
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
+//         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+//         notificationManager.createNotificationChannel(channel)
 
-    }
+//     }
 
 
-    companion object {
-        private const val CHANNEL_NAME = "Emoji Party"
-        private const val CHANNEL_DESCRIPTION = "Emoji Party를 위한 채널"
-        private const val CHANNEL_ID = "채널 ID"
-    }
+//     companion object {
+//         private const val CHANNEL_NAME = "Emoji Party"
+//         private const val CHANNEL_DESCRIPTION = "Emoji Party를 위한 채널"
+//         private const val CHANNEL_ID = "채널 ID"
+//     }
 }
+

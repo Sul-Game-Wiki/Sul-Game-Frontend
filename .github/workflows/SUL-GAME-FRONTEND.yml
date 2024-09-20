@@ -13,6 +13,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y sshpass jq
+
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
@@ -55,10 +60,11 @@ jobs:
         SYNOSSH_USERNAME: ${{ secrets.SYNOSSH_USERNAME }}
         SYNOSSH_PASSWORD: ${{ secrets.SYNOSSH_PASSWORD }}
       run: |
-        sshpass -p $SYNOSSH_PASSWORD scp -o StrictHostKeyChecking=no -P 2022 $SYNOSSH_USERNAME@$SYNOSSH_HOST:/volume1/web/sul-game/downloads/sul-game-files.json app/build/outputs/bundle/release/sul-game-files.json
+        sshpass -p "$SYNOSSH_PASSWORD" scp -o StrictHostKeyChecking=no -P 2022 $SYNOSSH_USERNAME@$SYNOSSH_HOST:/volume1/web/sul-game/downloads/sul-game-files.json app/build/outputs/bundle/release/sul-game-files.json
 
     - name: Update JSON file
       run: |
+        set -e  # 에러 발생 시 중단
         COMMIT_HASH=$(git rev-parse --short HEAD)
         DATE=$(date +'%y%m%d')
         FILE_PATH_AAB="app/build/outputs/bundle/release/sul-game-${DATE}-${COMMIT_HASH}.aab"
@@ -68,11 +74,11 @@ jobs:
         MODIFIED_TIME=$(date -r "$FILE_PATH_AAB" +"%Y-%m-%d %H:%M:%S")
         JSON_PATH="app/build/outputs/bundle/release/sul-game-files.json"
         
-        if [ ! -f $JSON_PATH ]; then
-          echo '{"files": []}' > $JSON_PATH
+        if [ ! -f "$JSON_PATH" ]; then
+          echo '{"files": []}' > "$JSON_PATH"
         fi
         
-        EXISTING_JSON=$(cat $JSON_PATH)
+        EXISTING_JSON=$(cat "$JSON_PATH")
         
         UPDATED_JSON=$(echo "$EXISTING_JSON" | jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.aab" --arg size "$FILE_SIZE_AAB" --arg mtime "$MODIFIED_TIME" \
           '.files += [{"name": $name, "size": $size, "mtime": $mtime}]')
@@ -80,7 +86,10 @@ jobs:
         UPDATED_JSON=$(echo "$UPDATED_JSON" | jq --arg name "sul-game-${DATE}-${COMMIT_HASH}.apk" --arg size "$FILE_SIZE_APK" --arg mtime "$MODIFIED_TIME" \
           '.files += [{"name": $name, "size": $size, "mtime": $mtime}]')
         
-        echo "$UPDATED_JSON" > $JSON_PATH
+        echo "$UPDATED_JSON" > "$JSON_PATH"
+        
+        # 디버깅: 업데이트된 JSON 파일 출력
+        cat "$JSON_PATH"
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
@@ -96,11 +105,23 @@ jobs:
     needs: build
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y sshpass
+
     - name: Download build artifacts
       uses: actions/download-artifact@v3
       with:
         name: sul-game
         path: app/build/outputs/
+
+    - name: Verify sul-game-files.json
+      run: |
+        cat app/build/outputs/bundle/release/sul-game-files.json
 
     - name: Upload AAB, APK and JSON to Synology NAS
       env:
@@ -108,7 +129,7 @@ jobs:
         SYNOSSH_USERNAME: ${{ secrets.SYNOSSH_USERNAME }}
         SYNOSSH_PASSWORD: ${{ secrets.SYNOSSH_PASSWORD }}
       run: |
-        sshpass -p $SYNOSSH_PASSWORD scp -o StrictHostKeyChecking=no -P 2022 \
+        sshpass -p "$SYNOSSH_PASSWORD" scp -o StrictHostKeyChecking=no -P 2022 \
           app/build/outputs/bundle/release/sul-game-*.aab \
           app/build/outputs/apk/release/sul-game-*.apk \
           app/build/outputs/bundle/release/sul-game-files.json \
