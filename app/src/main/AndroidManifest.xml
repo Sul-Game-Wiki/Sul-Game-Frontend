@@ -26,13 +26,23 @@
           android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
-          android:exported="true"
-          android:name=".activity.SignUpActivity"
-          android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-
+      android:exported="false"
+          android:theme="@style/Theme.AppCompat.NoActionBar"
+          android:name=".activity.OfficialGameListActivity" >
         </activity>
         <activity
           android:exported="false"
+          android:name=".activity.SignUpActivity"
+          android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+        <activity
+          android:exported="false"
+          android:name=".activity.IntroDetailActivity" />
+        <activity
+          android:name=".activity.EditAccountActivity"
+          android:theme="@style/AppTheme"
+          android:exported="false" />
+        <activity
           android:name=".activity.BookmarkedPostsActivity"
           android:theme="@style/AppTheme" />
         <activity
@@ -62,6 +72,7 @@
         <activity
           android:exported="false"
           android:name=".activity.CreatePostActivity"
+          android:theme="@style/Theme.AppCompat.Light.NoActionBar"
           android:windowSoftInputMode="adjustPan" />
         <activity
           android:exported="false"

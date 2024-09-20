@@ -3,6 +3,7 @@ package info.sul_game.api
 import info.sul_game.model.Member
 import info.sul_game.model.MemberRequest
 import info.sul_game.model.MemberResponse
+import info.sul_game.model.RankingHistoryPage
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -16,13 +17,21 @@ import retrofit2.http.Part
 interface MemberApi {
     // 닉네임 중복체크
     @Multipart
+    @POST("members/top-rank")
+    fun topRank(
+        @Part("pageNumber") pageNumber: RequestBody,
+        @Part("pageSize") pageSize: RequestBody
+    ): Call<RankingHistoryPage>
+
+    // 닉네임 중복체크
+    @Multipart
     @POST("members/check-nickname")
     fun checkNickName(
         @Header("Authorization") token: String,
         @Part("nickname") nickname: RequestBody,
     ): Call<MemberResponse>
 
-    // 닉네임 중복체크
+    // 회원가입 완료
     @Multipart
     @POST("members/complete-registration")
     fun completeRegistration(

@@ -1,5 +1,6 @@
 package info.sul_game.activity
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -20,7 +21,11 @@ import com.google.android.material.chip.Chip
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import info.sul_game.R
+import info.sul_game.config.RetrofitClient
 import info.sul_game.databinding.ActivityMainBinding
+import info.sul_game.model.HomeResponse
+import info.sul_game.model.MemberResponse
+import info.sul_game.model.RankingHistoryPage
 import info.sul_game.recyclerview.DrinkingGameMainAdapter
 import info.sul_game.recyclerview.DrinkingGameMainItem
 import info.sul_game.recyclerview.IntroMainAdapter
@@ -34,12 +39,33 @@ import info.sul_game.recyclerview.UserRankingMainAdapter
 import info.sul_game.recyclerview.UserRankingMainItem
 import info.sul_game.utils.TokenUtil
 import info.sul_game.viewmodel.MemberViewModel
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var behavior: BottomSheetBehavior<ConstraintLayout>
     private val handler = Handler(Looper.getMainLooper())
-    private var userInteractionTimeout: Long = 2000 // 5초 후에 FAB 숨김
+    private var userInteractionTimeout: Long = 2000 // 2초 후에 FAB 숨김
+    private lateinit var progressDialog: ProgressDialog
+
+    // 리사이클러뷰 아이템 리스트
+    private var latestFeedMainItemCreationData: ArrayList<LatestFeedMainItem> = ArrayList()
+    private var latestFeedMainItemIntroData: ArrayList<LatestFeedMainItem> = ArrayList()
+    private var officialGameData: ArrayList<DrinkingGameMainItem> = ArrayList()
+    private var liveChartMainItemCreationData: ArrayList<LiveChartMainItem> = ArrayList() /////
+    private var liveChartMainItemIntroData: ArrayList<LiveChartMainItem> = ArrayList()
+    private var liveChartMainItemOfficialData: ArrayList<LiveChartMainItem> = ArrayList()
+    private var shareIntroRecentData: ArrayList<IntroMainItem> = ArrayList()
+    private var shareIntroLikesData: ArrayList<IntroMainItem> = ArrayList()
+    private var shareIntroViewData: ArrayList<IntroMainItem> = ArrayList()
+    private var hotWeeklyGameData: ArrayList<DrinkingGameMainItem> = ArrayList()
+    private var hotDailyGameData: ArrayList<DrinkingGameMainItem> = ArrayList()
+    private var userRankingData: ArrayList<UserRankingMainItem> = ArrayList()
 
     private val memberViewModel: MemberViewModel by viewModels()
     private val hideFabRunnable = Runnable {
@@ -50,6 +76,15 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        progressDialog = ProgressDialog(this).apply {
+            setMessage("로딩 중입니다...")
+            setCancelable(false)  // 로딩 중에는 취소 불가
+        }
+        showLoadingDialog()
+
+        getUserRank()
+        getAllData()
 
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         val firstTime = prefs.getBoolean("firstTime", true)
@@ -65,7 +100,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         persistentBottomSheetEvent()
-        recyclerMain()
+
+         officialMove()
         startFabTimer()
 
         if(TokenUtil().getRefreshToken(this@MainActivity).isNullOrBlank()) {
@@ -130,8 +166,24 @@ class MainActivity : AppCompatActivity() {
             val token = task.result
             Log.d("술겜위키", "토큰 이름 : $token")
             Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+
+        }
+        createMove()
+
+    }
+       
+    
+    private fun officialMove(){
+        binding.btnOfficialMain.setOnClickListener {
+            val intent = Intent(this, OfficialGameListActivity::class.java)
+            startActivity(intent)}}
+    private fun createMove(){
+        binding.fabMakeMain.setOnClickListener{
+            val intent = Intent(this, CreatePostActivity::class.java)
+            startActivity(intent)
         }
     }
+
 
     private fun recyclerMain() {
         recentRecyclerMain()
@@ -142,29 +194,13 @@ class MainActivity : AppCompatActivity() {
         userRankingRecyclerMain()
     }
 
+    /***************************************************************************************************
+     * 리사이클러뷰 소스코드 시작
+     ****************************************************************************************************/
+
     // 최신 게시물의 리사이클러뷰
     private fun recentRecyclerMain() {
-        val latestFeedMainItemCreationData = arrayListOf<LatestFeedMainItem>(
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 창작", R.drawable.ic_launcher_background, "구해조", 30),
-        )
-
-        val latestFeedMainItemIntroData = arrayListOf<LatestFeedMainItem>(
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-            LatestFeedMainItem(R.drawable.ic_launcher_foreground , "어목조동 인트로", R.drawable.ic_launcher_background, "구해조", 30),
-        )
-
-        binding.rvRecentMain.adapter = LatestFeedMainAdapter(latestFeedMainItemCreationData)
+        binding.rvRecentMain.adapter = LatestFeedMainAdapter(this, latestFeedMainItemCreationData)
         binding.rvRecentMain.addItemDecoration(LatestFeedMainDecoration())
         binding.rvRecentMain.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -177,7 +213,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
 
-            binding.rvRecentMain.adapter = LatestFeedMainAdapter(latestFeedMainItemCreationData)
+            binding.rvRecentMain.adapter = LatestFeedMainAdapter(this, latestFeedMainItemCreationData)
             binding.rvRecentMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         }
@@ -190,64 +226,13 @@ class MainActivity : AppCompatActivity() {
             )
             binding.tvRecentIntroMain.setTextColor(getColor(R.color.main_color))
 
-            binding.rvRecentMain.adapter = LatestFeedMainAdapter(latestFeedMainItemIntroData)
+            binding.rvRecentMain.adapter = LatestFeedMainAdapter(this, latestFeedMainItemIntroData)
             binding.rvRecentMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
     private fun popularGameRecyclerMain() {
-        val popularGameData = arrayListOf<DrinkingGameMainItem>(
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니",
-                "하늘에서 내려와버린 토끼",
-                30
-            )
-        )
-
         binding.rvPopularMain.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(
@@ -256,164 +241,11 @@ class MainActivity : AppCompatActivity() {
                 GridLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = DrinkingGameMainAdapter(popularGameData)
+            adapter = DrinkingGameMainAdapter(this@MainActivity, officialGameData)
         }
     }
 
     private fun liveChartRecyclerMain() {
-        val liveChartMainItemCreationData = arrayListOf<LiveChartMainItem>(
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 창작",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 창작",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 창작",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 창작",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 창작",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 창작",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 창작",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 창작",
-                "하늘에서 내려와버린 토끼",
-                30
-            )
-        )
-
-        val liveChartMainItemIntroData = arrayListOf<LiveChartMainItem>(
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 인트로",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 인트로",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 인트로",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 인트로",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 인트로",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 인트로",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 인트로",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 인트로",
-                "하늘에서 내려와버린 토끼",
-                30
-            )
-        )
-
-        val liveChartMainItemPopularData = arrayListOf<LiveChartMainItem>(
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 국룰",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 국룰",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 국룰",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 국룰",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 국룰",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 국룰",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 국룰",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            LiveChartMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 국룰",
-                "하늘에서 내려와버린 토끼",
-                30
-            )
-        )
-
         binding.rvLiveMain.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(
@@ -422,7 +254,7 @@ class MainActivity : AppCompatActivity() {
                 GridLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = LiveChartMainAdapter(liveChartMainItemCreationData)
+            adapter = LiveChartMainAdapter(this@MainActivity, liveChartMainItemCreationData)
         }
 
         // 각 Chip에 클릭 리스너 추가 (선택 상태 유지 보장)
@@ -436,7 +268,7 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = LiveChartMainAdapter(liveChartMainItemCreationData)
+                adapter = LiveChartMainAdapter(this@MainActivity, liveChartMainItemCreationData)
             }
         }
         binding.cpIntroMain.setOnClickListener { v ->
@@ -449,7 +281,7 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = LiveChartMainAdapter(liveChartMainItemIntroData)
+                adapter = LiveChartMainAdapter(this@MainActivity, liveChartMainItemIntroData)
             }
         }
         binding.cpPopularMain.setOnClickListener { v ->
@@ -462,30 +294,12 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = LiveChartMainAdapter(liveChartMainItemPopularData)
+                adapter = LiveChartMainAdapter(this@MainActivity, liveChartMainItemOfficialData)
             }
         }
     }
 
     private fun shareIntroRecyclerMain() {
-        val shareIntroRecentData = arrayListOf<IntroMainItem>(
-            IntroMainItem("어목조동 최신", "자연과 함께하는 술게임", "구해조", 30),
-            IntroMainItem("딸기당근수박참외 찍고 최신", "지목이 더해진 과일게임", "구해조", 30),
-            IntroMainItem("딸기당근수박참외 리버스 최신", "거꾸로 말하기 도전!", "구해조", 30)
-        )
-
-        val shareIntroHeartData = arrayListOf<IntroMainItem>(
-            IntroMainItem("어목조동 좋아요", "자연과 함께하는 술게임", "구해조", 30),
-            IntroMainItem("딸기당근수박참외 찍고 좋아요", "지목이 더해진 과일게임", "구해조", 30),
-            IntroMainItem("딸기당근수박참외 리버스 좋아요", "거꾸로 말하기 도전!", "구해조", 30)
-        )
-
-        val shareIntroViewData = arrayListOf<IntroMainItem>(
-            IntroMainItem("어목조동 조회수", "자연과 함께하는 술게임", "구해조", 30),
-            IntroMainItem("딸기당근수박참외 찍고 조회수", "지목이 더해진 과일게임", "구해조", 30),
-            IntroMainItem("딸기당근수박참외 리버스 조회수", "거꾸로 말하기 도전!", "구해조", 30)
-        )
-
         binding.rvShareIntroMain.adapter = IntroMainAdapter(shareIntroRecentData)
         binding.rvShareIntroMain.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -500,7 +314,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.cpHeartMain.setOnClickListener { v ->
             ensureOneSelected(binding.cpHeartMain)
-            binding.rvShareIntroMain.adapter = IntroMainAdapter(shareIntroHeartData)
+            binding.rvShareIntroMain.adapter = IntroMainAdapter(shareIntroLikesData)
             binding.rvShareIntroMain.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
@@ -513,108 +327,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hotGameRecyclerMain() {
-        val hotWeeklyGameData = arrayListOf<DrinkingGameMainItem>(
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 주간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 주간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 주간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 주간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 주간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 주간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 주간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 주간",
-                "하늘에서 내려와버린 토끼",
-                30
-            )
-        )
-
-        val hotDailyGameData = arrayListOf<DrinkingGameMainItem>(
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 일간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 일간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 일간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 일간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 일간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 일간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 일간",
-                "하늘에서 내려와버린 토끼",
-                30
-            ),
-            DrinkingGameMainItem(
-                R.drawable.ic_launcher_background,
-                "바니바니 일간",
-                "하늘에서 내려와버린 토끼",
-                30
-            )
-        )
-
         binding.rvHotMain.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(
@@ -623,7 +335,7 @@ class MainActivity : AppCompatActivity() {
                 GridLayoutManager.HORIZONTAL,
                 false
             )
-            adapter = DrinkingGameMainAdapter(hotWeeklyGameData)
+            adapter = DrinkingGameMainAdapter(this@MainActivity, hotWeeklyGameData)
         }
 
         // 각 Chip에 클릭 리스너 추가 (선택 상태 유지 보장)
@@ -637,7 +349,7 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = DrinkingGameMainAdapter(hotWeeklyGameData)
+                adapter = DrinkingGameMainAdapter(this@MainActivity, hotWeeklyGameData)
             }
         }
         binding.cpDailyMain.setOnClickListener { v ->
@@ -650,22 +362,201 @@ class MainActivity : AppCompatActivity() {
                     GridLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = DrinkingGameMainAdapter(hotDailyGameData)
+                adapter = DrinkingGameMainAdapter(this@MainActivity, hotDailyGameData)
             }
         }
     }
 
     private fun userRankingRecyclerMain() {
-        val userRankingData = arrayListOf<UserRankingMainItem>(
-            UserRankingMainItem(R.drawable.ic_launcher_background, "UP", 5, "닉네임1", 10000),
-            UserRankingMainItem(R.drawable.ic_launcher_background,"DOWN", 4, "닉네임2", 5000),
-            UserRankingMainItem(R.drawable.ic_launcher_background,"SAME", 0, "닉네임3", 3000),
-            UserRankingMainItem(R.drawable.ic_launcher_background,"NEW", 0, "닉네임4", 1000)
-        )
-
         binding.rvUserRankingMain.adapter = UserRankingMainAdapter(userRankingData)
         binding.rvUserRankingMain.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    }
+
+    /***************************************************************************************************
+     * 리사이클러뷰 소스코드 끝
+     ****************************************************************************************************/
+
+
+    /***************************************************************************************************
+     * API 소스코드 시작
+     ****************************************************************************************************/
+
+    private fun getAllData(){
+        RetrofitClient.homeApiService.getHomeData("test").enqueue(object :
+            Callback<HomeResponse> {
+            override fun onResponse(
+                call: Call<HomeResponse>,
+                response: Response<HomeResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val latestIntros = response.body()?.latestIntros
+                    val latestCreationGames = response.body()?.latestCreationGames
+                    val officialGamesByLikes = response.body()?.officialGamesByLikes
+                    val creationGamesByDailyScore = response.body()?.creationGamesByDailyScore
+                    val introsByDailyScore = response.body()?.introsByDailyScore
+                    val officialGamesByDailyScore = response.body()?.officialGamesByDailyScore
+                    val introsByLikes = response.body()?.introsByLikes
+                    val introsByViews = response.body()?.introsByViews
+                    val gamesByWeeklyScore = response.body()?.gamesByWeeklyScore
+
+                    Log.d("술겜위키", "latestIntroData : ${latestIntros}")
+                    Log.d("술겜위키", "latestCreationGames : ${latestCreationGames}")
+                    Log.d("술겜위키", "officialGamesByLikes : ${officialGamesByLikes}")
+                    Log.d("술겜위키", "creationGamesByDailyScore : ${creationGamesByDailyScore}")
+                    Log.d("술겜위키", "introsByDailyScore : ${introsByDailyScore}")
+                    Log.d("술겜위키", "officialGamesByDailyScore : ${officialGamesByDailyScore}")
+                    Log.d("술겜위키", "introsByLikes : ${introsByLikes}")
+                    Log.d("술겜위키", "introsByViews : ${introsByViews}")
+                    Log.d("술겜위키", "gamesByWeeklyScore : ${gamesByWeeklyScore}")
+
+                    // 값 넣어주기
+                    // 최신 게시물(창작)
+                    if(latestCreationGames != null){
+                        for(i in latestCreationGames.indices)
+                            latestFeedMainItemCreationData.add(LatestFeedMainItem(latestCreationGames.get(i).thumbnailIcon, latestCreationGames.get(i).title, latestCreationGames.get(i).member.profileUrl, latestCreationGames.get(i).member.nickname, latestCreationGames.get(i).likes))
+                    }
+                    // 최신 게시물(인트로)
+                    if (latestIntros != null) {
+                        for(i in latestIntros.indices)
+                            latestFeedMainItemIntroData.add(LatestFeedMainItem(latestIntros.get(i).thumbnailIcon, latestIntros.get(i).title, latestIntros.get(i).member.profileUrl, latestIntros.get(i).member.nickname, latestIntros.get(i).likes))
+                    }
+                    // 국룰 술게임
+                    if(officialGamesByLikes != null){
+                        for(i in officialGamesByLikes.indices)
+                            officialGameData.add(DrinkingGameMainItem(officialGamesByLikes.get(i).thumbnailIcon, officialGamesByLikes.get(i).title, officialGamesByLikes.get(i).description, officialGamesByLikes.get(i).likes))
+                    }
+                    // 실시간 ㅅㄱㅇㅋ 차트(창작)
+                    if(creationGamesByDailyScore != null){
+                        for(i in creationGamesByDailyScore.indices)
+                            liveChartMainItemCreationData.add(LiveChartMainItem(creationGamesByDailyScore.get(i).thumbnailIcon, creationGamesByDailyScore.get(i).title, creationGamesByDailyScore.get(i).description, creationGamesByDailyScore.get(i).likes))
+                    }
+                    // 실시간 ㅅㄱㅇㅋ 차트(인트로)
+                    if(introsByDailyScore != null){
+                        for(i in introsByDailyScore.indices)
+                            liveChartMainItemIntroData.add(LiveChartMainItem(introsByDailyScore.get(i).thumbnailIcon, introsByDailyScore.get(i).title, introsByDailyScore.get(i).description, introsByDailyScore.get(i).likes))
+                    }
+                    // 실시간 ㅅㄱㅇㅋ 차트(국룰)
+                    if(officialGamesByDailyScore != null){
+                        for(i in officialGamesByDailyScore.indices)
+                            liveChartMainItemOfficialData.add(LiveChartMainItem(officialGamesByDailyScore.get(i).thumbnailIcon, officialGamesByDailyScore.get(i).title, officialGamesByDailyScore.get(i).description, officialGamesByDailyScore.get(i).likes))
+                    }
+                    // 인트로 자랑하기(최신순)
+                    if(latestIntros != null){
+                        for(i in latestIntros.indices)
+                            shareIntroRecentData.add(IntroMainItem(latestIntros.get(i).title, latestIntros.get(i).description, latestIntros.get(i).member.nickname, latestIntros.get(i).likes))
+                    }
+                    // 인트로 자랑하기(좋아요순)
+                    if(introsByLikes != null){
+                        for(i in introsByLikes.indices)
+                            shareIntroLikesData.add(IntroMainItem(introsByLikes.get(i).title, introsByLikes.get(i).description, introsByLikes.get(i).member.nickname, introsByLikes.get(i).likes))
+                    }
+                    // 인트로 자랑하기(조회수순)
+                    if(introsByViews != null){
+                        for(i in introsByViews.indices)
+                            shareIntroViewData.add(IntroMainItem(introsByViews.get(i).title, introsByViews.get(i).description, introsByViews.get(i).member.nickname, introsByViews.get(i).likes))
+                    }
+                    // 요즘 핫한 술게임(주간)
+                    if(gamesByWeeklyScore != null){
+                        for(i in gamesByWeeklyScore.indices)
+                            hotWeeklyGameData.add(DrinkingGameMainItem(gamesByWeeklyScore.get(i).thumbnailIcon, gamesByWeeklyScore.get(i).title, gamesByWeeklyScore.get(i).description, gamesByWeeklyScore.get(i).likes))
+                    }
+                    // 요즘 핫한 술게임(일간)
+                    if (officialGamesByDailyScore != null && creationGamesByDailyScore != null) {
+                        val combinedList = ArrayList<DrinkingGameMainItem>()
+
+                        // officialGamesByDailyScore를 DrinkingGameMainItem으로 매핑
+                        combinedList.addAll(officialGamesByDailyScore.map {
+                            DrinkingGameMainItem(it.thumbnailIcon, it.title, it.description, it.likes)
+                        })
+
+                        // creationGamesByDailyScore를 DrinkingGameMainItem으로 매핑
+                        combinedList.addAll(creationGamesByDailyScore.map {
+                            DrinkingGameMainItem(it.thumbnailIcon, it.title, it.description, it.likes)
+                        })
+
+                        // score 값으로 내림차순 정렬하고 상위 9개 항목 추출
+                        val top9Items = combinedList.sortedByDescending { it.cntHeart }.take(9)
+
+                        // hotDailyGameData에 상위 9개 항목 넣기
+                        hotDailyGameData.clear()  // 기존 데이터를 지우고
+                        hotDailyGameData.addAll(top9Items)
+
+                        // introsByViews 데이터를 hotDailyGameData에 추가
+                        for (i in introsByViews?.indices!!) {
+                            hotDailyGameData.add(
+                                DrinkingGameMainItem(
+                                    introsByViews?.get(i)?.thumbnailIcon,
+                                    introsByViews?.get(i)?.title,
+                                    introsByViews?.get(i)?.description,
+                                    introsByViews?.get(i)?.likes
+                                )
+                            )
+                        }
+                    }
+
+                    dismissLoadingDialog()
+                    recyclerMain()
+                } else {
+                    Log.e("술겜위키", "응답 실패: ${response.code()} - ${response.errorBody()?.string()}")
+                    dismissLoadingDialog()
+                }
+            }
+
+            override fun onFailure(p0: Call<HomeResponse>, p1: Throwable) {
+                Log.d("술겜위키", "Failure: ${p1.message}")
+                dismissLoadingDialog()
+            }
+        })
+    }
+
+    private fun getUserRank(){
+//        RetrofitClient.memberApiService.topRank(createRequestBody("0"), createRequestBody("10")).enqueue(object :
+//            Callback<RankingHistoryPage> {
+//            override fun onResponse(
+//                call: Call<RankingHistoryPage>,
+//                response: Response<RankingHistoryPage>
+//            ) {
+//                Log.d("술겜위키", "여기 들어옴")
+//                if (response.isSuccessful) {
+//
+//                    Log.d("술겜위키", "response : ${response.body().}")
+//
+//                    val userTopRanking = response.body()
+//
+//                    // 값 넣어주기
+//                    if(userTopRanking != null){
+//                        for(i in userTopRanking.indices)
+//                            userRankingData.add(UserRankingMainItem(gamesByWeeklyScore.get(i).thumbnailIcon, gamesByWeeklyScore.get(i).title, gamesByWeeklyScore.get(i).description, gamesByWeeklyScore.get(i).likes))
+//                    }
+//
+//                } else {
+//                    Log.e("술겜위키", "응답 실패: ${response.code()} - ${response.errorBody()?.string()}")
+//                }
+//            }
+//            override fun onFailure(
+//                p0: Call<RankingHistoryPage>,
+//                p1: Throwable
+//            ) {
+//                Log.d("술겜위키", "Failure: ${p1.message}")
+//            }
+//        })
+    }
+
+    private fun createRequestBody(value: String): RequestBody {
+        return RequestBody.create(MultipartBody.FORM, value)
+    }
+
+    // 로딩 창 표시
+    private fun showLoadingDialog() {
+        progressDialog.show()
+    }
+
+    // 로딩 창 닫기
+    private fun dismissLoadingDialog() {
+        if (progressDialog.isShowing) {
+            progressDialog.dismiss()
+        }
     }
 
     private fun ensureOneSelected(selectedChip: Chip) {
@@ -750,6 +641,5 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         // 메모리 누수를 방지하기 위해 Handler를 해제
         handler.removeCallbacks(hideFabRunnable)
-    }
+    }}
 
-}
