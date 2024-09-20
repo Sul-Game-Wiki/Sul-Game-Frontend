@@ -1,20 +1,18 @@
 package info.sul_game.config
+
+
 import CreationCreateApi
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import java.util.concurrent.TimeUnit
-
-
-
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import info.sul_game.api.MemberApi
-import info.sul_game.api.GameListApi
 import info.sul_game.api.HomeApi
+import info.sul_game.api.MemberApi
 import info.sul_game.api.OfficialGameListApi
 import info.sul_game.api.RelatedSearchGameListApi
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
     private const val BASE_URL = "https://api.sul-game.info/api/"
